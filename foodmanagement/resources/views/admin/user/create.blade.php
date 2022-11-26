@@ -35,7 +35,6 @@
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <select name="role" id="" class="form-control col-md-6 col-xs-12" >
                                                     <option value="user" selected>User</option>
-                                                    <option value="member">Member</option>
                                                     <option value="admin">Admin</option>
                                                 </select>
                                             </div>

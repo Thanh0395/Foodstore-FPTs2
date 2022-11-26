@@ -47,7 +47,7 @@
                                         <td>{{$food->F_id}}</td>
                                         <td>{{$food->F_name}}</td>
                                         <td>{{$food->Cate_name}}</td>
-                                        <td><img src="{{asset($food->image)}}" width="100px" height="100px"></td>
+                                        <td><img src="{{asset($food->image)}}" width="180px" height="180px"></td>
                                         <td>{{$food->price}}</td>
                                         <td style="width: 30%;">
                                             <a class="btn btn-danger btn-xs" href="{{route('admin.wishlist.remove',[$food->WL_id])}}" onclick="return confirm ('Are you sure to remove form wish-list?')">

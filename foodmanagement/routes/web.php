@@ -21,10 +21,29 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+/* ----------------------------------------------------Nguyen Tan Hung -----------------------*/
+use App\Http\Controllers\User\HomeController;
+use App\Http\Controllers\User\ProductController;
+use App\Http\Controllers\User\DetailController;
+use App\Http\Controllers\User\RegisterController;
+use App\Http\Controllers\User\CartController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index'])->name('user.home');
+Route::get('/product/all', [ProductController::class, 'index'])->name('user.product.all');
+Route::get('/product/cate/{Cate_name}', [ProductController::class, 'categories'])->name('user.product.cate');
+Route::get('/detail/{id}', [ProductController::class, 'detail'])->name('user.detail');
+Route::get('/register', [RegisterController::class, 'index'])->name('user.register');
+Route::get('/term', [RegisterController::class, 'term'])->name('user.term');
+Route::get('/cart', [CartController::class, 'index'])->name('user.cart');
+Route::get('/user-login', [LoginController::class, 'index'])->name('user.login');
+Route::get('/user-logout', [LoginController::class, 'logoutUser'])->name('user.logout');
+Route::post('/user-login', [LoginController::class, 'processLoginUser'])->name('user.login.process');
+Route::post('/register', [RegisterController::class, 'store'])->name('user.register.process');
+
+
+/*---------------------------------------------------------Nguyen Tan Hung----------------------- */
+
+
 Route::get('/admin-login', [LoginController::class, 'login'])                    ->name('admin.login');
 Route::post('/admin-login', [LoginController::class, 'processLogin'])            ->name('admin.processLogin');
 Route::get('/admin-logout', [LoginController::class, 'logout'])                  ->name('admin.logout');
@@ -95,5 +114,3 @@ Route::middleware('checkAdmin')->prefix('/admin')->group(function () {
     });
 
 });
-
-

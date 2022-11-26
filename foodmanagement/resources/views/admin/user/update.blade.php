@@ -34,9 +34,8 @@
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <select name="role" id="" class="form-control col-md-6 col-xs-12" required>
                                                     <option value="{{$user->role}}" selected>{{$user->role}}</option>
-                                                    <option value="admin">Admin</option>
-                                                    <option value="member">Member</option>
-                                                    <option value="user">User</option>
+                                                    <option value="admin">admin</option>
+                                                    <option value="user">user</option>
                                                 </select>
                                             </div>
                                         </div>

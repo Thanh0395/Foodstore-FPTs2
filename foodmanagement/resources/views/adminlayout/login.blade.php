@@ -125,7 +125,8 @@
         </div>
         @endif
         <div class="form-field">
-            <button class="btn" type="submit">Log in</button>
+            <button class="btn" type="submit">Login</button>
+            <a href="{{route('user.register')}}" style="color: rgb(0, 136, 255)">Do you have an account?</a>
         </div>
 
     </form>

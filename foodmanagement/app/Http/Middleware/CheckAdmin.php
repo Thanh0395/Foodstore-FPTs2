@@ -16,9 +16,11 @@ class CheckAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        $role = session()->get('role');
-        if ( $role == 'admin' || $role == 'member') {
+
+        if ( (session()->get('role')) == 'admin') {
             return $next($request);
+        }elseif((session()->get('role'))){
+            
         }
         return redirect()-> route('admin.login');
     }

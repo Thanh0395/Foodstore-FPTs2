@@ -16,7 +16,7 @@ class PaymentController extends Controller
         $vnp_TmnCode = "PB9RYKRD"; //Mã website tại VNPAY
         $vnp_HashSecret = "LDKGFMFXNDLQMZSPKRPCEAIDZAMFCGNG"; //Chuỗi bí mật
 
-        $vnp_TxnRef = time().$_POST['O_id']; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
+        $vnp_TxnRef = $_POST['O_id']; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
         $vnp_OrderInfo = $_POST['name'];
         $vnp_OrderType = 'billpayment';
         $vnp_Amount = $_POST['total'] * 100;
@@ -154,21 +154,9 @@ class PaymentController extends Controller
         $requestId = time() . "";
         $requestType = "captureWallet";
 
-        if (!empty($_POST)) {
-            // $partnerCode = $_POST["partnerCode"];
-            // $accessKey = $_POST["accessKey"];
-            // $secretKey = $_POST["secretKey"];
-            $orderId = time().$_POST["O_id"]; // Mã đơn hàng
-            // $orderInfo = $_POST["orderInfo"];
-            $amount = $_POST["total"];
-            // $ipnUrl = $_POST["ipnUrl"];
-            // $redirectUrl = $_POST["redirectUrl"];
-            // $extraData = $_POST["extraData"];
-
-            $requestId = time() . "";
-            $requestType = "captureWallet";
-            // $extraData = ($_POST["extraData"] ? $_POST["extraData"] : "");
-            //before sign HMAC SHA256 signature
+        $orderId = $_POST["O_id"]; // Mã đơn hàng
+        $amount = $_POST["total"]; // Tổng đơn
+        //before sign HMAC SHA256 signature
             $rawHash = "accessKey=" . $accessKey . "&amount=" . $amount . "&extraData=" . $extraData . "&ipnUrl=" . $ipnUrl . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&partnerCode=" . $partnerCode . "&redirectUrl=" . $redirectUrl . "&requestId=" . $requestId . "&requestType=" . $requestType;
             $signature = hash_hmac("sha256", $rawHash, $secretKey);
             $data = array(
@@ -190,8 +178,46 @@ class PaymentController extends Controller
             $jsonResult = json_decode($result, true);  // decode json
             //Just a example, please check more in there
             header('Location: ' . $jsonResult['payUrl']);
-            die();
-        }
+
+        // if (!empty($_POST)) {
+        //     // $partnerCode = $_POST["partnerCode"];
+        //     // $accessKey = $_POST["accessKey"];
+        //     // $secretKey = $_POST["secretKey"];
+        //     $orderId = $_POST["O_id"]; // Mã đơn hàng
+        //     // $orderInfo = $_POST["orderInfo"];
+        //     $amount = $_POST["total"];
+        //     // $ipnUrl = $_POST["ipnUrl"];
+        //     // $redirectUrl = $_POST["redirectUrl"];
+        //     // $extraData = $_POST["extraData"];
+
+        //     $requestId = time() . "";
+        //     $requestType = "captureWallet";
+        //     // $extraData = ($_POST["extraData"] ? $_POST["extraData"] : "");
+        //     //before sign HMAC SHA256 signature
+        //     $rawHash = "accessKey=" . $accessKey . "&amount=" . $amount . "&extraData=" . $extraData . "&ipnUrl=" . $ipnUrl . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&partnerCode=" . $partnerCode . "&redirectUrl=" . $redirectUrl . "&requestId=" . $requestId . "&requestType=" . $requestType;
+        //     $signature = hash_hmac("sha256", $rawHash, $secretKey);
+        //     $data = array(
+        //         'partnerCode' => $partnerCode,
+        //         'partnerName' => "Test",
+        //         "storeId" => "MomoTestStore",
+        //         'requestId' => $requestId,
+        //         'amount' => $amount,
+        //         'orderId' => $orderId,
+        //         'orderInfo' => $orderInfo,
+        //         'redirectUrl' => $redirectUrl,
+        //         'ipnUrl' => $ipnUrl,
+        //         'lang' => 'vi',
+        //         'extraData' => $extraData,
+        //         'requestType' => $requestType,
+        //         'signature' => $signature
+        //     );
+        //     $result = execPostRequest($endpoint, json_encode($data));
+        //     $jsonResult = json_decode($result, true);  // decode json
+
+        //     //Just a example, please check more in there
+
+        //     header('Location: ' . $jsonResult['payUrl']);
+        // }
     }
 
 
