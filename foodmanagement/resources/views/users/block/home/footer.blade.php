@@ -6,10 +6,10 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.1s">
                             <h2 class="ft-title color-white text-center"> Newsletter </h2>
-                            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                            <p> How do you feel or what do you want to ask for? Please email us.</p>
                         </div>
                         <form>
-                            <input type="email" placeholder="Enter your e-mail id">
+                            <input type="email" placeholder="Enter your e-mail content">
                             <a href="#" class="orange-btn"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></a>
                         </form>
                     </div>
@@ -140,7 +140,8 @@
     </div>
     <!-- end footer-main -->
 
-    <a href="#" class="scrollup" style="display: none;">Scroll</a>
+    {{-- Đổi màu theme trang web--}}
+    {{-- <a href="#" class="scrollup" style="display: none;">Scroll</a>
 
     <section id="color-panel" class="close-color-panel">
         <a class="panel-button gray2"><i class="fa fa-cog fa-spin fa-2x"></i></a>
@@ -152,5 +153,5 @@
             <a title="moderate-green" class="switcher moderate-green-bg"></a>
             <a title="vivid-yellow" class="switcher vivid-yellow-bg"></a>
         </div>
-    </section>
+    </section> --}}
 </footer>

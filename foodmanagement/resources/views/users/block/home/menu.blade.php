@@ -103,7 +103,7 @@
                     <h2 class="block-title text-center">
                     Our Menu
                 </h2>
-                    <p class="title-caption text-center">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. </p>
+                    <p class="title-caption text-center">Our menu has many choices for you. With a variety of categories, many dishes are not only delicious, reasonably priced but also eye-catching presented. If you are busy and can't go to the restaurant. Don't worry, here we can reserve tables and order food online </p>
                 </div>
                 <div class="tab-menu">
                     <div class="slider slider-nav">

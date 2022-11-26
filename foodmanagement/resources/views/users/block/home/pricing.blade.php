@@ -5,7 +5,7 @@
                 <h2 class="block-title text-center">
                     HOT DEAL
                 </h2>
-                <p>???</p>
+                <p>We always have hot deals for everyone from new users to loyal customers. Take a look at them here it's below. All because of you. Your choice is our honor.</p>
             </div>
             <div class="panel-pricing-in">
                 <!-- item -->

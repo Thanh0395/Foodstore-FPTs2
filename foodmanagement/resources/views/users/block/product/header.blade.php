@@ -8,12 +8,12 @@
 
     <!-- Navbar Start -->
     <div class="container-fluid fixed-top px-0 wow fadeIn" data-wow-delay="0.1s">
-        <div class="top-bar row gx-0 align-items-center d-none d-lg-flex">
+        <div class="top-bar row gx-0 align-items-center d-none d-lg-flex" style="padding-right: 20px">
             <div class="col-lg-6 px-5 text-start">
                 <small><i class="fa fa-map-marker-alt me-2"></i>580 CMT8, Ward 3, District 3, TP.HCM</small>
                 <small class="ms-4"><i class="fa fa-envelope me-2"></i>Group1@gmail.com</small>
             </div>
-            <div class="col-lg-6 px-8 text-end">
+            <div class="col-lg-6 px-8 text-end" >
                 <small>Follow us:</small>
                 <a class="text-body ms-3" href=""><i class="fab fa-facebook-f" style="color: blue"></i></a>
                 <a class="text-body ms-3" href=""><i class="fab fa-twitter" style="color: rgb(0, 98, 255)"></i></a>

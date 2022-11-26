@@ -113,11 +113,11 @@
 
 .navbar .navbar-nav .nav-link {
     padding: 25px 15px;
-    color: white;
+    color: rgb(216, 216, 216);
     font-size: medium;
     font-weight: 750;
     outline: none;
-    background-color:rgba(0, 0, 0, 0.07) ;
+    /* background-color:rgba(0, 0, 0, 0.07) ; */
 }
 
 .navbar .navbar-nav .nav-link:hover,

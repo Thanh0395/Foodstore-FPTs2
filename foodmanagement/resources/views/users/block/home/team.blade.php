@@ -6,7 +6,7 @@
                     <h2 class="block-title text-center">
                     Our Team
                 </h2>
-                    <p class="title-caption text-center">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. </p>
+                    <p class="title-caption text-center">Our team comes here as companions: knowledgeable and caring. Looking forward to serving you and bringing satisfaction. Win-win is our working motto. We know each others... </p>
                 </div>
                 <div class="team-box">
 
