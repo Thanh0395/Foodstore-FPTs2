@@ -21,7 +21,7 @@ class LoginController extends Controller
         $user = User::where('email', $request->input('email'))->first();
         if($user == null){
             //nguoi dung ko ton tai
-            return redirect()->route('login')->with('failure', 'The user is not exist!');
+            return redirect()->route('admin.login')->with('failure', 'The user is not exist!');
         }
             // Dung password
         elseif ($user -> password == md5($request->input('password'))){

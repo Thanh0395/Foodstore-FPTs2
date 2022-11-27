@@ -47,7 +47,7 @@ Route::post('/register', [RegisterController::class, 'store'])->name('user.regis
 Route::middleware('checkLogin')->get('/like/{F_id}', [ProductController::class, 'like'])->name('user.detail');
 
 Route::get('/admin-login', [LoginController::class, 'login'])                    ->name('admin.login');
-Route::post('/admin-login', [LoginController::class, 'processLogin'])            ->name('admin.processLogin');
+Route::post('/admin-loginprocess', [LoginController::class, 'processLogin'])            ->name('admin.processLogin');
 Route::get('/admin-logout', [LoginController::class, 'logout'])                  ->name('admin.logout');
 
 
