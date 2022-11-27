@@ -48,8 +48,8 @@
                                         New
                                     </div>
                                 </div>
-                                <div class="text-center p-2" style="height: 5rem;">
-                                    <p class="d-block h5 mb-2">{{ $food->F_name }}</p>
+                                <div class="text-center p-2 " style="height: 5rem;">
+                                    <a class="d-block h5 mb-2">{{ $food->F_name }}</a>
                                 </div>
                                 <div class="text-center">
                                     <span class="text-primary me-1" >

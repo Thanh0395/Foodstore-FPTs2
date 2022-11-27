@@ -6,15 +6,15 @@
                 <div class="row hedding m-0 pl-3 pt-0 pb-3">
                     <div style="background-color: white; padding: 1rem">
                         <button type="button" class="btn btn-primary" style="background-color:orange; border-color: white">
-                            <a style="color: white" href="{{route('user.home')}}">Back To Home</a>
+                            <a style="color: white" href="{{ route('user.home') }}">Back To Home</a>
                         </button>
 
-                        <button type="button" class="btn btn-secondary" style="background-color:green; border-color: white">
-                            <a style="color: white" href="{{route('user.product.all')}}">Product</a>
+                        <button type="button" class="btn btn-secondary"
+                            style="background-color:green; border-color: white">
+                            <a style="color: white" href="{{ route('user.product.all') }}">Product</a>
                         </button>
                     </div>
                 </div>
-
                 @foreach ($food as $f)
                     <div class="row m-5">
                         <div class="col-lg-4 left-side-product-box pb-3">
@@ -33,22 +33,35 @@
                                         <p class="m-0 p-0">It's {{ $f->F_name }}?</p>
                                     </div>
                                     <div class="col-lg-12">
-                                        <p class="m-0 p-0 price-pro">{{ number_format($f->price,0,',','.'); }} VND</p>
+                                        <p class="m-0 p-0 price-pro">{{ number_format($f->price, 0, ',', '.') }} VND</p>
                                         <hr class="p-0 m-0">
                                     </div>
                                     <div class="col-lg-12 pt-2">
                                         <h5>Product Detail</h5>
-                                        @if (true)
-                                                <h3><i style="color: red  " class="fa fa-heart"></i></h3>
-                                            @elseif (1==0)
-                                                <h3><i  class="fa fa-heart-o"></i></h3>
-                                            @endif
-                                            <a href=""
-                                                class="btn btn-info btn-round btn-sm ">Add/Remove
-                                            </a>
                                         <span>{{ $f->description }}</span>
                                         <hr class="m-0 pt-2 mt-2">
                                     </div>
+                                    {{-- wish list --}}
+                                    <link href="{{ asset('vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+                                    <div class="col-lg-12 pt-2">
+                                        <h5>Like:
+                                            <i class="fa fa-heart" id ="like" style="color: gray " onclick="like(this)"></i>
+                                        </h5>
+                                        <h3><i class="fa fa-heart"
+                                            ></i>
+                                        </h3>
+                                        <a href="" class="btn btn-info btn-round btn-sm ">Add/Remove
+                                        </a>
+                                        <hr class="m-0 pt-2 mt-2">
+                                    </div>
+                                    <script>
+                                        function like(element){
+                                            if (element.style.color == 'red') {
+                                                element.style.color = 'gray';
+                                            } else element.style.color = 'red';
+                                        }
+                                    </script>
+                                    {{-- /wish list --}}
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="exampleFormControlSelect1">Free Sauce</label>
@@ -115,8 +128,4 @@
             </div>
         </div>
     </div>
-
-
-
-
 @endsection
