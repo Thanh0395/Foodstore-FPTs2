@@ -37,10 +37,15 @@ class ProductController extends Controller
         $food = DB:: table('foods')
         ->join('categories', 'foods.Cate_id', '=', 'categories.Cate_id')
         ->where('foods.F_id', $id)
-        ->select('foods.*', 'categories.Cate_name')->get();
-        // dd($foods);
+        ->select('foods.*', 'categories.Cate_name')->first();
+        // dd($food);
         $categories = DB::table('categories')->get();
         return view('users.userclient.detail', compact('food', 'categories', 'id'));
     }
 
+    public function like($id){
+        if (session()->get('role')) {
+            dd('hello');
+        } else return redirect()->route('user.login')->with('failure', 'The password is incorrect!');
+    }
 }

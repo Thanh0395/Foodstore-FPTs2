@@ -9,50 +9,51 @@
                             <a style="color: white" href="{{ route('user.home') }}">Back To Home</a>
                         </button>
 
-                        <button type="button" class="btn btn-secondary"
-                            style="background-color:green; border-color: white">
-                            <a style="color: white" href="{{ route('user.product.all') }}">Product</a>
-                        </button>
+
                     </div>
                 </div>
-                @foreach ($food as $f)
                     <div class="row m-5">
-                        <div class="col-lg-4 left-side-product-box pb-3">
-                            <img class="img-fluid" src=" {{ asset($f->image) }} " class="border p-3">
+                        <div align=center class="col-lg-4 left-side-product-box pb-3">
+                            <img class="img-fluid" src=" {{ asset($food->image) }} " class="border p-3">
                             {{-- <span class="sub-img">
                             <img src="http://nicesnippets.com/demo/pd-image2.jpg" class="border p-2">
                             <img src="http://nicesnippets.com/demo/pd-image3.jpg" class="border p-2">
                             <img src="http://nicesnippets.com/demo/pd-image4.jpg" class="border p-2">
-                        </span> --}}
+                            </span> --}}
+                            <button type="button" class="btn btn-secondary border p-2 m-3"
+                                style="background-color:green; border-color: white">
+                                <a style="color: white" href="{{ route('user.product.all') }}">Back To Product</a>
+                            </button>
                         </div>
                         <div class="col-lg-8">
                             <div class="right-side-pro-detail border p-3 m-0">
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <span>What do you want to eat?</span>
-                                        <p class="m-0 p-0">It's {{ $f->F_name }}?</p>
+                                        <p class="m-0 p-0">It's {{ $food->F_name }}</p>
                                     </div>
                                     <div class="col-lg-12">
-                                        <p class="m-0 p-0 price-pro">{{ number_format($f->price, 0, ',', '.') }} VND</p>
+                                        <p class="m-0 p-0 price-pro">{{ number_format($food->price, 0, ',', '.') }} VND</p>
                                         <hr class="p-0 m-0">
                                     </div>
                                     <div class="col-lg-12 pt-2">
-                                        <h5>Product Detail</h5>
-                                        <span>{{ $f->description }}</span>
+                                        <h5>Product Detail:</h5>
+                                        <span>{{ $food->description }}</span>
                                         <hr class="m-0 pt-2 mt-2">
                                     </div>
                                     {{-- wish list --}}
-                                    <link href="{{ asset('vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+                                    <link href="{{ asset('vendors/font-awesome/css/font-awesome.min.css') }}"
+                                        rel="stylesheet">
                                     <div class="col-lg-12 pt-2">
                                         <h5>Like:
-                                            <i class="fa fa-heart" id ="like" style="color: gray " onclick="like(this)"></i>
+                                            <i class="fa fa-heart" id="like" style="color: gray " onclick="like(this)"></i>
                                         </h5>
                                         <a href="" class="btn btn-info btn-round btn-sm ">Add/Remove
                                         </a>
                                         <hr class="m-0 pt-2 mt-2">
                                     </div>
                                     <script>
-                                        function like(element){
+                                        function like(element) {
                                             if (element.style.color == 'red') {
                                                 element.style.color = 'gray';
                                             } else element.style.color = 'red';
@@ -61,7 +62,7 @@
                                     {{-- /wish list --}}
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="exampleFormControlSelect1">Free Sauce</label>
+                                            <label for="exampleFormControlSelect1">Free Sauce:</label>
                                             <select class="form-control" id="exampleFormControlSelect1">
                                                 <option>Demi sauce</option>
                                                 <option>Japone sauce</option>
@@ -87,7 +88,6 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
 
                 {{-- <div class="row">
                     <div class="col-lg-12 text-center pt-3">
