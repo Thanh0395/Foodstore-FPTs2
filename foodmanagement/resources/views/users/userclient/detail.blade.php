@@ -4,13 +4,13 @@
         <div class="row">
             <div class="col-lg-10 border p-3 main-section bg-white">
                 <div class="row hedding m-0 pl-3 pt-0 pb-3">
-                    <div style="background-color: #eee; padding: 2rem">
-                        <button type="button" class="btn btn-primary" style="background-color:orange">
-                            <a href="{{route('user.home')}}">Back To Home</a>
+                    <div style="background-color: white; padding: 1rem">
+                        <button type="button" class="btn btn-primary" style="background-color:orange; border-color: white">
+                            <a style="color: white" href="{{route('user.home')}}">Back To Home</a>
                         </button>
 
-                        <button type="button" class="btn btn-secondary" style="background-color:green">
-                            <a href="{{route('user.product.all')}}">Product</a>
+                        <button type="button" class="btn btn-secondary" style="background-color:green; border-color: white">
+                            <a style="color: white" href="{{route('user.product.all')}}">Product</a>
                         </button>
                     </div>
                 </div>
@@ -33,11 +33,19 @@
                                         <p class="m-0 p-0">It's {{ $f->F_name }}?</p>
                                     </div>
                                     <div class="col-lg-12">
-                                        <p class="m-0 p-0 price-pro">VND{{ $f->price }}</p>
+                                        <p class="m-0 p-0 price-pro">{{ number_format($f->price,0,',','.'); }} VND</p>
                                         <hr class="p-0 m-0">
                                     </div>
                                     <div class="col-lg-12 pt-2">
                                         <h5>Product Detail</h5>
+                                        @if (true)
+                                                <h3><i style="color: red  " class="fa fa-heart"></i></h3>
+                                            @elseif (1==0)
+                                                <h3><i  class="fa fa-heart-o"></i></h3>
+                                            @endif
+                                            <a href=""
+                                                class="btn btn-info btn-round btn-sm ">Add/Remove
+                                            </a>
                                         <span>{{ $f->description }}</span>
                                         <hr class="m-0 pt-2 mt-2">
                                     </div>

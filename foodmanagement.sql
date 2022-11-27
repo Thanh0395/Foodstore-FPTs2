@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2022 at 06:01 AM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- Generation Time: Nov 27, 2022 at 06:23 AM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -127,10 +127,10 @@ INSERT INTO `foods` (`F_id`, `F_name`, `Cate_id`, `image`, `price`, `description
 (23, 'Black Angus \"STANBROKE Flap Seak × Mixed Green Salad', 3, 'images/food/Salad02.jpg', 210000, 'With 4 kinds of homemade salad dressings', NULL, NULL),
 (24, 'Marinated Norwegian Salmon × Mixed Green Salad', 3, 'images/food/Salad03.jpg', 210000, 'With 4 kinds of homemade salad dressings', NULL, NULL),
 (25, 'Ceasar Salad', 3, 'images/food/Salad04.jpg', 120000, 'Bacon, soft-Boiled Egg with salty fish sauce', NULL, NULL),
-(26, 'WAGYU Hamburg Combo for 2', 5, 'images/food/Combo01.jpg', 490000, 'Full-Blood WAGYU Hamburg Steak 160g (Japanese Style Grilled Meatball) ×2, 15 Kinds of Mixed Green Salad, Today\'s Soup ×2, French Fries', NULL, NULL),
-(27, 'Chicken Curry Rice Combo for 2', 5, 'images/food/Combo02.jpg', 390000, 'Grilled Chicken & Vegetables Curry ×2, 15 Kinds of Mixed Green Salad, Today\'s Soup ×2', NULL, NULL),
-(28, 'Steak & Hamburg Combo for 2', 5, 'images/food/Combo03.jpg', 690000, 'Black Angus \"STANBROKE\" Sirloin 150g, Full-Blood WAGYU Hamburg Steak 160g (Japanese Style Grilled Meatball), 15 Kinds of Mixed Green Salad, Today\'s Soup×2, French Fries', NULL, NULL),
-(29, 'Party Set for 4', 5, 'images/food/Combo04.jpg', 1690000, 'Black Angus \"STANBROKE\" Rib Eye Steak 200g, Charcoal-Grilled Chicken Thigh 250g, Any of Homemade Sauce, Tender Beef-Cutlet Sandwich, Slow-Low-Roasted Beef Tongue, Homemade Salsiccia×4, 15 Kinds of Mixed Green Salad, Marinated Salmon, French Fries', NULL, NULL),
+(26, 'WAGYU Hamburg Combo for 2', 5, 'images/food/Combo01.jpg', 217000, 'Full-Blood WAGYU Hamburg Steak 160g (Japanese Style Grilled Meatball) ×2, 15 Kinds of Mixed Green Salad, Today\'s Soup ×2, French Fries', NULL, NULL),
+(27, 'Chicken Curry Rice Combo for 2', 5, 'images/food/Combo02.jpg', 149000, 'Grilled Chicken & Vegetables Curry ×2, 15 Kinds of Mixed Green Salad, Today\'s Soup ×2', NULL, NULL),
+(28, 'Steak &amp; Hamburg Combo for 2', 5, 'images/food/Combo03.jpg', 178000, 'Black Angus \"STANBROKE\" Sirloin 150g, Full-Blood WAGYU Hamburg Steak 160g (Japanese Style Grilled Meatball), 15 Kinds of Mixed Green Salad, Today\'s Soup×2, French Fries', NULL, NULL),
+(29, 'Party Set for 4', 5, 'images/food/Combo04.jpg', 439000, 'Black Angus \"STANBROKE\" Rib Eye Steak 200g, Charcoal-Grilled Chicken Thigh 250g, Any of Homemade Sauce, Tender Beef-Cutlet Sandwich, Slow-Low-Roasted Beef Tongue, Homemade Salsiccia×4, 15 Kinds of Mixed Green Salad, Marinated Salmon, French Fries', NULL, NULL),
 (30, 'WAGYU & ANGUS RIB EYE STEAK PLATTER', 5, 'images/food/Combo05.jpg', 1750000, 'WAGYU & ANGUS RIB EYE STEAK 150g', NULL, NULL),
 (31, 'Coca-cola', 7, 'images/food/Drink01.jpg', 29000, '330ml', NULL, NULL),
 (32, 'Dasani', 7, 'images/food/Drink02.jpg', 19000, '330ml', NULL, NULL),

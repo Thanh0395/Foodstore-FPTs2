@@ -17,13 +17,15 @@
                                     <a href="#"><img src=" {{asset('assets/clients/images/m_chef_01.jpg')}} " alt=""></a>
                                 </div>
                                 <div class="text-col">
-                                    <h3>John Doggett</h3>
-                                    <p>Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Aenean commodo ligula.</p>
-                                    <ul class="team-social">
+                                    <h3>Truong</h3>
+                                    <p>Nguyễn Quang Trường</p>
+                                    <p>Class: T1.2201.E0</p>
+                                    <p>ID: Student1362610</p>
+                                    {{-- <ul class="team-social">
                                         <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
                                         <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
                                         <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                                    </ul>
+                                    </ul> --}}
                                 </div>
                             </div>
                         </div>
@@ -34,13 +36,15 @@
                                     <a href="#"><img src="{{asset('assets/clients/images/m_chef_02.jpg')}}" alt=""></a>
                                 </div>
                                 <div class="text-col">
-                                    <h3>Jeffrey Spender</h3>
-                                    <p>Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Aenean commodo ligula.</p>
-                                    <ul class="team-social">
+                                    <h3>Thanh</h3>
+                                    <p>Trần Phạm Duy Thanh</p>
+                                    <p>Class: T1.2201.E0</p>
+                                    <p>ID: Student1359464</p>
+                                    {{-- <ul class="team-social">
                                         <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
                                         <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
                                         <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                                    </ul>
+                                    </ul> --}}
                                 </div>
                             </div>
                         </div>
@@ -51,13 +55,15 @@
                                     <a href="#"><img src="{{asset('assets/clients/images/m_chef_03.jpg')}}" alt=""></a>
                                 </div>
                                 <div class="text-col">
-                                    <h3>Monica Reyes</h3>
-                                    <p>Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Aenean commodo ligula.</p>
-                                    <ul class="team-social">
+                                    <h3>Hung</h3>
+                                    <p>Nguyễn Tấn Hùng</p>
+                                    <p>Class: T1.2201.E0</p>
+                                    <p>ID: Student1359462</p>
+                                    {{-- <ul class="team-social">
                                         <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
                                         <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
                                         <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                                    </ul>
+                                    </ul> --}}
                                 </div>
                             </div>
                         </div>
