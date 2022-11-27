@@ -1,27 +1,23 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
-
-use App\Http\Controllers\Controller;
+namespace App\Http\Controllers\User;
 use App\Models\User;
-use Illuminate\Console\View\Components\Alert;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use PhpParser\Node\Expr\FuncCall;
 
-class LoginController extends Controller
+class LoginUserController extends Controller
 {
-    public function login()
+    /*NGuyen Tan hung */
+    public function index()
     {
-        return view('adminlayout.login');
+        return view('users.userclient.login');
     }
 
-    public function processLogin(Request $request)
+    public function processLoginUser(Request $request)
     {
         $user = User::where('email', $request->input('email'))->first();
         if ($user == null) {
-            //nguoi dung ko ton tai
-            return redirect()->route('login')->with('failure', 'The user is not exist!');
+            return redirect()->route('user.login')->with('failure', 'The user is not exist!');
         }
         // Dung password
         elseif ($user->password == md5($request->input('password'))) {
@@ -30,19 +26,18 @@ class LoginController extends Controller
             session()->put('role', $user->role);
             session()->put('avatar', $user->avatar);
             // dd(session()->get('role'));
-            return redirect()->route('admin')->with('success', 'Welcome to dashboard');
+            return redirect()->route('user.product.all');
         } else {
             // Sai password
             return redirect()->route('admin.login')->with('failure', 'The password is incorrect!');
         }
     }
 
-    public function logout()
+    public function logoutUser()
     {
         session()->flush();
-        return redirect()->route('admin.login');
+        return redirect()->route('user.home');
     }
 
-
-
+    /* */
 }

@@ -27,6 +27,7 @@ use App\Http\Controllers\User\ProductController;
 use App\Http\Controllers\User\DetailController;
 use App\Http\Controllers\User\RegisterController;
 use App\Http\Controllers\User\CartController;
+use App\Http\Controllers\User\LoginUserController;
 
 Route::get('/', [HomeController::class, 'index'])->name('user.home');
 Route::get('/product/all', [ProductController::class, 'index'])->name('user.product.all');
@@ -35,9 +36,9 @@ Route::get('/detail/{id}', [ProductController::class, 'detail'])->name('user.det
 Route::get('/register', [RegisterController::class, 'index'])->name('user.register');
 Route::get('/term', [RegisterController::class, 'term'])->name('user.term');
 Route::get('/cart', [CartController::class, 'index'])->name('user.cart');
-Route::get('/user-login', [LoginController::class, 'index'])->name('user.login');
-Route::get('/user-logout', [LoginController::class, 'logoutUser'])->name('user.logout');
-Route::post('/user-login', [LoginController::class, 'processLoginUser'])->name('user.login.process');
+Route::get('/user-login', [LoginUserController::class, 'index'])->name('user.login');
+Route::get('/user-logout', [LoginUserController::class, 'logoutUser'])->name('user.logout');
+Route::post('/user-login', [LoginUserController::class, 'processLoginUser'])->name('user.login.process');
 Route::post('/register', [RegisterController::class, 'store'])->name('user.register.process');
 
 
