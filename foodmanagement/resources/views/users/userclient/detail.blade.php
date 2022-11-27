@@ -42,18 +42,23 @@
                                         <hr class="m-0 pt-2 mt-2">
                                     </div>
                                     {{-- wish list --}}
+                                    @php
+                                        use App\Http\Controllers\User\ProductController;
+                                    @endphp
                                     <link href="{{ asset('vendors/font-awesome/css/font-awesome.min.css') }}"
                                         rel="stylesheet">
                                     <div class="col-lg-12 pt-2">
                                         <h5>Like:
-                                            <i class="fa fa-heart" id="like" style="color: gray " onclick="like(this)"></i>
+                                            <i class="fa fa-heart" id="like" style="color: {{$likeColor}} " onclick="like(this)"></i>
                                         </h5>
-                                        <a href="" class="btn btn-info btn-round btn-sm ">Add/Remove
-                                        </a>
                                         <hr class="m-0 pt-2 mt-2">
                                     </div>
                                     <script>
                                         function like(element) {
+                                            @php
+                                                $like = new ProductController();
+                                                $like -> like($F_id, $likeColor);
+                                            @endphp
                                             if (element.style.color == 'red') {
                                                 element.style.color = 'gray';
                                             } else element.style.color = 'red';

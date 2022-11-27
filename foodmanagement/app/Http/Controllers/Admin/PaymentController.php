@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
@@ -12,11 +13,11 @@ class PaymentController extends Controller
         error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED);
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_Returnurl = "http://127.0.0.1:8000/admin/order/thankyou";
+        $vnp_Returnurl = "http://127.0.0.1:8000/admin/order/thankyou/".$_POST['O_id'];
         $vnp_TmnCode = "PB9RYKRD"; //Mã website tại VNPAY
         $vnp_HashSecret = "LDKGFMFXNDLQMZSPKRPCEAIDZAMFCGNG"; //Chuỗi bí mật
 
-        $vnp_TxnRef = $_POST['O_id']; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
+        $vnp_TxnRef = time().$_POST['O_id']; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
         $vnp_OrderInfo = $_POST['name'];
         $vnp_OrderType = 'billpayment';
         $vnp_Amount = $_POST['total'] * 100;
@@ -148,15 +149,27 @@ class PaymentController extends Controller
         $orderInfo = "Purchase by QR MoMo";
         $amount = "";
         $orderId = time() . "";
-        $redirectUrl = "http://127.0.0.1:8000/admin/order/thankyou";
+        $redirectUrl = "http://127.0.0.1:8000/admin/order/thankyou/".$_POST["O_id"];
         $ipnUrl = "https://webhook.site/b3088a6a-2d17-4f8d-a383-71389a6c600b";
         $extraData = "";
         $requestId = time() . "";
         $requestType = "captureWallet";
 
-        $orderId = $_POST["O_id"]; // Mã đơn hàng
-        $amount = $_POST["total"]; // Tổng đơn
-        //before sign HMAC SHA256 signature
+        if (!empty($_POST)) {
+            // $partnerCode = $_POST["partnerCode"];
+            // $accessKey = $_POST["accessKey"];
+            // $secretKey = $_POST["secretKey"];
+            $orderId = time().$_POST["O_id"]; // Mã đơn hàng
+            // $orderInfo = $_POST["orderInfo"];
+            $amount = $_POST["total"];
+            // $ipnUrl = $_POST["ipnUrl"];
+            // $redirectUrl = $_POST["redirectUrl"];
+            // $extraData = $_POST["extraData"];
+
+            $requestId = time() . "";
+            $requestType = "captureWallet";
+            // $extraData = ($_POST["extraData"] ? $_POST["extraData"] : "");
+            //before sign HMAC SHA256 signature
             $rawHash = "accessKey=" . $accessKey . "&amount=" . $amount . "&extraData=" . $extraData . "&ipnUrl=" . $ipnUrl . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&partnerCode=" . $partnerCode . "&redirectUrl=" . $redirectUrl . "&requestId=" . $requestId . "&requestType=" . $requestType;
             $signature = hash_hmac("sha256", $rawHash, $secretKey);
             $data = array(
@@ -178,50 +191,15 @@ class PaymentController extends Controller
             $jsonResult = json_decode($result, true);  // decode json
             //Just a example, please check more in there
             header('Location: ' . $jsonResult['payUrl']);
-
-        // if (!empty($_POST)) {
-        //     // $partnerCode = $_POST["partnerCode"];
-        //     // $accessKey = $_POST["accessKey"];
-        //     // $secretKey = $_POST["secretKey"];
-        //     $orderId = $_POST["O_id"]; // Mã đơn hàng
-        //     // $orderInfo = $_POST["orderInfo"];
-        //     $amount = $_POST["total"];
-        //     // $ipnUrl = $_POST["ipnUrl"];
-        //     // $redirectUrl = $_POST["redirectUrl"];
-        //     // $extraData = $_POST["extraData"];
-
-        //     $requestId = time() . "";
-        //     $requestType = "captureWallet";
-        //     // $extraData = ($_POST["extraData"] ? $_POST["extraData"] : "");
-        //     //before sign HMAC SHA256 signature
-        //     $rawHash = "accessKey=" . $accessKey . "&amount=" . $amount . "&extraData=" . $extraData . "&ipnUrl=" . $ipnUrl . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&partnerCode=" . $partnerCode . "&redirectUrl=" . $redirectUrl . "&requestId=" . $requestId . "&requestType=" . $requestType;
-        //     $signature = hash_hmac("sha256", $rawHash, $secretKey);
-        //     $data = array(
-        //         'partnerCode' => $partnerCode,
-        //         'partnerName' => "Test",
-        //         "storeId" => "MomoTestStore",
-        //         'requestId' => $requestId,
-        //         'amount' => $amount,
-        //         'orderId' => $orderId,
-        //         'orderInfo' => $orderInfo,
-        //         'redirectUrl' => $redirectUrl,
-        //         'ipnUrl' => $ipnUrl,
-        //         'lang' => 'vi',
-        //         'extraData' => $extraData,
-        //         'requestType' => $requestType,
-        //         'signature' => $signature
-        //     );
-        //     $result = execPostRequest($endpoint, json_encode($data));
-        //     $jsonResult = json_decode($result, true);  // decode json
-
-        //     //Just a example, please check more in there
-
-        //     header('Location: ' . $jsonResult['payUrl']);
-        // }
+            die();
+        }
     }
 
 
-    public function thankyou() {
+    public function thankyou($O_id) {
+        $order = Order::find($O_id);
+        $order ->status = 'Finished';
+        $order ->save();
         return view('admin.order.thankyou');
     }
 }

@@ -64,6 +64,8 @@ class OrderController extends Controller
     // Update Order status
     public function edit(Request $request)
     {   $O_ids = $request->input('checkItem');
+        if(!$O_ids)
+            return redirect()->route('admin.order.index')->with('failure','Select at least an item!');
         foreach($O_ids as $O_id){
             $order = Order::find($O_id);
             $order ->status = $request->input('status');
