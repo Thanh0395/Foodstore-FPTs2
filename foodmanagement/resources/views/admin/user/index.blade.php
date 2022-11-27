@@ -61,6 +61,7 @@
                                                 <a class="btn btn-primary btn-xs" href="{{route('admin.user.view',[$user->U_id])}}">
                                                     <i class="fa fa-eye"></i> View
                                                 </a>
+                                                @if (session()->get('role') == 'admin')
                                                 <a type="hidden" class="btn btn-warning btn-xs" href="{{route('admin.user.edit',[$user->U_id])}}" >
                                                     <i class="fa fa-pencil"></i> Edit
                                                 </a>
@@ -68,6 +69,7 @@
                                                     class="btn btn-danger btn-xs" href="{{route('admin.user.delete',[$user->U_id])}}" onclick="return confirm ('Are you sure to want to delete this')">
                                                     <i class="fa fa-trash-o"></i> Delete
                                                 </button>
+                                                @endif
                                             </td>
                                         </tr>
                                         @endforeach

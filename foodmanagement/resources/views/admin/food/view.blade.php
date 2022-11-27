@@ -33,12 +33,12 @@
                                         <td>{{ $category->Cate_name }}</td>
                                         <td>{{ $food->price }}</td>
                                         <td>
-                                            @if ($like==1)
+                                            @if ($like == 1)
                                                 <h3><i style="color: red  " class="fa fa-heart"></i></h3>
-                                            @elseif ($like==0)
-                                                <h3><i  class="fa fa-heart-o"></i></h3>
+                                            @elseif ($like == 0)
+                                                <h3><i class="fa fa-heart-o"></i></h3>
                                             @endif
-                                            <a href="{{ route('admin.wishlist.add',['F_id'=>$food->F_id, 'like'=>$like, 'U_id'=>$U_id]) }}"
+                                            <a href="{{ route('admin.wishlist.add', ['F_id' => $food->F_id, 'like' => $like, 'U_id' => $U_id]) }}"
                                                 class="btn btn-info btn-round btn-sm ">Add/Remove</a>
                                         </td>
                                         <td>{{ $food->description }}</td>

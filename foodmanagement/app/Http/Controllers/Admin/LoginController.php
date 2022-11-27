@@ -19,18 +19,20 @@ class LoginController extends Controller
     public function processLogin(Request $request)
     {
         $user = User::where('email', $request->input('email'))->first();
-        if ($user == null) {
+        if($user == null){
             //nguoi dung ko ton tai
             return redirect()->route('login')->with('failure', 'The user is not exist!');
         }
-        // Dung password
-        elseif ($user->password == md5($request->input('password'))) {
+            // Dung password
+        elseif ($user -> password == md5($request->input('password'))){
             session()->put('U_id', $user->U_id);
             session()->put('name', $user->name);
             session()->put('role', $user->role);
             session()->put('avatar', $user->avatar);
-            // dd(session()->get('role'));
-            return redirect()->route('admin')->with('success', 'Welcome to dashboard');
+            $role = (session()->get('role'));
+            if ($role == 'admin' || $role == 'member'){
+                return redirect()->route('admin')->with('success', 'Welcome to dashboard');
+            } else return redirect()->route('admin.login')->with('failure', 'Do not allow!');
         } else {
             // Sai password
             return redirect()->route('admin.login')->with('failure', 'The password is incorrect!');

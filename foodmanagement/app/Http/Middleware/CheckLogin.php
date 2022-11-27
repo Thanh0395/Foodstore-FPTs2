@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class CheckAdmin
+class CheckLogin
 {
     /**
      * Handle an incoming request.
@@ -16,10 +16,10 @@ class CheckAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        $role = session()->get('role');
-        if ( $role == 'admin' || $role == 'member') {
+
+        if ( session()->get('role') ) {
             return $next($request);
-        }
+        } 
         return redirect()-> route('admin.login');
     }
 }

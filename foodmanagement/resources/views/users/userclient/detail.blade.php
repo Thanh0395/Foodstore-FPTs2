@@ -47,9 +47,6 @@
                                         <h5>Like:
                                             <i class="fa fa-heart" id ="like" style="color: gray " onclick="like(this)"></i>
                                         </h5>
-                                        <h3><i class="fa fa-heart"
-                                            ></i>
-                                        </h3>
                                         <a href="" class="btn btn-info btn-round btn-sm ">Add/Remove
                                         </a>
                                         <hr class="m-0 pt-2 mt-2">

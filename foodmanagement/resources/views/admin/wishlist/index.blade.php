@@ -1,6 +1,5 @@
 @extends('adminlayout.app')
 @section('content')
-
     <div class="right_col" role="main">
         <!-- page content -->
         <div class="">
@@ -15,17 +14,19 @@
                     <div class="x_panel">
                         {{-- Show entries và search cho table --}}
                         @if (session('success'))
-                        <div class="alert alert-success alert-dismissible fade in">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-                            </button>
-                            {{session('success')}}
-                        </div>
+                            <div class="alert alert-success alert-dismissible fade in">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                        aria-hidden="true">×</span>
+                                </button>
+                                {{ session('success') }}
+                            </div>
                         @elseif (session('failure'))
-                        <div class="alert alert-danger alert-dismissible fade in">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-                            </button>
-                            {{session('failure')}}
-                        </div>
+                            <div class="alert alert-danger alert-dismissible fade in">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                        aria-hidden="true">×</span>
+                                </button>
+                                {{ session('failure') }}
+                            </div>
                         @endif
                         {{-- /Show entries và search cho table --}}
                         <div class="x_content">
@@ -43,18 +44,20 @@
 
                                 <tbody>
                                     @foreach ($foods as $food)
-                                    <tr>
-                                        <td>{{$food->F_id}}</td>
-                                        <td>{{$food->F_name}}</td>
-                                        <td>{{$food->Cate_name}}</td>
-                                        <td><img src="{{asset($food->image)}}" width="180px" height="180px"></td>
-                                        <td>{{$food->price}}</td>
-                                        <td style="width: 30%;">
-                                            <a class="btn btn-danger btn-xs" href="{{route('admin.wishlist.remove',[$food->WL_id])}}" onclick="return confirm ('Are you sure to remove form wish-list?')">
-                                                <i class="fa fa-trash-o"></i> Remove from list
-                                            </a>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td>{{ $food->F_id }}</td>
+                                            <td>{{ $food->F_name }}</td>
+                                            <td>{{ $food->Cate_name }}</td>
+                                            <td><img src="{{ asset($food->image) }}" width="100px" height="100px"></td>
+                                            <td>{{ $food->price }}</td>
+                                            <td style="width: 30%;">
+                                                <a class="btn btn-danger btn-xs"
+                                                    href="{{ route('admin.wishlist.remove', [$food->WL_id]) }}"
+                                                    onclick="return confirm ('Are you sure to remove form wish-list?')">
+                                                    <i class="fa fa-trash-o"></i> Remove from list
+                                                </a>
+                                            </td>
+                                        </tr>
                                     @endforeach
                                 </tbody>
                             </table>
@@ -65,5 +68,4 @@
         </div>
         <!-- /page content -->
     </div>
-
 @endsection
