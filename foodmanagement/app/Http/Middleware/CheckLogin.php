@@ -19,7 +19,7 @@ class CheckLogin
 
         if ( session()->get('role') ) {
             return $next($request);
-        } 
-        return redirect()-> route('admin.login');
+        }
+        return redirect()-> route('user.login');
     }
 }
