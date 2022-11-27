@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0">
 
     <!-- Site Metas -->
-    <title>Ilcorda | Delivery</title>
+    <title>Food Store-Group 01 | Delivery</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
