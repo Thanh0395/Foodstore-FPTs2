@@ -55,7 +55,7 @@
                                             <td><img src="{{ asset($food->image) }}" width="100px" height="100px"></td>
                                             <td>{{ $food->F_name }}</td>
                                             <td>{{ $food->Cate_name }}</td>
-                                            <td>{{ $food->price }}</td>
+                                            <td>{{ number_format($food->price, 0, ',', '.') }}</td>
                                             <td style="width: 30%;">
                                                 <a class="btn btn-primary btn-xs"
                                                     href="{{ route('admin.food.view', [$food->F_id]) }}">

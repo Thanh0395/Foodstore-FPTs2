@@ -38,7 +38,7 @@
                                 foreach ($topCateReve as $Cate) {
                                     $sum += $Cate->amount;
                                 }
-                                echo $sum;
+                                echo number_format($sum, 0, ',', '.');
                             @endphp vnđ</h3>
                         </div>
 

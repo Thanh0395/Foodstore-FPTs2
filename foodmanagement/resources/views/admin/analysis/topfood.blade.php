@@ -56,7 +56,7 @@
                                 foreach ($topFoodReve as $food) {
                                     $sum += $food->amount;
                                 }
-                                echo $sum;
+                                echo number_format($sum, 0, ',', '.');
                             @endphp vnđ</h4>
                         </div>
 

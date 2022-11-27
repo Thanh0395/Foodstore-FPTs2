@@ -31,7 +31,7 @@
                                         <td><img src="{{ asset($food->image) }}" width="150px" height="150px"></td>
                                         <td>{{ $food->F_name }}</td>
                                         <td>{{ $category->Cate_name }}</td>
-                                        <td>{{ $food->price }}</td>
+                                        <td>{{ number_format($food->price, 0, ',', '.') }}</td>
                                         <td>
                                             @if ($like == 1)
                                                 <h3><i style="color: red  " class="fa fa-heart"></i></h3>

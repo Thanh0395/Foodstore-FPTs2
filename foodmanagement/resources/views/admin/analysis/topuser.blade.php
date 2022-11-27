@@ -1,5 +1,5 @@
 @extends('adminlayout.app')
-@section('content') 
+@section('content')
     @if (session()->get('role') == 'admin')
         <div class="right_col" role="main">
             <!-- page content -->
@@ -56,7 +56,7 @@
                                 foreach ($topUserReve as $user) {
                                     $sum += $user->amount;
                                 }
-                                echo $sum;
+                                echo number_format($sum, 0, ',', '.');
                             @endphp vnđ</h4>
                         </div>
 
