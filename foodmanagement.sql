@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 18, 2022 at 01:18 PM
+-- Generation Time: Nov 27, 2022 at 06:23 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -53,10 +53,11 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`Cate_id`, `Cate_name`, `created_at`, `updated_at`) VALUES
-(2, 'frozen frezze', '2022-11-06 10:30:11', '2022-11-06 10:30:11'),
-(3, 'tao lao', '2022-11-06 10:30:15', '2022-11-16 09:19:49'),
-(4, 'hot hot hot', '2022-11-06 10:30:05', '2022-11-16 08:31:05'),
-(5, 'tao lao lam luôn', '2022-11-06 18:06:03', '2022-11-06 18:06:03');
+(2, 'Fronzen', '2022-11-06 10:30:11', '2022-11-06 10:30:11'),
+(3, 'Protein Salad', '2022-11-06 10:30:15', '2022-11-16 09:19:49'),
+(4, 'Pasta', '2022-11-06 10:30:05', '2022-11-16 08:31:05'),
+(5, 'Combo', '2022-11-06 18:06:03', '2022-11-06 18:06:03'),
+(7, 'Drink', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -112,11 +113,33 @@ CREATE TABLE `foods` (
 --
 
 INSERT INTO `foods` (`F_id`, `F_name`, `Cate_id`, `image`, `price`, `description`, `created_at`, `updated_at`) VALUES
-(11, 'Thit cay', 4, 'images/food/Puppy expose his love.jpg', 99, 'Thiện style', NULL, NULL),
-(12, 'tao', 3, 'images/food/CCCDsau.jpg', 32, 'Mo ta mo ta', NULL, NULL),
-(13, 'qua met moi luon', 5, 'images/food/CCCDtruoc.jpg', 44, 'Mo ta update', NULL, NULL),
-(15, 'Mực', 2, 'images/food/Mực.jpg', 55, NULL, NULL, NULL),
-(16, 'tui', 4, 'images/food/Tui.jpg', 999, 'Ngon vkl', NULL, NULL);
+(11, 'Premium WAGYU Hamburg Steak 150g', 2, 'images/food/Frozen01.jpg', 179000, 'Vacuum - Frozen and Free Sauce', NULL, NULL),
+(12, 'Premium WAGYU Hamburg Steak 150g x 2pcs set', 2, 'images/food/Frozen02.jpg', 350000, 'Vacuum - Frozen and Free Sauce', NULL, NULL),
+(13, 'Black Angus \"STANBROKE\" Rib Eye Steak 200g', 2, 'images/food/Frozen03.jpg', 790000, 'Vacuum - Frozen and Free Sauce', NULL, NULL),
+(15, 'Black Angus \"STANBROKE\" Tenderloin Steak 200g', 2, 'images/food/Frozen04.jpg', 1180000, 'Vacuum - Frozen and Free Sauce', NULL, NULL),
+(16, 'Black Angus \"STANBROKE\" Sirloin 150g', 2, 'images/food/Frozen05.jpg', 580000, 'Vacuum - Frozen and Free Sauce', NULL, NULL),
+(17, 'Carbonara', 4, 'images/food/Pasta01.jpg', 230000, 'Bacon and creamy sauce with stir egg yolk', NULL, NULL),
+(18, 'Pescatore', 4, 'images/food/Pasta02.jpg', 319, 'Tomato sauce with sea food', NULL, NULL),
+(19, 'Rigatoni Ragu', 4, 'images/food/Pasta03.jpg', 210000, 'Beef stew with vegetables with Rigatoni pasta', NULL, NULL),
+(20, 'Pesto', 4, 'images/food/Pasta04.jpg', 239000, 'Basil sauce with pine nuts', NULL, NULL),
+(21, 'Baked Chicken', 4, 'images/food/Pasta05.jpg', 300000, 'Steamed chicken with stewed vegetables and tomato sauce', NULL, NULL),
+(22, 'Extra Moist and Tender Chicken Breast × Mixed Green Salad', 3, 'images/food/Salad01.jpg', 160000, 'With 4 kinds of homemade salad dressings', NULL, NULL),
+(23, 'Black Angus \"STANBROKE Flap Seak × Mixed Green Salad', 3, 'images/food/Salad02.jpg', 210000, 'With 4 kinds of homemade salad dressings', NULL, NULL),
+(24, 'Marinated Norwegian Salmon × Mixed Green Salad', 3, 'images/food/Salad03.jpg', 210000, 'With 4 kinds of homemade salad dressings', NULL, NULL),
+(25, 'Ceasar Salad', 3, 'images/food/Salad04.jpg', 120000, 'Bacon, soft-Boiled Egg with salty fish sauce', NULL, NULL),
+(26, 'WAGYU Hamburg Combo for 2', 5, 'images/food/Combo01.jpg', 217000, 'Full-Blood WAGYU Hamburg Steak 160g (Japanese Style Grilled Meatball) ×2, 15 Kinds of Mixed Green Salad, Today\'s Soup ×2, French Fries', NULL, NULL),
+(27, 'Chicken Curry Rice Combo for 2', 5, 'images/food/Combo02.jpg', 149000, 'Grilled Chicken & Vegetables Curry ×2, 15 Kinds of Mixed Green Salad, Today\'s Soup ×2', NULL, NULL),
+(28, 'Steak &amp; Hamburg Combo for 2', 5, 'images/food/Combo03.jpg', 178000, 'Black Angus \"STANBROKE\" Sirloin 150g, Full-Blood WAGYU Hamburg Steak 160g (Japanese Style Grilled Meatball), 15 Kinds of Mixed Green Salad, Today\'s Soup×2, French Fries', NULL, NULL),
+(29, 'Party Set for 4', 5, 'images/food/Combo04.jpg', 439000, 'Black Angus \"STANBROKE\" Rib Eye Steak 200g, Charcoal-Grilled Chicken Thigh 250g, Any of Homemade Sauce, Tender Beef-Cutlet Sandwich, Slow-Low-Roasted Beef Tongue, Homemade Salsiccia×4, 15 Kinds of Mixed Green Salad, Marinated Salmon, French Fries', NULL, NULL),
+(30, 'WAGYU & ANGUS RIB EYE STEAK PLATTER', 5, 'images/food/Combo05.jpg', 1750000, 'WAGYU & ANGUS RIB EYE STEAK 150g', NULL, NULL),
+(31, 'Coca-cola', 7, 'images/food/Drink01.jpg', 29000, '330ml', NULL, NULL),
+(32, 'Dasani', 7, 'images/food/Drink02.jpg', 19000, '330ml', NULL, NULL),
+(33, 'Beer - Saigon Special', 7, 'images/food/Drink03.jpg', 30000, '330ml', NULL, NULL),
+(34, 'Beer - Heineken', 7, 'images/food/Drink04.jpg', 35000, '330ml', NULL, NULL),
+(35, 'Wine - Delafinca Brut Sparkling', 7, 'images/food/Drink05.jpg', 500000, 'From - Spain', NULL, NULL),
+(36, 'Wine - Hemisferio, Sauvignon Blanc', 7, 'images/food/Drink06.jpg', 660000, 'From - Chile', NULL, NULL),
+(37, 'Louis Pinel, Pinot Noir', 7, 'images/food/Drink07.jpg', 580000, 'From - France', NULL, NULL),
+(38, 'Hemisferio, Cabernet Sauvignon', 7, 'images/food/Drink08.jpg', 660000, 'From - Chile', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -185,13 +208,13 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`O_id`, `status`, `U_id`, `note`, `created_at`, `updated_at`) VALUES
-(6, 'Cancelled', 2, 'boom hang', '2022-11-10 05:53:29', '2022-11-11 09:04:03'),
-(7, 'Finished', 1, 'thanh cong', '2021-12-16 15:34:28', '2022-11-11 09:17:20'),
-(8, 'Finished', 3, 'thanh cong', '2022-10-11 15:34:36', '2022-11-11 09:17:29'),
-(10, 'Cancelled', 6, 'thanh cong', '2022-07-18 15:49:13', '2022-11-18 04:50:25'),
-(11, 'Cancelled', 1, 'Dang lam', '2022-11-12 07:45:29', '2022-11-18 04:46:53'),
-(12, 'Finished', 6, 'Done', '2022-07-28 12:52:39', NULL),
-(13, 'Finished', 1, NULL, '2022-11-09 12:54:56', NULL);
+(6, 'Finished', 2, 'boom hang', '2022-11-10 05:53:29', '2022-11-21 04:29:17'),
+(7, 'Finished', 1, 'thanh cong', '2021-12-16 15:34:28', '2022-11-21 04:29:17'),
+(8, 'Finished', 3, 'thanh cong', '2022-10-11 15:34:36', '2022-11-21 04:29:17'),
+(10, 'Finished', 6, 'boom hang', '2022-07-18 15:49:13', '2022-11-21 04:29:17'),
+(11, 'Cancelled', 1, 'boom hang', '2022-11-12 07:45:29', '2022-11-19 01:04:11'),
+(12, 'Finished', 6, 'Done', '2022-07-28 12:52:39', '2022-11-21 04:29:17'),
+(13, 'Finished', 1, NULL, '2022-11-09 12:54:56', '2022-11-18 23:31:08');
 
 -- --------------------------------------------------------
 
@@ -332,8 +355,9 @@ INSERT INTO `users` (`U_id`, `role`, `name`, `email`, `phone`, `avatar`, `addres
 (1, 'admin', 'thanh deptry', 'tranphamduythanh@gmail.com', '1234567123', 'images/user/avatar.png', 'abc street ha', NULL, 'e10adc3949ba59abbe56e057f20f883e', 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, '2022-11-09 09:17:11'),
 (2, 'user', 'develope', 'tranthanhthanh@gmail.com', '1234567890', 'images/user/avatar.png', 'aaa', NULL, 'e10adc3949ba59abbe56e057f20f883e', 'e10adc3949ba59abbe56e057f20f883e', NULL, '2022-11-09 02:03:09', '2022-11-16 08:38:11'),
 (3, 'user', 'hokage', 'tranphamnh@gm.com', '1112223334', 'images/user/avatar.png', 'Tran Dung Hung', NULL, 'd41d8cd98f00b204e9800998ecf8427e', 'd41d8cd98f00b204e9800998ecf8427e', NULL, '2022-11-09 02:30:05', '2022-11-09 09:43:47'),
-(6, 'user', 'develope', 'tranphamnh@gmail.com', '1234567890', 'images/user/avatar.png', NULL, NULL, '70fb874a43097a25234382390c0baeb3', '70fb874a43097a25234382390c0baeb3', NULL, '2022-11-09 09:25:43', '2022-11-09 09:44:39'),
-(8, 'admin', 'Hung', 'hung@gmail.com', '1234567890', 'images/user/avatar.png', 'CMT8', NULL, 'e10adc3949ba59abbe56e057f20f883e', 'e10adc3949ba59abbe56e057f20f883e', NULL, '2022-11-18 04:38:56', '2022-11-18 04:38:56');
+(6, 'user', 'develope', 'tranphamnh@gmail.com', '1234567890', 'images/user/avatar.png', NULL, NULL, '70fb874a43097a25234382390c0baeb3', '70fb874a43097a25234382390c0baeb3', NULL, '2022-11-09 09:25:43', '2022-11-19 01:39:39'),
+(8, 'admin', 'Hung', 'hung@gmail.com', '1234567890', 'images/user/avatar.png', 'CMT8', NULL, 'e10adc3949ba59abbe56e057f20f883e', 'e10adc3949ba59abbe56e057f20f883e', NULL, '2022-11-18 04:38:56', '2022-11-18 04:38:56'),
+(10, 'member', 'shipper', 'shipper@gmail.com', '0987777721', 'images/user/avatar.png', 'Tu biet duong', NULL, 'e10adc3949ba59abbe56e057f20f883e', 'e10adc3949ba59abbe56e057f20f883e', NULL, '2022-11-21 21:28:16', '2022-11-21 21:28:56');
 
 -- --------------------------------------------------------
 
@@ -355,8 +379,8 @@ CREATE TABLE `wishlist` (
 --
 
 INSERT INTO `wishlist` (`WL_id`, `U_id`, `F_id`, `like`, `created_at`, `updated_at`) VALUES
-(10, 1, 11, 0, NULL, NULL),
-(11, 1, 12, 1, NULL, NULL);
+(10, 1, 11, 1, NULL, NULL),
+(12, 1, 15, 1, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -484,7 +508,7 @@ ALTER TABLE `calories`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `Cate_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `Cate_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `comments`
@@ -502,7 +526,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `foods`
 --
 ALTER TABLE `foods`
-  MODIFY `F_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `F_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `food_images`
@@ -550,13 +574,13 @@ ALTER TABLE `rating`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `U_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `U_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `wishlist`
 --
 ALTER TABLE `wishlist`
-  MODIFY `WL_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `WL_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables
