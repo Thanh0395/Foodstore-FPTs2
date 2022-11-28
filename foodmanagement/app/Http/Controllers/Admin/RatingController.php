@@ -57,6 +57,7 @@ class RatingController extends Controller
             ['U_id' => $U_id, 'F_id' => $F_id],
             ['rating' => $rating, 'comment' => $request->input('comment')]
         );
+        $rating->save();
         return redirect()->route('admin.rating.index')->with('success','Thank you for your comment, we will take note of it to become better');
     }
 }

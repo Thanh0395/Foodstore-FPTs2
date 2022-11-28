@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -59,27 +60,22 @@ class ProductController extends Controller
     }
 
     //Wish list
-    public static function like($F_id, $likeColor){
-        if (session()->get('role')) {
+    public function like($F_id, $likeColor){
+        $response='false';
+        if (session()->get('role')){
+            if ($likeColor == 'gray')  $response='red';
+            else $response='gray';
+
             $U_id = session()->get('U_id');
-            $wishlistExist = DB::table('wishlist')->where('F_id', $F_id)->where('U_id',$U_id)->first();
-            $like=0;
-            if ($likeColor == 'gray')   $like = 0;
-            elseif ($likeColor == 'red')  $like = 1;
-            if(!$wishlistExist){
-                DB::table('wishlist')-> insert(
-                    array('U_id'=>$U_id, 'F_id'=>$F_id,  'like'=>1)
-                );
-                // return redirect()->route('admin.food.view',$F_id);
-            } else {
-                $WL_id = $wishlistExist->WL_id;
-                DB::table('wishlist') ->where('WL_id',$WL_id)
-                        -> update(
-                            array('like'=>!$like)
-                        );
-                // return redirect()->route('admin.food.view',$F_id);
-            }
-            return $likeColor;
-        } else return redirect()->route('user.login')->with('failure', 'Login before add this food to wishlist');
+            if ($likeColor == 'gray')   $like = 1;
+            elseif ($likeColor == 'red')  $like = 0;
+            $wishlist = Wishlist::updateOrCreate(
+                    ['U_id' => $U_id, 'F_id' => $F_id],
+                    ['like' => $like]
+            );
+        } else $response='false';
+
+        return $response;
+            
     }
 }
