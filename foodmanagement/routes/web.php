@@ -44,9 +44,10 @@ Route::post('/register', [RegisterController::class, 'store'])->name('user.regis
 
 /*---------------------------------------------------------Nguyen Tan Hung----------------------- */
 
+Route::get('/product/like/{F_id}/{likeColor}', [ProductController::class, 'like'])->middleware('checkLogin')->name('user.like');
 
 Route::get('/admin-login', [LoginController::class, 'login'])                    ->name('admin.login');
-Route::post('/admin-login', [LoginController::class, 'processLogin'])            ->name('admin.processLogin');
+Route::post('/admin-loginprocess', [LoginController::class, 'processLogin'])     ->name('admin.processLogin');
 Route::get('/admin-logout', [LoginController::class, 'logout'])                  ->name('admin.logout');
 
 
@@ -92,7 +93,7 @@ Route::middleware('checkAdmin')->prefix('/admin')->group(function () {
         Route::get('/delete/{O_id}', [OrderController::class, 'destroy'])               ->name('admin.order.delete');
         Route::post('/vnpay-payment', [PaymentController::class, 'vnpayPayment'])        ->name('admin.order.vnpayPayment');
         Route::post('/qrmomo-payment', [PaymentController::class, 'QRmomoPayment'])        ->name('admin.order.QRmomoPayment');
-        Route::get('/thankyou', [PaymentController::class, 'thankyou'])               ->name('admin.order.thankyou');
+        Route::get('/thankyou/{O_id}', [PaymentController::class, 'thankyou'])               ->name('admin.order.thankyou');
     });
     Route::prefix('/rating')->group(function(){
         Route::get('/index', [RatingController::class, 'index'])                ->name('admin.rating.index');

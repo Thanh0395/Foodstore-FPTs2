@@ -37,7 +37,7 @@
 
                         {{-- /Show entries và search cho table --}}
                         <div class="x_content">
-                            <form action="{{ route('admin.order.edit')}}" method="POST">
+                            <form action="{{ route('admin.order.edit') }}" method="POST">
                                 @csrf
                                 <table id="datatable-checkbox" class="table table-striped table-bordered ">
                                     <div class="col-md-3 col-sm-3 col-xs-3">
@@ -53,7 +53,8 @@
                                     <thead>
                                         <tr>
                                             <th><input type="checkbox" onclick="checkAll(this);">
-                                                Order ID</th>
+                                                Check</th>
+                                            <th>Order ID</th>
                                             <th>Customer Name</th>
                                             <th>Customer ID</th>
                                             <th>Order Date</th>
@@ -67,7 +68,8 @@
                                             <tr>
                                                 <td><input type="checkbox" name="checkItem[]" id="{{ $order->O_id }}"
                                                         value="{{ $order->O_id }}">
-                                                    {{ $order->O_id }}</td>
+                                                    </td>
+                                                <td>{{ $order->O_id }}</td>
                                                 <td>{{ $order->name }}</td>
                                                 <td>{{ $order->U_id }}</td>
                                                 <td>{{ $order->created_at }}</td>

@@ -9,7 +9,7 @@
                             <p> How do you feel or what do you want to ask for? Please email us.</p>
                         </div>
                         <form>
-                            <input type="email" placeholder="Enter your e-mail content">
+                            <input type="email" placeholder="Enter your e-mail">
                             <a href="#" class="orange-btn"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></a>
                         </form>
                     </div>

@@ -29,7 +29,7 @@ class LoginUserController extends Controller
             return redirect()->route('user.product.all');
         } else {
             // Sai password
-            return redirect()->route('admin.login')->with('failure', 'The password is incorrect!');
+            return redirect()->route('user.login')->with('failure', 'The password is incorrect!');
         }
     }
 
