@@ -52,7 +52,7 @@
                     <a class="btn-sm-square bg-white rounded-circle ms-3" href="">
                         <small class="fa fa-search text-body"></small>
                     </a>
-                    <a class="btn-sm-square bg-white rounded-circle ms-3" href="{{route('user.cart')}}">
+                    <a class="btn-sm-square bg-white rounded-circle ms-3" href="{{route('user.product.showCart')}}">
                         <small class="fa fa-shopping-bag text-body"></small>
                     </a>
                     <a class="btn-sm-square bg-white rounded-circle ms-3" href=" {{route('user.login')}} ">
