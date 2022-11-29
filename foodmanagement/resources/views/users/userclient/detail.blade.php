@@ -26,13 +26,13 @@
                         </button>
                     </div>
                     <div class="col-lg-8">
-                        <div class="right-side-pro-detail border p-3 m-0">
+                        <div class="border p-3 m-0">
                             <div class="row">
-                                <div class="col-lg-12">
+                                <div class=" right-side-pro-detail col-lg-12">
                                     <span>What do you want to eat?</span>
                                     <p class="m-0 p-0">It's {{ $food->F_name }}</p>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="right-side-pro-detail  col-lg-12">
                                     <p class="m-0 p-0 price-pro">{{ number_format($food->price, 0, ',', '.') }} VND</p>
                                     <hr class="p-0 m-0">
                                 </div>
@@ -42,9 +42,6 @@
                                     <hr class="m-0 pt-2 mt-2">
                                 </div>
                                 {{-- wish list --}}
-                                @php
-                                    use App\Http\Controllers\User\ProductController;
-                                @endphp
                                 <link href="{{ asset('vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
                                 <script src="https://code.jquery.com/jquery-3.6.1.min.js"
                                     integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
@@ -64,36 +61,96 @@
                                         $("#like").click(function() {
                                             var likeColor = document.getElementById("like").style.color;
                                             var F_id = document.getElementById("F_id").value;
-                                            var url = "{{ route('user.like',[':F_id',':likeColor']) }}";
+                                            var url = "{{ route('user.like', [':F_id', ':likeColor']) }}";
                                             url = url.replace(':F_id', F_id);
                                             url = url.replace(':likeColor', likeColor);
                                             $.ajax({
                                                 type: 'GET',
                                                 url: url,
                                                 success: function(response) {
-                                                    if(response == 'red' || response == 'gray')
+                                                    if (response == 'red' || response == 'gray')
                                                         document.getElementById("like").style.color = response;
                                                     else
                                                         alert('Signin before add to wishlist');
                                                 }
                                             })
-                                            // if (likeColor == 'red') {
-                                            //     document.getElementById("like").style.color = 'gray';
-                                            // } else document.getElementById("like").style.color = 'red';
-
                                         });
                                     });
-                                    // function like(element) {
-                                    //     @php
-                                        //         $like = new ProductController();
-                                        //         $like -> like($F_id, $likeColor);
-                                        //
-                                        //
-                                    @endphp
-
-                                    // }
                                 </script>
                                 {{-- /wish list --}}
+
+                                {{-- Rating --}}
+
+                                {{-- script rating --}}
+                                <script src="http://code.jquery.com/jquery-1.11.3.min.js" charset="utf-8"></script>
+                                <script src="{{ asset('build/js/rater.js') }}" charset="utf-8"></script>
+                                {{-- /script rating --}}
+                                <div class="col-lg-12 pt-2">
+                                    <h5>Rate: {{ round($rating->rating, 2) }} has {{ $rating->reviews }} reviews</h5>
+                                    <div id="myRated"
+                                        style="font-size: 36px; color: rgb(214, 226, 43)">
+                                    </div>
+                                        <input type="text" name="inputrating" id="inputrating" hidden
+                                        style=" background-color:white ;  border: none">
+
+                                    {{-- Comment --}}
+                                    <div class="form-group">
+
+                                        <input class="form-control" id="comment" name="comment" placeholder="Your's comment here." required="required"
+                                            type="text">
+                                        <p id="nullcomment" style="color: red; font-style: italic"></p>
+                                    </div>
+                                    {{-- Nút submit --}}
+                                    <div class="form-group">
+                                        <div class="form-label col-md-6 col-sm-6 col-xs-12 col-md-offset-0">
+                                            <button id="rating" class="btn btn-warning" style="color: white">Rating</button>
+                                        </div>
+                                    </div>
+                                    <hr class="m-0 pt-2 mt-2">
+                                </div>
+                                <script>
+                                    var options = {
+                                        max_value: 5,
+                                        step_size: 0.5,
+                                        initial_value: {{ round($rating->rating, 2) }},
+                                        selected_symbol_type: 'utf8_star', // Must be a key from symbols
+                                        //   cursor: 'default',
+                                        //   readonly: false,
+                                        //   change_once: false, // Determines if the rating can only be set once
+                                        //   additional_data: {}, // Additional data to send to the server
+                                        update_input_field_name: $("#inputrating"),
+                                    }
+
+                                    $("#myRated").rate(options);
+                                </script>
+
+                                <script>
+                                    $(document).ready(function() {
+                                        $("#rating").click(function() {
+                                            var rating = document.getElementById("inputrating").value;
+                                            var F_id = document.getElementById("F_id").value;
+                                            var comment = document.getElementById("comment").value;
+                                            if (comment=='') document.getElementById("nullcomment").innerHTML = "Insert your comment";
+                                            else document.getElementById("nullcomment").innerHTML = "";
+                                            var url = "{{ route('user.rating', [':F_id', ':rating',':comment']) }}";
+                                            url = url.replace(':F_id', F_id);
+                                            url = url.replace(':rating', rating);
+                                            url = url.replace(':comment', comment);
+                                            // alert(url);
+                                            $.ajax({
+                                                type: 'GET',
+                                                url: url,
+                                                success: function(rated) {
+                                                    if (rated != 'false')
+                                                        alert('You rated '+rated+' .Thanks for your contribution');
+                                                    else
+                                                        alert('Signin before Rating');
+                                                }
+                                            })
+                                        });
+                                    });
+                                </script>
+                                {{-- /Rating --}}
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="exampleFormControlSelect1">Free Sauce:</label>

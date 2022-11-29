@@ -45,6 +45,7 @@ Route::post('/register', [RegisterController::class, 'store'])->name('user.regis
 /*---------------------------------------------------------Nguyen Tan Hung----------------------- */
 
 Route::get('/product/like/{F_id}/{likeColor}', [ProductController::class, 'like'])->middleware('checkLogin')->name('user.like');
+Route::get('/product/rating/{F_id}/{rating}/{comment}', [ProductController::class, 'rating'])->middleware('checkLogin')->name('user.rating');
 
 Route::get('/admin-login', [LoginController::class, 'login'])                    ->name('admin.login');
 Route::post('/admin-loginprocess', [LoginController::class, 'processLogin'])     ->name('admin.processLogin');
