@@ -32,6 +32,7 @@ use App\Http\Controllers\User\LoginUserController;
 Route::get('/', [HomeController::class, 'index'])->name('user.home');
 Route::get('/product/all', [ProductController::class, 'index'])->name('user.product.all');
 Route::get('/product/cate/{Cate_name}', [ProductController::class, 'categories'])->name('user.product.cate');
+Route::get('Product/add-to-cart/{id}', [ProductController::class, 'addToCart'])->name('user.product.addToCart');
 Route::get('/detail/{id}', [ProductController::class, 'detail'])->name('user.detail');
 Route::get('/register', [RegisterController::class, 'index'])->name('user.register');
 Route::get('/term', [RegisterController::class, 'term'])->name('user.term');

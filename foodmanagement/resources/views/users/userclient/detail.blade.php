@@ -80,30 +80,29 @@
                                 {{-- /wish list --}}
 
                                 {{-- Rating --}}
-
                                 {{-- script rating --}}
                                 <script src="http://code.jquery.com/jquery-1.11.3.min.js" charset="utf-8"></script>
                                 <script src="{{ asset('build/js/rater.js') }}" charset="utf-8"></script>
                                 {{-- /script rating --}}
                                 <div class="col-lg-12 pt-2">
                                     <h5>Rate: {{ round($rating->rating, 2) }} has {{ $rating->reviews }} reviews</h5>
-                                    <div id="myRated"
-                                        style="font-size: 36px; color: rgb(214, 226, 43)">
+                                    <div id="myRated" style="font-size: 36px; color: rgb(214, 226, 43)">
                                     </div>
-                                        <input type="text" name="inputrating" id="inputrating" hidden
+                                    <input type="text" name="inputrating" id="inputrating" hidden
                                         style=" background-color:white ;  border: none">
 
                                     {{-- Comment --}}
                                     <div class="form-group">
 
-                                        <input class="form-control" id="comment" name="comment" placeholder="Your's comment here." required="required"
-                                            type="text">
+                                        <input class="form-control" id="comment" name="comment"
+                                            placeholder="Your's comment here." required="required" type="text">
                                         <p id="nullcomment" style="color: red; font-style: italic"></p>
                                     </div>
                                     {{-- Nút submit --}}
                                     <div class="form-group">
                                         <div class="form-label col-md-6 col-sm-6 col-xs-12 col-md-offset-0">
-                                            <button id="rating" class="btn btn-warning" style="color: white">Rating</button>
+                                            <button id="rating" class="btn btn-warning"
+                                                style="color: white">Rating</button>
                                         </div>
                                     </div>
                                     <hr class="m-0 pt-2 mt-2">
@@ -114,10 +113,6 @@
                                         step_size: 0.5,
                                         initial_value: {{ round($rating->rating, 2) }},
                                         selected_symbol_type: 'utf8_star', // Must be a key from symbols
-                                        //   cursor: 'default',
-                                        //   readonly: false,
-                                        //   change_once: false, // Determines if the rating can only be set once
-                                        //   additional_data: {}, // Additional data to send to the server
                                         update_input_field_name: $("#inputrating"),
                                     }
 
@@ -130,21 +125,21 @@
                                             var rating = document.getElementById("inputrating").value;
                                             var F_id = document.getElementById("F_id").value;
                                             var comment = document.getElementById("comment").value;
-                                            if (comment=='') document.getElementById("nullcomment").innerHTML = "Insert your comment";
+                                            if (comment == '') document.getElementById("nullcomment").innerHTML = "Insert your comment";
                                             else document.getElementById("nullcomment").innerHTML = "";
-                                            var url = "{{ route('user.rating', [':F_id', ':rating',':comment']) }}";
+                                            var url = "{{ route('user.rating', [':F_id', ':rating', ':comment']) }}";
                                             url = url.replace(':F_id', F_id);
                                             url = url.replace(':rating', rating);
                                             url = url.replace(':comment', comment);
-                                            // alert(url);
                                             $.ajax({
                                                 type: 'GET',
                                                 url: url,
                                                 success: function(rated) {
-                                                    if (rated != 'false')
-                                                        alert('You rated '+rated+' .Thanks for your contribution');
-                                                    else
-                                                        alert('Signin before Rating');
+                                                    if (rated == 'false') {
+                                                        alert('Thanks for your contribution. You rate ' + rated + ' star');
+                                                    } else {
+                                                        alert('Sigin before you rate');
+                                                    }
                                                 }
                                             })
                                         });

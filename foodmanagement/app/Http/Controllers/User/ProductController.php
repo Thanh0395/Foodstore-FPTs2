@@ -56,21 +56,20 @@ class ProductController extends Controller
             if (!$wishlist) $likeColor = 'gray';
             elseif ($wishlist->like == 0) $likeColor = 'gray';
             else $likeColor = 'red';
-
-            $rating = DB::table('foods')
+        }
+        $rating = DB::table('foods')
                         -> selectRaw('foods.F_name, AVG(rating) AS rating, count(R_id) AS reviews')
                         -> leftJoin('rating','foods.F_id', '=', 'rating.F_id')
                         -> groupBy('foods.F_name')
                         -> where('foods.F_id','=',$F_id)
                         -> first();
-        }
         return view('users.userclient.detail', compact('food', 'categories', 'F_id','likeColor','rating'));
     }
 
     //Wish list
     public function like($F_id, $likeColor){
         $response='false';
-        if (session()->get('role')){
+        if (session()->get('role') != ''){
             if ($likeColor == 'gray')  $response='red';
             else $response='gray';
 
@@ -82,23 +81,27 @@ class ProductController extends Controller
                     ['like' => $like]
             );
         } else $response='false';
-
         return $response;
     }
 
     //Rating
     public function rating($F_id, $rating, $comment){
-        $rated='false';
-        if (session()->get('role')){
+        $rated ='false';
+        if (session()->get('role') != ''){
             $U_id = session()->get('U_id');
             $ratingTable = Rating::updateOrCreate(
                 ['U_id' => $U_id, 'F_id' => $F_id],
                 ['rating' => $rating, 'comment' => $comment]
             );
             $ratingTable->save();
-            $rated = $rating;
-        } else $rated='false';
-
+            $rated = strval($rating);
+            return $rated;
+        }
         return $rated;
+    }
+
+    //Them san pham vao gio hang
+    public function addToCart($id){
+        dd( 'addToCart: '.$id);
     }
 }
