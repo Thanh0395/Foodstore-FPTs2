@@ -7,6 +7,7 @@ use App\Models\Rating;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Food;
 
 
 class ProductController extends Controller
@@ -102,6 +103,38 @@ class ProductController extends Controller
 
     //Them san pham vao gio hang
     public function addToCart($id){
-        dd( 'addToCart: '.$id);
+        // tat sesion truoc
+        // session()->forget(keys:'cart');
+        session()->flush('cart');
+
+        $foods = Food::find($id);
+        $cart = session()->get(key:'cart');
+        if( isset($cart[$id]) ){
+            $cart[$id]['quantity'] = $cart[$id]['quantity'] + 1;
+        }else{
+            $cart[$id] = [
+                'F_name' => $foods->F_name,
+                'price' =>$foods->price,
+                'quantity' => 1,
+                'image' => $foods->image,
+                'description' => $foods->description,
+            ];
+        }
+        session()->put('cart', $cart);
+        return response()->json([
+            'code' => 200,
+            'message' => 'successfully',
+            'count' => 0
+        ],
+        status:200
+    );
+    }
+        // echo "<pre>";
+        // print_r(session()->get('cart'));
+
+    //Sau khi co san pham se bam vao de qua trang show card de tien hanh checkout
+    public function showCart(){
+        $carts = session()->get('cart');
+        return view('users.userclient.cart', compact('carts'));
     }
 }
