@@ -12,7 +12,7 @@
 
                     </div>
                 </div>
-                <div class="row m-5">
+                <div class="row m-1">
                     <div align=center class="col-lg-4 left-side-product-box pb-3">
                         <img class="img-fluid" src=" {{ asset($food->image) }} " class="border p-3">
                         {{-- <span class="sub-img">
@@ -24,6 +24,38 @@
                             style="background-color:green; border-color: white">
                             <a style="color: white" href="{{ route('user.product.all') }}">Back To Product</a>
                         </button>
+
+                        {{-- Comments --}}
+                        <div class="" style="margin: -5%">
+                            <div class="title" style="padding-top: 10%">
+                                <h5>Comments </h5>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class=" container" style="padding: 0px; font-size: 15px">
+                                @if ($haveCmt == 'no')
+                                    <div class="row"
+                                        style="margin: 8px; padding: 8px; background: #ffeded; border-radius: 6px; ">
+                                        <div>This foods have no comment yet.</div>
+                                    </div>
+                                @else
+                                    @foreach ($comments as $comment)
+                                        <div class="row"
+                                            style="margin: 8px; padding: 2px; background: #ffecec; border-radius: 6px; ">
+                                            <div class="col-lg-6" style="text-align: left;"><b>{{ $comment->name }}</b>
+                                            </div>
+                                            <div class="col-lg-6" style="text-align: right ;">
+                                                <i>{{ date('Y-m-d', strtotime($comment->updated_at)) }}</i>
+                                            </div>
+                                            <div class="col-lg-12" style="text-align: left ; background: #fffafa">
+                                                {{ $comment->comment }}</div>
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
+                            {{ $comments->links() }}
+                        </div>
+                        {{-- /Comments --}}
+
                     </div>
                     <div class="col-lg-8">
                         <div class="border p-3 m-0">
@@ -59,21 +91,22 @@
                                 <script>
                                     $(document).ready(function() {
                                         $("#like").click(function() {
-                                            var likeColor = document.getElementById("like").style.color;
-                                            var F_id = document.getElementById("F_id").value;
-                                            var url = "{{ route('user.like', [':F_id', ':likeColor']) }}";
-                                            url = url.replace(':F_id', F_id);
-                                            url = url.replace(':likeColor', likeColor);
-                                            $.ajax({
-                                                type: 'GET',
-                                                url: url,
-                                                success: function(response) {
-                                                    if (response == 'red' || response == 'gray')
+                                            if ({{ $login }}) {
+                                                var likeColor = document.getElementById("like").style.color;
+                                                var F_id = document.getElementById("F_id").value;
+                                                var url = "{{ route('user.like', [':F_id', ':likeColor']) }}";
+                                                url = url.replace(':F_id', F_id);
+                                                url = url.replace(':likeColor', likeColor);
+                                                $.ajax({
+                                                    type: 'GET',
+                                                    url: url,
+                                                    success: function(response) {
                                                         document.getElementById("like").style.color = response;
-                                                    else
-                                                        alert('Signin before add to wishlist');
-                                                }
-                                            })
+                                                    }
+                                                });
+                                            } else {
+                                                alert('Login before add this food to wishlist');
+                                            }
                                         });
                                     });
                                 </script>
@@ -85,7 +118,12 @@
                                 <script src="{{ asset('build/js/rater.js') }}" charset="utf-8"></script>
                                 {{-- /script rating --}}
                                 <div class="col-lg-12 pt-2">
-                                    <h5>Rate: {{ round($rating->rating, 2) }} has {{ $rating->reviews }} reviews</h5>
+                                    @if ($rating->reviews)
+                                        <h5 style="padding: 0px; margin: 0px">Rated: {{ round($rating->rating, 2) }} star,
+                                            has {{ $rating->reviews }} reviews</h5>
+                                    @else
+                                        <h5 style="padding: 0px; margin: 0px">There is no have review yet</h5>
+                                    @endif
                                     <div id="myRated" style="font-size: 36px; color: rgb(214, 226, 43)">
                                     </div>
                                     <input type="text" name="inputrating" id="inputrating" hidden
@@ -93,7 +131,6 @@
 
                                     {{-- Comment --}}
                                     <div class="form-group">
-
                                         <input class="form-control" id="comment" name="comment"
                                             placeholder="Your's comment here." required="required" type="text">
                                         <p id="nullcomment" style="color: red; font-style: italic"></p>
@@ -115,33 +152,33 @@
                                         selected_symbol_type: 'utf8_star', // Must be a key from symbols
                                         update_input_field_name: $("#inputrating"),
                                     }
-
                                     $("#myRated").rate(options);
                                 </script>
 
                                 <script>
                                     $(document).ready(function() {
                                         $("#rating").click(function() {
-                                            var rating = document.getElementById("inputrating").value;
-                                            var F_id = document.getElementById("F_id").value;
-                                            var comment = document.getElementById("comment").value;
-                                            if (comment == '') document.getElementById("nullcomment").innerHTML = "Insert your comment";
-                                            else document.getElementById("nullcomment").innerHTML = "";
-                                            var url = "{{ route('user.rating', [':F_id', ':rating', ':comment']) }}";
-                                            url = url.replace(':F_id', F_id);
-                                            url = url.replace(':rating', rating);
-                                            url = url.replace(':comment', comment);
-                                            $.ajax({
-                                                type: 'GET',
-                                                url: url,
-                                                success: function(rated) {
-                                                    if (rated == 'false') {
+                                            if ({{ $login }}) {
+                                                var rating = document.getElementById("inputrating").value;
+                                                var F_id = document.getElementById("F_id").value;
+                                                var comment = document.getElementById("comment").value;
+                                                if (comment == '') document.getElementById("nullcomment").innerHTML =
+                                                    "Insert your comment";
+                                                else document.getElementById("nullcomment").innerHTML = "";
+                                                var url = "{{ route('user.rating', [':F_id', ':rating', ':comment']) }}";
+                                                url = url.replace(':F_id', F_id);
+                                                url = url.replace(':rating', rating);
+                                                url = url.replace(':comment', comment);
+                                                $.ajax({
+                                                    type: 'GET',
+                                                    url: url,
+                                                    success: function(rated) {
                                                         alert('Thanks for your contribution. You rate ' + rated + ' star');
-                                                    } else {
-                                                        alert('Sigin before you rate');
                                                     }
-                                                }
-                                            })
+                                                });
+                                            } else {
+                                                alert('Login before rate this food');
+                                            }
                                         });
                                     });
                                 </script>

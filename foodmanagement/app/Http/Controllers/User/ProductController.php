@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Food;
 
+use function PHPUnit\Framework\isNull;
 
 class ProductController extends Controller
 {
@@ -48,6 +49,8 @@ class ProductController extends Controller
         $F_id = $id;
         $likeColor = 'gray';
         $U_id = session()->get('U_id');
+        $login = 'false';
+        if($U_id) $login = 'true';
         if (session()->get('role')) {
             $wishlist = DB::table('wishlist')
                         ->where('U_id','=',$U_id)
@@ -64,7 +67,15 @@ class ProductController extends Controller
                         -> groupBy('foods.F_name')
                         -> where('foods.F_id','=',$F_id)
                         -> first();
-        return view('users.userclient.detail', compact('food', 'categories', 'F_id','likeColor','rating'));
+        $comments = DB::table('foods')
+                    -> select('rating.comment', 'users.name','rating.updated_at')
+                    -> join('rating','foods.F_id','=','rating.F_id')
+                    -> join('users','rating.U_id','=','users.U_id')
+                    -> where('foods.F_id','=', $F_id)
+                    -> paginate(10);
+        $haveCmt = 'yes';
+        if ($comments[0]==null) $haveCmt='no';
+        return view('users.userclient.detail', compact('food', 'categories', 'F_id','likeColor','rating','U_id','login','comments','haveCmt'));
     }
 
     //Wish list
@@ -87,8 +98,6 @@ class ProductController extends Controller
 
     //Rating
     public function rating($F_id, $rating, $comment){
-        $rated ='false';
-        if (session()->get('role') != ''){
             $U_id = session()->get('U_id');
             $ratingTable = Rating::updateOrCreate(
                 ['U_id' => $U_id, 'F_id' => $F_id],
@@ -97,8 +106,6 @@ class ProductController extends Controller
             $ratingTable->save();
             $rated = strval($rating);
             return $rated;
-        }
-        return $rated;
     }
 
     //Them san pham vao gio hang
