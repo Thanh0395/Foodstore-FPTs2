@@ -42,7 +42,8 @@
                         <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                             <div class="product-item">
                                 <div class="position-relative bg-light overflow-hidden">
-                                    <img style="width: 100%; height: 282px" src=" {{ asset($food->image) }} " alt="">
+                                    <img style="width: 100%; height: 282px" src=" {{ asset($food->image) }} "
+                                        alt="">
                                     <div
                                         class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">
                                         New
@@ -52,9 +53,9 @@
                                     <a class="d-block h5 mb-2">{{ $food->F_name }}</a>
                                 </div>
                                 <div class="text-center">
-                                    <span class="text-primary me-1" >
+                                    <span class="text-primary me-1">
                                         {{ number_format($food->price * 0.9, 0, ',', '.') }} VND</span>
-                                    <span class="text-body text-decoration-line-through" >
+                                    <span class="text-body text-decoration-line-through">
                                         {{ number_format($food->price, 0, ',', '.') }} VND</span>
                                 </div>
                                 <div class="d-flex border-top">
@@ -63,7 +64,7 @@
                                                 class="fa fa-eye text-primary me-2"></i>View detail</a>
                                     </small>
                                     <small class="w-50 text-center py-2">
-                                        <a class="text-body" href=""><i
+                                        <a class="text-body add_to_cart" href="" data-url="{{route('user.product.addToCart', ['id'=> $food->F_id])}}"><i
                                                 class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</a>
                                     </small>
                                 </div>

@@ -76,6 +76,11 @@ class ProductController extends Controller
         } else $response='false';
 
         return $response;
-            
+
+    }
+
+    //Them san pham vao gio hang
+    public function addToCart($id){
+        dd( 'addToCart: '.$id);
     }
 }

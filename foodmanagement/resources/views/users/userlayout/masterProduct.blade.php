@@ -44,8 +44,9 @@
     @include('users.block.product.footer')
     {{-- @include('clients.blocksView.footer') --}}
     <!-- JavaScript Libraries -->
-    <script src="{{asset('https://code.jquery.com/jquery-3.4.1.min.js')}}"></script>
+    <script src="{{asset('https://code.jquery.com/jquery-3.6.1.min.js')}}"></script>
     <script src="{{asset('https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js')}}"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.6.1.slim.js"></script> --}}
     <script src="{{asset('assets/clients/order/lib/wow/wow.min.js')}}"></script>
     <script src="{{asset('assets/clients/order/lib/easing/easing.min.js')}}"></script>
     <script src="{{asset('assets/clients/order/lib/waypoints/waypoints.min.js')}}"></script>
@@ -53,6 +54,7 @@
 
     <!-- Template Javascript -->
     <script src="{{asset('assets/clients/order/js/main.js')}}"></script>
+    @yield('jsCart')
     @stack('script')
 </body>
 </html>

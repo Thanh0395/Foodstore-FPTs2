@@ -1,0 +1,6 @@
+$product = Product::latest()->get(); Lay san pham moi nhat
+php artisan make:migration add_coumn
+
+
+
+
