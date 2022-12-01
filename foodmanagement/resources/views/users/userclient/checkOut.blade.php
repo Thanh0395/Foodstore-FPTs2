@@ -32,7 +32,7 @@
                                     <h5 class="mb-3"><a href="{{route('user.product.all')}}" class="text-body"><i
                                                 class="fas fa-long-arrow-alt-left me-2"></i>Continue shopping</a></h5>
                                     <hr>
-                                    @foreach ($carts as $cart)
+
 
                                     <div class="d-flex justify-content-between align-items-center mb-4">
                                         <div>
@@ -45,7 +45,7 @@
                                             </p>
                                         </div>
                                     </div>
-
+                                    @foreach ($carts as $cart)
                                     <div class="card mb-3">
                                         <div class="card-body">
                                             <div class="d-flex justify-content-between">
@@ -55,28 +55,23 @@
                                                             class="img-fluid rounded-3" alt="Shopping item"
                                                             style="width: 30px;">
                                                     </div>
-                                                    <div class="ms-3">
+                                                    <div class="ms-4">
                                                         <h5>{{$cart['F_name']}}</h5>
-                                                        <p class="small mb-0">{{$cart['description']}}</p>
+                                                        <p class="small mb-0">Sauce : Demi</p>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex flex-row align-items-center">
-                                                    <div>
-                                                        <input style="width: 40px;" type="number" value="{{$cart['quantity']}}" min="1">
-                                                        {{-- <h5 class="fw-normal mb-0">{{$cart['quantity']}}</h5> --}}
+                                                    <div style="width: 30px;">
+                                                        {{-- <input style="width: 40px;" type="text" value="{{$cart['quantity']}}"> --}}
+                                                        <h5 class="fw-normal mb-2">{{$cart['quantity']}}</h5>
                                                     </div>
-                                                    <div style="width: 80px;">
-                                                        <h5 class="mb-0">{{ number_format($cart['price'] * 0.9, 0, ',', '.') }} VND</h5>
+                                                    <div style="width: 150px;">
+                                                        <h5 class="mb-0">{{ number_format($cart['price'] * $cart['quantity'] ) }} VND</h5>
                                                     </div>
                                                     <a href="#!" style="color: #cecece;"><i
                                                             class="fas fa-trash-alt"></i></a>
                                                 </div>
-                                                <div class="d-flex flex-row align-items-center">
-                                                    <button type="button" class="close" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                      </button>
-                                                    <button>Save</button>
-                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
