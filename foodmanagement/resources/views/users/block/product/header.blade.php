@@ -10,7 +10,7 @@
     <div class="container-fluid fixed-top px-0 wow fadeIn" data-wow-delay="0.1s">
         <div class="top-bar row gx-0 align-items-center d-none d-lg-flex" style="padding-right: 20px">
             <div class="col-lg-6 px-5 text-start">
-                <small><i class="fa fa-map-marker-alt me-2"></i>580 CMT8, Ward 3, District 3, TP.HCM</small>
+                <small><i class="fa fa-location-arrow me-2"></i>580 CMT8, Ward 3, District 3, TP.HCM</small>
                 <small class="ms-4"><i class="fa fa-envelope me-2"></i>Group1@gmail.com</small>
             </div>
             <div class="col-lg-6 px-8 text-end" >
@@ -34,6 +34,11 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarCollapse">
+                @if ( session()->get('name') != '')
+                    <div style="font-size: 12pt; background-color: whitesmoke;border-radius: 20px ; padding: 5px 10px">Hello,
+                        <a href=""> {{session()->get('name')}}</a>
+                    </div>
+                @endif
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
                     <a href="{{route('user.home')}}" class="nav-item nav-link">HOME</a>
                     <a href="{{route('user.home')}}" class="nav-item nav-link">ABOUT US</a>
