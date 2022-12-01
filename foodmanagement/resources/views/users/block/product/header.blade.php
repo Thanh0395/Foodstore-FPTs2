@@ -36,7 +36,7 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 @if ( session()->get('name') != '')
                     <div style="font-size: 12pt; background-color: whitesmoke;border-radius: 20px ; padding: 5px 10px">Hello,
-                        <a href=""> {{session()->get('name')}}</a>
+                        <a href="{{route('user.profile')}}"> {{session()->get('name')}}</a>
                     </div>
                 @endif
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
