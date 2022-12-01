@@ -394,3 +394,15 @@
 .footer .copyright a:hover {
     color: var(--primary);
 }
+.detail {
+    margin: auto; box-shadow: 5px 5px 10px 5px lightblue;
+}
+.detail .price-pro {
+    font-size: 2rem;
+    font-weight: bold;
+    color: red;
+}
+.detail .name-pro {
+    font-size: 1.5rem;
+    font-weight: bold;
+}

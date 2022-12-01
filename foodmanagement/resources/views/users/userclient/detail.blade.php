@@ -1,17 +1,15 @@
-@extends('users.userlayout.masterDetail')
-@section('contentdetail')
+@extends('users.userlayout.masterProduct')
+@section('content')
     <div class="container">
         <div class="row">
-            <div class="col-lg-10 border p-3 main-section bg-white">
-                <div class="row hedding m-0 pl-3 pt-0 pb-3">
+            <div style="" class="detail col-lg-10 border p-3 main-section bg-white">
+                {{-- <div class="row hedding m-0 pl-3 pt-0 pb-3">
                     <div style="background-color: white; padding: 1rem">
                         <button type="button" class="btn btn-primary" style="background-color:orange; border-color: white">
                             <a style="color: white" href="{{ route('user.home') }}">Back To Home</a>
                         </button>
-
-
                     </div>
-                </div>
+                </div> --}}
                 <div class="row m-1">
                     <div align=center class="col-lg-4 left-side-product-box pb-3">
                         <img class="img-fluid" src=" {{ asset($food->image) }} " class="border p-3">
@@ -26,8 +24,8 @@
                         </button>
 
                         {{-- Comments --}}
-                        <div class="" style="margin: -5%">
-                            <div class="title" style="padding-top: 10%">
+                        <div class="" style="">
+                            <div class="title" style="padding-top: 2%">
                                 <h5>Comments </h5>
                                 <div class="clearfix"></div>
                             </div>
@@ -62,16 +60,16 @@
                             <div class="row">
                                 <div class=" right-side-pro-detail col-lg-12">
                                     <span>What do you want to eat?</span>
-                                    <p class="m-0 p-0">It's {{ $food->F_name }}</p>
+                                    <p class="m-0 p-0 name-pro">It's {{ $food->F_name }}</p>
                                 </div>
                                 <div class="right-side-pro-detail  col-lg-12">
                                     <p class="m-0 p-0 price-pro">{{ number_format($food->price, 0, ',', '.') }} VND</p>
                                     <hr class="p-0 m-0">
                                 </div>
                                 <div class="col-lg-12 pt-2">
-                                    <h5>Product Detail:</h5>
+                                    <h6>Product Detail:</h6>
                                     <span>{{ $food->description }}</span>
-                                    <hr class="m-0 pt-2 mt-2">
+                                    <hr class="p-0 m-0">
                                 </div>
                                 {{-- wish list --}}
                                 <link href="{{ asset('vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
@@ -86,7 +84,7 @@
                                         <input type="number" id="F_id" name="F_id" value="{{ $food->F_id }}"
                                             hidden>
                                     </h5>
-                                    <hr class="m-0 pt-2 mt-2">
+                                    <hr class="p-0 m-0">
                                 </div>
                                 <script>
                                     $(document).ready(function() {
@@ -129,10 +127,10 @@
                                     <input type="text" name="inputrating" id="inputrating" hidden
                                         style=" background-color:white ;  border: none">
 
-                                    {{-- Comment --}}
+                                    {{-- Comment rate --}}
                                     <div class="form-group">
                                         <input class="form-control" id="comment" name="comment"
-                                            placeholder="Your's comment here." required="required" type="text">
+                                            placeholder="Your comment here." required="required" type="text">
                                         <p id="nullcomment" style="color: red; font-style: italic"></p>
                                     </div>
                                     {{-- Nút submit --}}
@@ -142,13 +140,13 @@
                                                 style="color: white">Rating</button>
                                         </div>
                                     </div>
-                                    <hr class="m-0 pt-2 mt-2">
+                                    <hr class="p-0 m-0">
                                 </div>
                                 <script>
                                     var options = {
                                         max_value: 5,
                                         step_size: 0.5,
-                                        initial_value: {{ round($rating->rating, 2) }},
+                                        initial_value: 5,
                                         selected_symbol_type: 'utf8_star', // Must be a key from symbols
                                         update_input_field_name: $("#inputrating"),
                                     }
@@ -183,18 +181,21 @@
                                     });
                                 </script>
                                 {{-- /Rating --}}
-                                <div class="col-lg-6">
+
+                                <div class="col-lg-12 pt-2">
+                                    <h6 style="padding: 8px; margin: 0px">Free Sauce:</h6>
                                     <div class="form-group">
-                                        <label for="exampleFormControlSelect1">Free Sauce:</label>
-                                        <select class="form-control" id="exampleFormControlSelect1">
+                                        <select class="form-control  " id="exampleFormControlSelect1">
                                             <option>Demi sauce</option>
                                             <option>Japone sauce</option>
                                             <option>Any of sauce</option>
                                         </select>
                                     </div>
+                                    <br>
+                                    <hr class="p-0 m-0">
                                 </div>
                                 <div class="col-lg-12">
-                                    <h6>Quantity :</h6>
+                                    <h6 style="padding: 8px; margin: 0px">Quantity :</h6>
                                     <input type="number" class="form-control text-center w-100" value="1">
                                 </div>
                                 <div class="col-lg-12 mt-3">
@@ -239,12 +240,6 @@
                     </div>
 
                 </div> --}}
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-lg-12">
-
             </div>
         </div>
     </div>
