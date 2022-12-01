@@ -35,6 +35,9 @@ Route::get('/product/all', [ProductController::class, 'index'])->name('user.prod
 Route::get('/product/cate/{Cate_name}', [ProductController::class, 'categories'])->name('user.product.cate');
 Route::get('Product/add-to-cart/{id}', [ProductController::class, 'addToCart'])->name('user.product.addToCart');
 Route::get('Product/show-cart', [ProductController::class, 'showCart'])->name('user.product.showCart');
+Route::get('Product/update-cart', [ProductController::class, 'updateCart'])->name('user.product.updateCart');
+Route::get('Product/check-out', [ProductController::class, 'checkOut'])->name('user.product.checkOut');
+
 Route::get('/detail/{id}', [ProductController::class, 'detail'])->name('user.detail');
 Route::get('/register', [RegisterController::class, 'index'])->name('user.register');
 Route::get('/term', [RegisterController::class, 'term'])->name('user.term');
@@ -43,6 +46,7 @@ Route::get('/user-login', [LoginUserController::class, 'index'])->name('user.log
 Route::get('/user-logout', [LoginUserController::class, 'logoutUser'])->name('user.logout');
 Route::post('/user-login', [LoginUserController::class, 'processLoginUser'])->name('user.login.process');
 Route::post('/register', [RegisterController::class, 'store'])->name('user.register.process');
+
 
 
 /*---------------------------------------------------------Nguyen Tan Hung----------------------- */

@@ -112,7 +112,7 @@ class ProductController extends Controller
     public function addToCart($id){
         // tat sesion truoc
         // session()->forget(keys:'cart');
-        session()->flush('cart');
+        // session()->flush('cart');
 
         $foods = Food::find($id);
         $cart = session()->get(key:'cart');
@@ -142,6 +142,16 @@ class ProductController extends Controller
     //Sau khi co san pham se bam vao de qua trang show card de tien hanh checkout
     public function showCart(){
         $carts = session()->get('cart');
-        return view('users.userclient.cart', compact('carts'));
+        return view('users.userclient.list-cart', compact('carts'));
+    }
+
+    public function checkOut(){
+        $carts = session()->get('cart');
+        return view('users.userclient.checkOut', compact('carts'));
+    }
+
+    public function updateCart() {
+        $carts = session()->get('cart');
+        return view('users.userclient.checkOut', compact('carts'));
     }
 }
