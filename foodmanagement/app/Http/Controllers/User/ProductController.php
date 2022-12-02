@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Food;
 
+use function GuzzleHttp\Promise\all;
 use function PHPUnit\Framework\isNull;
 
 class ProductController extends Controller
@@ -113,7 +114,6 @@ class ProductController extends Controller
         // tat sesion truoc
         // session()->forget(keys:'cart');
         // session()->flush('cart');
-
         $foods = Food::find($id);
         $cart = session()->get(key:'cart');
         if( isset($cart[$id]) ){
@@ -124,13 +124,13 @@ class ProductController extends Controller
                 'price' =>$foods->price,
                 'quantity' => 1,
                 'image' => $foods->image,
-                'description' => $foods->description,
+                'description' => $foods->description
             ];
         }
         session()->put('cart', $cart);
         return response()->json([
             'code' => 200,
-            'message' => 'successfully',
+            'message' => 'success',
             'count' => 0
         ],
         status:200
@@ -150,8 +150,19 @@ class ProductController extends Controller
         return view('users.userclient.checkOut', compact('carts'));
     }
 
-    public function updateCart() {
-        $carts = session()->get('cart');
-        return view('users.userclient.checkOut', compact('carts'));
+    public function updateCart(Request $request) {
+        // print_r($request->all());
+        if($request->id && $request->quantity){
+            $carts = session()->get('cart');
+            $carts[$request->id]['quantity'] = $request->quantity;
+            session()->put('cart', $carts);
+            $carts = session()->get('cart');
+            $cart_component = view('users.userclient.list-cart', compact('carts'))->render();
+            return response()->json(['cart_component' => $cart_component, 'code' => 200 ], status:200);
+            // return redirect()->route('users.userclient.list-cart')->with('carts');
+            // return view('users.userclient.list-cart', compact('carts'));
+        }
+        // $carts = session()->get('cart');
+        // return view('users.userclient.checkOut', compact('carts'));
     }
 }
