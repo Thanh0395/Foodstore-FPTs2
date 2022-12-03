@@ -53,13 +53,18 @@
                     </div>
                     <a href="{{route('user.home')}}" class="nav-item nav-link">CONTACT</a>
                 </div>
+                @php
+                    $percent = 0;
+                @endphp
                 <div class="d-none d-lg-flex ms-2">
                     <a class="btn-sm-square bg-white rounded-circle ms-3" href="">
                         <small class="fa fa-search text-body"></small>
                     </a>
-                    <a class="btn-sm-square bg-white rounded-circle ms-3" href="{{route('user.product.showCart')}}">
+                    <a style="position: relative;" class="btn-sm-square bg-white rounded-circle ms-3" href="{{route('user.product.showCart')}}">
                         <small class="fa fa-shopping-bag text-body"></small>
+                        <small class="" style="position: absolute; top:-3px; right: 2px; z-index: 1; color: red"><strong>2</strong></small>
                     </a>
+
                     <a class="btn-sm-square bg-white rounded-circle ms-3" href=" {{route('user.login')}} ">
                         <small class="fa fa-user text-body"></small>
                     </a>
