@@ -12,7 +12,7 @@
             </div>
             <div class="col-lg-6 text-start text-lg-end wow slideInRight" data-wow-delay="0.1s">
                 <ul class="nav nav-pills d-inline-flex justify-content-end mb-5">
-                    <li class="nav-item me-2">
+                    <li class="nav-item me-2"  style="margin: 5px">
                         <a class="btn btn-outline-primary border-2 <?php
                         if ($Cate_name == 'all') {
                             echo 'active';
@@ -21,7 +21,7 @@
                             href="{{ route('user.product.all') }}">All</a>
                     </li>
                     @foreach ($categories as $category)
-                        <li class="nav-item me-2">
+                        <li class="nav-item me-2" style="margin: 5px">
                             <a class="btn btn-outline-primary border-2 <?php
                             if ($category->Cate_name == $Cate_name) {
                                 echo 'active';

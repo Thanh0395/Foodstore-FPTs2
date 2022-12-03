@@ -9,8 +9,10 @@
     <!-- Navbar Start -->
     <div class="container-fluid fixed-top px-0 wow fadeIn" data-wow-delay="0.1s">
         <div class="top-bar row gx-0 align-items-center d-none d-lg-flex" style="padding-right: 20px">
-            <div class="col-lg-6 px-5 text-start">
+            <div class="col-lg-3 px-5 text-start">
                 <small><i class="fa fa-location-arrow me-2"></i>580 CMT8, Ward 3, District 3, TP.HCM</small>
+            </div>
+            <div class="col-lg-3 px-5 text-start">
                 <small class="ms-4"><i class="fa fa-envelope me-2"></i>Group1@gmail.com</small>
             </div>
             <div class="col-lg-6 px-8 text-end" >

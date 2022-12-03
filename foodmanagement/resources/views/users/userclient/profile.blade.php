@@ -8,6 +8,15 @@
 
                     <div class="col-lg-12">
                         <div class="border p-3 m-0">
+                            @if (session('success'))
+                            <div class="alert alert-success alert-dismissible">
+                                {{session('success')}}
+                            </div>
+                            @elseif (session('failure'))
+                            <div class="alert alert-danger alert-dismissible">
+                                {{session('failure')}}
+                            </div>
+                            @endif
                             <div class="row">
                                 <img class="" style="width: 200px" src="{{ asset($user->avatar) }}" alt="">
                                 <div class="col-lg-8">
@@ -36,7 +45,7 @@
                                     <div class="offset-4">
                                         <a href="{{ route('user.product.all') }}" class="btn btn-primary">Back to Food
                                             page</a>
-                                        <a href="{{ route('user.product.all') }}" class="btn btn-danger offset-1">Update your
+                                        <a href="{{ route('user.editprofile', $user->U_id) }}" class="btn btn-danger offset-1">Update your
                                             profile</a>
                                     </div>
                                 </div>
@@ -81,8 +90,6 @@
                                     </tbody>
                                 </table>
                                 {{-- /wish list --}}
-
-
 
                             </div>
                         </div>

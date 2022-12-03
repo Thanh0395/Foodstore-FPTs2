@@ -54,7 +54,7 @@
                 @include('adminlayout.header')
                 @include('adminlayout.sidebar')
                 @yield('content')
-                @yield('script')
+                {{-- @yield('script') --}}
                 @include('adminlayout.footer')
                 <!-- /page content -->
             </div>

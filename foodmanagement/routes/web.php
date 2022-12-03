@@ -56,7 +56,8 @@ Route::get('/product/like/{F_id}/{likeColor}', [ProductController::class, 'like'
 Route::get('/product/rating/{F_id}/{rating}/{comment}', [ProductController::class, 'rating'])->middleware('checkLogin')->name('user.rating');
 Route::middleware('checkLogin')->prefix('/user/profile')->group(function () {
     Route::get('/', [ProfileController::class, 'profile'])                                      ->name('user.profile');
-    Route::get('/edit/{WL_id}', [ProfileController::class, 'editprofile'])                      ->name('user.editprofile');
+    Route::get('/edit/{U_id}', [ProfileController::class, 'edit'])                      ->name('user.editprofile');
+    Route::post('/update/{Cate_id}', [ProfileController::class, 'update'])               ->name('user.updateprofile');
     Route::get('/removewishlist/{WL_id}', [ProfileController::class, 'removewishlist'])       ->name('user.removewishlist');
 });
 

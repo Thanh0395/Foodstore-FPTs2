@@ -22,7 +22,7 @@ class PaymentController extends Controller
         $vnp_OrderType = 'billpayment';
         $vnp_Amount = $_POST['total'] * 100;
         $vnp_Locale = 'en';
-        $vnp_BankCode = 'NCB';
+        $vnp_BankCode = '';
         $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
         //Add Params of 2.0.1 Version
         // $vnp_ExpireDate = $_POST['txtexpire'];

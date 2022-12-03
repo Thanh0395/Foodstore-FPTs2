@@ -31,80 +31,95 @@ class ProfileController extends Controller
         return redirect()->route('user.profile')->with('success', 'Remove successfully');
     }
 
-    public function store(Request $request)
-    {
-        $userExist = User::where('email', $request->input('email'))->first();
-        // kiem tra email co trùng ko?
-        if(!$userExist){
-            //ko trung email
-            $user = new User($request->all());
-            $user->name = htmlspecialchars($request->input('name')) ;
-            //ma hoa md5
-            $password = $request->input('password');
-            $password = md5($password);
-            $confirm_password = $request->input('confirm_password');
-            $confirm_password = md5($confirm_password);
-            $user->password = $password;
-            $user->confirm_password = $confirm_password;
-            $user->save();
-            return redirect()->route('admin.user.index')->with('success','Add a new user successfully!');
-        } else {
-            return redirect()->route('admin.user.index')->with('failure','Can not create a same email of an already existing user!');
-        }
-    }
-
-    public function show($U_id){
-        $user = User::find($U_id);
-        return view('admin.user.view', compact('user'));
-    }
-
     public function edit($U_id)
     {
         $user = User::find($U_id);
-        return view('admin.user.update', compact('user'));
+        return view('users.userclient.edit', compact('user'));
     }
 
     public function update(Request $request, $U_id)
     {
         //Tao Insert trong DB bang foods
-        $userExist = User::where([['email','=' ,$request->input('email')], ['U_id','<>',$U_id]]) ->first();
+        $emailExist = User::where([['email','=' ,$request->input('email')], ['U_id','<>',$U_id]]) ->first();
+        $image = $request->input('avtName'); //Tao 1 input hidden de chua ten của image
         //Kiem tra co trung voi email cua user khac ko?
-        if(!$userExist){
+        if(!$emailExist){
+            //xử lí avatar
+            if ($request->hasFile('avatar')) {
+                $imgfile = $request->file('avatar');
+                $extension = $imgfile->getClientOriginalExtension(); //Lay duoi file
+                if ( $extension != 'jpg' && $extension != 'png' && $extension != 'jpeg') {
+                    return redirect()->route('admin.food.index')->with('failure', 'You can only choose .jpg, .png, .jpeg file');
+                }
+                //Neu co anh moi thi doi cot 'image' va chuyen imgfile vao thu muc ("images/food", $image)
+                $image = $imgfile->getClientOriginalName();
+                $imgfile->move("images/user", $image);
+                $image = "images/user/".$image;
+            } //Neu ko co anh thì giu nguyen cột 'image' va update
+
             $user = User::find($U_id);
             $user->name = htmlspecialchars($request->input('name')) ;
-            $user->role = $request->input('role');
             $user->email = $request->input('email');
             $user->phone = $request->input('phone');
             $user->address = $request->input('address');
-            //Lay 2 bien password ra
-            $password = $request->input('password');
+            $user->avatar = $image;
+            //Nếu ko đổi pass
+            $newpassword = $request->input('newpassword');
             $confirm_password = $request->input('confirm_password');
-            if($password==null && $confirm_password==null){
+            if($newpassword == null && $confirm_password==null){
                 $user->save();
-                return redirect()->route('admin.user.index')->with('success','Update a user successfully! No change password');
-            } elseif ($password == $confirm_password) {
+                return redirect()->route('user.profile')->with('success','Update a user successfully! No change password');
+            } elseif ($newpassword == $confirm_password) {
+                $password = $request->input('password');
                 $password = md5($password);
-                $confirm_password = md5($confirm_password);
-                $user->password = $password;
-                $user->confirm_password = $confirm_password;
-                $user->save();
-                return redirect()->route('admin.user.index')->with('success','Update a user and change password successfully!');
+                //Nếu đổi pass thì kiểm tra pass cũ
+                if ($user->password == $password) {
+                    $password = md5($newpassword);
+                    $confirm_password = md5($confirm_password);
+                    $user->password = $password;
+                    $user->confirm_password = $confirm_password;
+                    $user->save();
+                    return redirect()->route('user.profile')->with('success','Update a user and change password successfully!');
+                } else {
+                    return redirect()->route('user.profile')->with('failure','Can not update, wrong password');
+                }
             } else {
-                return redirect()->route('admin.user.index')->with('failure','Can not update, wrong confirm password');
+                return redirect()->route('user.profile')->with('failure','Can not update, wrong confirm password');
             }
         } else {
-            return redirect()->route('admin.user.index')->with('failure','Can not update, user email is already exist!');
+            return redirect()->route('user.profile')->with('failure','Can not update, user email is already exist!');
         }
     }
 
-    public function destroy($U_id)
-    {
-        $UserIsOrder = Order::where('U_id',$U_id)->first();
-        if ($UserIsOrder) {
-            return redirect()->route('admin.user.index')->with('failure', 'Can not delete the user who already have an order / cancelled order');
-        } else {
-            User::where('U_id', $U_id)->delete();
-            return redirect()->route('admin.user.index')->with('success', 'The user have been deleted');
-        }
-    }
+//Tao Insert trong DB bang foods
+// $F_name = $request->input('F_name');
+// $Cate_id = $request->input('Cate_id');
+// $image = $request->input('imgName'); //Tao 1 input hidden de chua ten của image
+// $price = $request->input('price');
+// $description = $request->input('description');
+// //Kiem tra co trung F_name ko?
+// $foodExist = DB::table('foods')->where('F_name', $F_name)
+//                             ->whereNot('F_id', $F_id) ->first();
+// if(!$foodExist){
+//     //Xu lý neu có ảnh
+//     if ($request->hasFile('image')) {
+//         $imgfile = $request->file('image');
+//         $extension = $imgfile->getClientOriginalExtension(); //Lay duoi file
+//         if ( $extension != 'jpg' && $extension != 'png' && $extension != 'jpeg') {
+//             return redirect()->route('admin.food.index')->with('failure', 'You can only choose .jpg, .png, .jpeg file');
+//         }
+//         //Neu co anh moi thi doi cot 'image' va chuyen imgfile vao thu muc ("images/food", $image)
+//         $image = $imgfile->getClientOriginalName();
+//         $imgfile->move("images/food", $image);
+//         $image = "images/food/".$image;
+//     } //Neu ko co anh thì giu nguyen cột 'image' va update
+// // Update du lieu vao bang foods
+//     DB::table('foods') ->where('F_id',$F_id)
+//             -> update(
+//                 array('F_name'=> htmlspecialchars($F_name) , 'Cate_id'=>$Cate_id, 'image'=>$image, 'price'=>$price, 'description'=>$description)
+//             );
+//     return redirect()->route('admin.food.index')->with('success','Update a food successfully!');
+// } else {
+//     return redirect()->route('admin.food.index')->with('failure','Can not update, food name is already exist!');
 }
+

@@ -86,7 +86,7 @@
                                         <input type="submit" name="momo" class="btn btn-success" value="Payment QR Momo">
                                     </div>
                             </form>
-                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group col-md-2 col-sm-3 col-xs-4">
                                 <a href="{{ route('admin.order.index') }}" class="btn btn-primary">Back to list</a>
                             </div>
                         </div>
