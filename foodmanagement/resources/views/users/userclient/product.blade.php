@@ -25,6 +25,7 @@
                    if(data.code === 200){
                        data.count +=1;
                     alert('Add to cart successfully!');
+                    
                    }
 
                 }

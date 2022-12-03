@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2022 at 06:23 AM
--- Server version: 10.4.25-MariaDB
--- PHP Version: 8.1.10
+-- Generation Time: Dec 03, 2022 at 11:02 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -155,6 +155,28 @@ CREATE TABLE `food_images` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hotdeal`
+--
+
+CREATE TABLE `hotdeal` (
+  `deal_id` int(11) NOT NULL,
+  `voucher_code` varchar(50) NOT NULL,
+  `percent` int(11) NOT NULL,
+  `start_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `end_date` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `hotdeal`
+--
+
+INSERT INTO `hotdeal` (`deal_id`, `voucher_code`, `percent`, `start_date`, `end_date`) VALUES
+(1, 'hotdeal_10', 10, '2022-12-02 13:51:14', '2022-12-31 15:00:00'),
+(2, 'exp_deal', 15, '2022-11-01 13:00:00', '2022-11-30 13:52:13');
 
 -- --------------------------------------------------------
 
@@ -328,6 +350,37 @@ INSERT INTO `rating` (`R_id`, `U_id`, `F_id`, `rating`, `comment`, `created_at`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `sa`
+--
+
+CREATE TABLE `sa` (
+  `Sauce_name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sauce`
+--
+
+CREATE TABLE `sauce` (
+  `Sauce_id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `sauce`
+--
+
+INSERT INTO `sauce` (`Sauce_id`, `name`) VALUES
+(1, 'Demi'),
+(2, 'Red Wine'),
+(3, 'BBQ'),
+(4, 'Oyster');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -430,6 +483,12 @@ ALTER TABLE `food_images`
   ADD KEY `food_images_f_name_foreign` (`F_name`);
 
 --
+-- Indexes for table `hotdeal`
+--
+ALTER TABLE `hotdeal`
+  ADD PRIMARY KEY (`deal_id`);
+
+--
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -478,6 +537,12 @@ ALTER TABLE `rating`
   ADD PRIMARY KEY (`R_id`),
   ADD KEY `rating_u_id_foreign` (`U_id`),
   ADD KEY `rating_f_id_foreign` (`F_id`);
+
+--
+-- Indexes for table `sauce`
+--
+ALTER TABLE `sauce`
+  ADD PRIMARY KEY (`Sauce_id`);
 
 --
 -- Indexes for table `users`
@@ -535,6 +600,12 @@ ALTER TABLE `food_images`
   MODIFY `FoodImage_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `hotdeal`
+--
+ALTER TABLE `hotdeal`
+  MODIFY `deal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -569,6 +640,12 @@ ALTER TABLE `posts`
 --
 ALTER TABLE `rating`
   MODIFY `R_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `sauce`
+--
+ALTER TABLE `sauce`
+  MODIFY `Sauce_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Rating;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use App\Models\Food;
 
@@ -125,7 +126,8 @@ class ProductController extends Controller
                 'price' =>$foods->price,
                 'quantity' => 1,
                 'image' => $foods->image,
-                'description' => $foods->description
+                'description' => $foods->description,
+                'Sauces' => 'Demi'
             ];
         }
         session()->put('cart', $cart);
@@ -143,7 +145,8 @@ class ProductController extends Controller
     //Sau khi co san pham se bam vao de qua trang show card de tien hanh checkout
     public function showCart(){
         $carts = session()->get('cart');
-        return view('users.userclient.list-cart', compact('carts'));
+        $percent = 0;
+        return view('users.userclient.list-cart', compact('carts', 'percent'));
     }
 
     public function checkOut(){
@@ -152,18 +155,35 @@ class ProductController extends Controller
     }
 
     public function updateCart(Request $request) {
-        // print_r($request->all());
+        // dd($request->all());
         if($request->id && $request->quantity){
             $carts = session()->get('cart');
             $carts[$request->id]['quantity'] = $request->quantity;
+            $carts[$request->id]['Sauces'] = $request->Sauce;
             session()->put('cart', $carts);
             $carts = session()->get('cart');
-            $cart_component = view('users.userclient.list-cart', compact('carts'))->render();
+            $percent = 0;
+            $cart_component = view('users.userclient.list-cart', compact('carts', 'percent'))->render();
             return response()->json(['cart_component' => $cart_component, 'code' => 200 ], status:200);
             // return redirect()->route('users.userclient.list-cart')->with('carts');
             // return view('users.userclient.list-cart', compact('carts'));
         }
-        // $carts = session()->get('cart');
-        // return view('users.userclient.checkOut', compact('carts'));
+
+    }
+
+    public function hotdeal(Request $request){
+        $hotdeals = DB::table('hotdeal')->get();
+        $hotdeals_json = json_decode($hotdeals, true);
+
+        if($request->Voucher){
+            foreach ($hotdeals_json as $key => $value) {
+                $percent = $value['percent'];
+            }
+            $carts = session()->get('cart');
+            $cart_component = view('users.userclient.list-cart', compact('carts', 'percent'))->render();
+            return response()->json(['cart_component' => $cart_component, 'code' => 200 ], status:200);
+        }
+        // dd($request->Voucher);
+        // return view('users.userclient.list-cart', compact('carts'));
     }
 }

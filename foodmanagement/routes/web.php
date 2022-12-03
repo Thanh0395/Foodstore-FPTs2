@@ -36,6 +36,7 @@ Route::get('/product/cate/{Cate_name}', [ProductController::class, 'categories']
 Route::get('Product/add-to-cart/{id}', [ProductController::class, 'addToCart'])->name('user.product.addToCart');
 Route::get('Product/show-cart', [ProductController::class, 'showCart'])->name('user.product.showCart');
 Route::get('Product/update-cart', [ProductController::class, 'updateCart'])->name('user.product.updateCart');
+Route::get('Product/hot-deal', [ProductController::class, 'hotdeal'])->name('user.product.hotDeal');
 Route::get('Product/check-out', [ProductController::class, 'checkOut'])->name('user.product.checkOut');
 
 Route::get('/detail/{id}', [ProductController::class, 'detail'])->name('user.detail');
