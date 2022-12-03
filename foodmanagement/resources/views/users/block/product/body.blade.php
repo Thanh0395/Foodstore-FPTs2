@@ -34,13 +34,29 @@
                 </ul>
             </div>
         </div>
+        {{-- Search --}}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function(){
+      $("#SearchInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#product-list #product-item").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+    </script>
+        <input class="form-control" id="SearchInput" type="text" placeholder="Type something (name, price...) in the input field to search:">
+        <br>
+        {{-- /Search --}}
         <div class="tab-content">
             <div id="" class="tab-pane fade show p-0 active">
-                <div class="row g-4">
+                <div id="product-list" class="row g-4">
                     <!-- foreach -->
                     @foreach ($foods as $food)
-                        <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                            <div class="product-item">
+                        <div id="product-item" class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                            <div  class="product-item">
                                 <div class="position-relative bg-light overflow-hidden">
                                     <img style="width: 100%; height: 282px" src=" {{ asset($food->image) }} "
                                         alt="">

@@ -22,8 +22,11 @@ class ProfileController extends Controller
                 ->where('wishlist.U_id', $U_id)
                 ->where('wishlist.like', 1)
                 ->select('foods.*','categories.*','wishlist.WL_id')->get();
+        $orders = DB::table('orders')
+                ->where('orders.U_id', $U_id)
+                ->get();
         // dd($wishlists);
-        return view('users.userclient.profile',compact('count','user','wishlists'));
+        return view('users.userclient.profile',compact('count','user','orders','wishlists'));
     }
 
     public function removewishlist($WL_id){

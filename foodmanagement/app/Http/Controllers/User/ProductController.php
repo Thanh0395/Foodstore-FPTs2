@@ -76,9 +76,10 @@ class ProductController extends Controller
                     -> join('users','rating.U_id','=','users.U_id')
                     -> where('foods.F_id','=', $F_id)
                     -> paginate(10);
+        $sauces = DB::table('sauce')->orderByDesc('Sauce_id')->get();
         $haveCmt = 'yes';
         if ($comments[0]==null) $haveCmt='no';
-        return view('users.userclient.detail', compact('food', 'categories', 'F_id','likeColor','rating','U_id','login','comments','haveCmt'));
+        return view('users.userclient.detail', compact('food', 'categories', 'F_id','likeColor','rating','U_id','login','comments','haveCmt','sauces'));
     }
 
     //Wish list
