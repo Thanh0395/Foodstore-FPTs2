@@ -23,7 +23,8 @@ class ProductController extends Controller
         $categories = DB::table('categories')->get();
         $foods = DB:: table('foods')
         ->join('categories', 'foods.Cate_id', '=', 'categories.Cate_id')
-        ->select('foods.*', 'categories.Cate_name')->get();
+        ->select('foods.*', 'categories.Cate_name')
+        -> paginate(20);
         $Cate_name = 'all';
         return view('users.userclient.product', compact('foods', 'categories', 'Cate_name'));
     }
@@ -32,7 +33,7 @@ class ProductController extends Controller
         $foods = DB:: table('foods')
         ->join('categories', 'foods.Cate_id', '=', 'categories.Cate_id')
         ->where('categories.Cate_name', $Cate_name)
-        ->select('foods.*', 'categories.Cate_name')->get();
+        ->select('foods.*', 'categories.Cate_name')-> paginate(20);
         // dd($foods);
         $categories = DB::table('categories')->get();
         return view('users.userclient.product', compact('foods', 'categories', 'Cate_name'));

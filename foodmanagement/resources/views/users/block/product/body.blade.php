@@ -110,11 +110,13 @@
             </div>
             --}}
             <br>
-            <div class="col-12 text-center">
+                <div class="row">
+                    <div class="col-lg-4 col-sm-8 col-xs-10 offset-2">{{ $foods->links() }}</div>
+                </div>
+            {{-- <div class="col-12 text-center">
                 <a class="btn btn-primary rounded-pill py-3 px-5" href=" {{ route('user.product.all') }} ">Browse More
                     Products</a>
-            </div>
-
+            </div> --}}
         </div>
     </div>
 </div>
