@@ -64,7 +64,7 @@
                     </a>
                     <a style="position: relative;" class="btn-sm-square bg-white rounded-circle ms-3" href="{{route('user.product.showCart')}}">
                         <small class="fa fa-shopping-bag text-body"></small>
-                        <small class="" style="position: absolute; top:-3px; right: 2px; z-index: 1; color: red"><strong>2</strong></small>
+                        <small class="" style="background-color: red;border-radius: 50%; padding: 0px 6px; position: absolute; top:-8px; right: -12px; z-index: 1; color: white"><Strong id="cartCount">0</Strong></small>
                     </a>
 
                     <a class="btn-sm-square bg-white rounded-circle ms-3" href=" {{route('user.login')}} ">

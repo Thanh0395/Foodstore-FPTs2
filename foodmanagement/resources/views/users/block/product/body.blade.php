@@ -2,7 +2,7 @@
 <div class="container-xxl py-5">
     <div class="container">
         <div class="row g-0 gx-5 align-items-end">
-            <div class="col-lg-6">
+            <div class="col-lg-12">
                 <div class="section-header text-start mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
                     <h1 class="display-5 mb-3">Our Products</h1>
                     <p>Let's your order and we will deliver it to you immediately.<br>
@@ -10,15 +10,20 @@
                     </p>
                 </div>
             </div>
+            <div class="col-lg-6 text-start text-lg-end wow slideInLeft">
+                <div style="display: flex; justify-content: start; align-items: start;"
+                    class="section-header text-start mb-1 wow fadeInUp">{{ $foods->links() }}</div>
+            </div>
+
             <div class="col-lg-6 text-start text-lg-end wow slideInRight" data-wow-delay="0.1s">
-                <ul class="nav nav-pills d-inline-flex justify-content-end mb-5">
-                    <li class="nav-item me-2"  style="margin: 5px">
+                <ul class="nav nav-pills d-inline-flex justify-content-end mb-3">
+                    <li class="nav-item me-2" style="margin: 5px">
                         <a class="btn btn-outline-primary border-2 <?php
                         if ($Cate_name == 'all') {
                             echo 'active';
                         }
                         ?>"
-                            href="{{ route('user.product.all') }}">All</a>
+                            href="{{ route('user.product.cate', 'all') }}">All</a>
                     </li>
                     @foreach ($categories as $category)
                         <li class="nav-item me-2" style="margin: 5px">
@@ -35,20 +40,32 @@
             </div>
         </div>
         {{-- Search --}}
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script>
-    $(document).ready(function(){
-      $("#SearchInput").on("keyup", function() {
-        var value = $(this).val().toLowerCase();
-        $("#product-list #product-item").filter(function() {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-      });
-    });
-    </script>
-        <input class="form-control" id="SearchInput" type="text" placeholder="Type something (name, price...) in the input field to search:">
-        <br>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $("#SearchInput").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $("#product-list #product-item").filter(function() {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+                });
+            });
+        </script>
+        {{-- search by price --}}
+        
+        <input class="form-control" id="SearchInput" type="text"
+            placeholder="Type something (name, price...) to search:">
+        <div class="row" style="margin: 10px 0px;">
+            <form action="{{ route('user.product.cate', $Cate_name) }}" method="get"
+                class="form-horizontal form-label-left" enctype="multipart/form-data" >
+                @csrf
+                Price from <input class="" type="number" name="priceMin" value="{{$priceMin}}"> to <input class=""
+                    type="number" name="priceMax" value="{{$priceMax}}">
+                <button style="margin: 0px 10px;" class="btn btn-info btn-sm" type="submit"> Apply</button>
+            </form>
+        </div>
+
         {{-- /Search --}}
         <div class="tab-content">
             <div id="" class="tab-pane fade show p-0 active">
@@ -56,7 +73,7 @@
                     <!-- foreach -->
                     @foreach ($foods as $food)
                         <div id="product-item" class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                            <div  class="product-item">
+                            <div class="product-item">
                                 <div class="position-relative bg-light overflow-hidden">
                                     <img style="width: 100%; height: 282px" src=" {{ asset($food->image) }} "
                                         alt="">
@@ -80,7 +97,8 @@
                                                 class="fa fa-eye text-primary me-2"></i>View detail</a>
                                     </small>
                                     <small class="w-50 text-center py-2">
-                                        <a class="text-body add_to_cart" href="" data-url="{{route('user.product.addToCart', ['id'=> $food->F_id])}}"><i
+                                        <a class="text-body add_to_cart" href=""
+                                            data-url="{{ route('user.product.addToCart', ['id' => $food->F_id]) }}"><i
                                                 class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</a>
                                     </small>
                                 </div>
@@ -126,9 +144,9 @@
             </div>
             --}}
             <br>
-                <div class="row">
-                    <div class="col-lg-4 col-sm-8 col-xs-10 offset-2">{{ $foods->links() }}</div>
-                </div>
+            <div class="row">
+                <div class="col-lg-4 col-sm-8 col-xs-10 offset-2">{{ $foods->links() }}</div>
+            </div>
             {{-- <div class="col-12 text-center">
                 <a class="btn btn-primary rounded-pill py-3 px-5" href=" {{ route('user.product.all') }} ">Browse More
                     Products</a>
