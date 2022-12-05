@@ -54,10 +54,12 @@ class ProductController extends Controller
         } else {
             $foods = DB::table('foods')
                 ->join('categories', 'foods.Cate_id', '=', 'categories.Cate_id')
+                ->join('calories', 'foods.F_name', '=', 'calories.F_name')
                 ->where('categories.Cate_name', $Cate_name)
                 ->where('foods.price','>',$priceMin)
                 ->where('foods.price','<',$priceMax)
-                ->select('foods.*', 'categories.Cate_name')->paginate(20);
+                ->select('foods.*', 'categories.Cate_name','calories.calories')
+                ->paginate(20);
             // dd($foods);
         }
         $categories = DB::table('categories')->get();
