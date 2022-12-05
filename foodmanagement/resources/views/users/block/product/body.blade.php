@@ -53,7 +53,7 @@
             });
         </script>
         {{-- search by price --}}
-        
+
         <input class="form-control" id="SearchInput" type="text"
             placeholder="Type something (name, price...) to search:">
         <div class="row" style="margin: 10px 0px;">
@@ -67,6 +67,14 @@
         </div>
 
         {{-- /Search --}}
+
+        {{-- tool tip --}}
+        <script>
+            $(document).ready(function(){
+              $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>
+
         <div class="tab-content">
             <div id="" class="tab-pane fade show p-0 active">
                 <div id="product-list" class="row g-4">
@@ -83,7 +91,7 @@
                                     </div>
                                 </div>
                                 <div class="text-center p-2 " style="height: 5rem;">
-                                    <a class="d-block h5 mb-2">{{ $food->F_name }}</a>
+                                    <a class="d-block h5 mb-2" data-toggle="tooltip" data-placement="right" title="Calo: {{$food->calories}} kcal">{{ $food->F_name }}</a>
                                 </div>
                                 <div class="text-center">
                                     <span class="text-primary me-1">

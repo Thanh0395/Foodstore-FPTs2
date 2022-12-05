@@ -26,7 +26,8 @@ class ProductController extends Controller
         $categories = DB::table('categories')->get();
         $foods = DB::table('foods')
             ->join('categories', 'foods.Cate_id', '=', 'categories.Cate_id')
-            ->select('foods.*', 'categories.Cate_name')
+            ->join('calories', 'foods.F_name', '=', 'calories.F_name')
+            ->select('foods.*', 'categories.Cate_name','calories.calories')
             ->paginate(20);
         $Cate_name = 'all';
         return view('users.userclient.product', compact('foods', 'categories', 'Cate_name','priceMin','priceMax'));
@@ -44,7 +45,8 @@ class ProductController extends Controller
         if ($Cate_name == 'all') {
             $foods = DB::table('foods')
                 ->join('categories', 'foods.Cate_id', '=', 'categories.Cate_id')
-                ->select('foods.*', 'categories.Cate_name')
+                ->join('calories', 'foods.F_name', '=', 'calories.F_name')
+                ->select('foods.*', 'categories.Cate_name','calories.calories')
                 ->where('foods.price','>',$priceMin)
                 ->where('foods.price','<',$priceMax)
                 ->paginate(20);
