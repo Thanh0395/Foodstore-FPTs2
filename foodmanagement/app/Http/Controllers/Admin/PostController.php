@@ -83,6 +83,9 @@ class PostController extends Controller
         $postExist = DB::table('posts')->where('title', $title)
                                     ->whereNot('P_id', $P_id) ->first();
         if(!$postExist){
+            $timezone = timezone_open('Asia/Ho_Chi_Minh');
+            $nowDay = date_create('now',$timezone);
+            $nowDay = date_format($nowDay,'Y-m-d H:i:s');
             //Xu lý neu có ảnh
             if ($request->hasFile('image')) {
                 $imgfile = $request->file('image');
@@ -98,7 +101,7 @@ class PostController extends Controller
         // Update du lieu vao bang foods
             DB::table('posts') ->where('P_id',$P_id)
                     -> update(
-                        array('title'=> $title , 'content'=>$content, 'feature_image_path'=>$image, 'status'=>$status)
+                        array('title'=> $title , 'content'=>$content, 'feature_image_path'=>$image, 'status'=>$status, 'updated_at'=>$nowDay)
                     );
             return redirect()->route('admin.post.index')->with('success','Update a post successfully!');
         } else {
