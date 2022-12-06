@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PaymentController;
+use App\Http\Controllers\admin\PostController;
 use App\Http\Controllers\Admin\RatingController;
 use App\Http\Controllers\Admin\WishlistController;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,7 @@ use App\Http\Controllers\User\RegisterController;
 use App\Http\Controllers\User\CartController;
 use App\Http\Controllers\User\LoginUserController;
 use App\Http\Controllers\User\ProfileController;
+use App\Models\Post;
 
 Route::get('/', [HomeController::class, 'index'])->name('user.home');
 Route::get('/product/all', [ProductController::class, 'index'])->name('user.product.all');
@@ -127,7 +129,16 @@ Route::middleware('checkAdmin')->prefix('/admin')->group(function () {
         Route::get('/top-user', [AnalysisController::class, 'topUserIndex'])    ->name('admin.analysis.topUserIndex');
         Route::post('/top-user/filter', [AnalysisController::class, 'topUser'])   ->name('admin.analysis.topUser');
         Route::get('/trend-revenue', [AnalysisController::class, 'trendRevenue'])     ->name('admin.analysis.trendRevenue');
-
+    });
+    Route::prefix('/post')->group(function(){
+        Route::get('/index', [PostController::class, 'index'])                  ->name('admin.post.index');
+        Route::get('/create', [PostController::class, 'create'])                ->name('admin.post.create');
+        Route::post('/store', [PostController::class, 'store'])                 ->name('admin.post.store');
+        Route::get('/edit/{P_id}', [PostController::class, 'edit'])             ->name('admin.post.edit');
+        Route::post('/update/{P_id}', [PostController::class, 'update'])        ->name('admin.post.update');
+        Route::get('/view/{P_id}', [PostController::class, 'show'])             ->name('admin.post.view');
+        Route::get('/delete/{P_id}', [PostController::class, 'destroy'])        ->name('admin.post.delete');
+        Route::post('/edit', [PostController::class, 'changestatus'])           ->name('admin.post.changestatus');
     });
 
 });

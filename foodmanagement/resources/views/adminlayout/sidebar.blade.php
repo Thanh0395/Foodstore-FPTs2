@@ -5,9 +5,9 @@
                 <!-- menu profile quick info -->
                 <div class="profile clearfix">
                     <div class="profile_pic">
-                        <img src="/{{ session()->get('avatar') }}" alt="..." class="img-circle profile_img">
+                        <img style="margin: 10px; width: 6rem;height: 6rem" src="/{{ session()->get('avatar') }}" alt="..." class="img-circle profile_img">
                     </div>
-                    <div class="profile_info">
+                    <div class="profile_info" style="padding: 15px;">
                         <span>Welcome,</span>
                         <h2>{{ session()->get('name') }}</h2>
                     </div>
@@ -29,6 +29,13 @@
                                 <ul class="nav child_menu">
                                     <li><a href="{{ route('admin.user.index') }}">All Users</a></li>
                                     <li><a href="{{ route('admin.user.create') }}">Add new user</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#"><i class="fa fa-thumb-tack"></i> Posts <span
+                                        class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="{{ route('admin.post.index') }}">All Posts</a></li>
+                                    <li><a href="{{ route('admin.post.create') }}">Add new Posts</a></li>
 
                                 </ul>
                             </li>
