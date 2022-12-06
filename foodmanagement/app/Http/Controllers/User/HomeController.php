@@ -18,14 +18,20 @@ class HomeController extends Controller
                 -> where('foods.Cate_id',2 )
                 -> take(6)->get();
         $pastas = DB::table('foods')
-                -> where('foods.Cate_id',3 )
+                -> where('foods.Cate_id',4 )
                 -> take(6)->get();
         $salads = DB::table('foods')
-                -> where('foods.Cate_id',4 )
+                -> where('foods.Cate_id',3 )
                 -> take(6)->get();
         $drinks = DB::table('foods')
                 -> where('foods.Cate_id',7 )
                 -> take(6)->get();
-        return view('users.userclient.home',compact('fronzens','pastas','salads','drinks'));
+        $posts = DB::table('posts')
+                ->join('users', 'posts.U_id', '=', 'users.U_id')
+                ->where('posts.status','Publish')
+                ->select('posts.*','users.name')
+                ->orderBy('posts.created_at')
+                ->get();
+        return view('users.userclient.home',compact('fronzens','pastas','salads','drinks','posts'));
     }
 }

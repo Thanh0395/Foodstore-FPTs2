@@ -55,6 +55,15 @@ class PostController extends Controller
         $post = Post::find($P_id);
         return view('admin.post.view', compact('post'));
     }
+    public function showblog($P_id){
+        $post = DB::table('posts')
+                ->join('users', 'posts.U_id', '=', 'users.U_id')
+                ->where('posts.status','Publish')
+                ->where('posts.P_id',$P_id)
+                ->select('posts.*','users.name')
+                ->first();
+        return view('users.userclient.post', compact('post'));
+    }
 
     public function edit($P_id)
     {

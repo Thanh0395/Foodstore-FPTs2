@@ -54,6 +54,7 @@ Route::post('/register', [RegisterController::class, 'store'])->name('user.regis
 
 /*---------------------------------------------------------Nguyen Tan Hung----------------------- */
 
+Route::get('/blog/{P_id}', [PostController::class, 'showblog'])->name('showblog');
 Route::get('/product/like/{F_id}/{likeColor}', [ProductController::class, 'like'])->middleware('checkLogin')->name('user.like');
 Route::get('/product/rating/{F_id}/{rating}/{comment}', [ProductController::class, 'rating'])->middleware('checkLogin')->name('user.rating');
 Route::middleware('checkLogin')->prefix('/user/profile')->group(function () {

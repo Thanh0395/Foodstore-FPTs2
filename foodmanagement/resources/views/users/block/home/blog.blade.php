@@ -5,79 +5,28 @@
                 <h2 class="block-title text-center">
                 Our Blog
             </h2>
+
                 <div class="blog-box clearfix">
+                    @foreach ($posts as $post)
                     <div class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.1s">
-                        <div class="col-md-6 col-sm-6">
-                            <div class="blog-block">
-                                <div class="blog-img-box">
-                                    <img src=" {{asset('assets/clients/images/featured-image-01.jpg')}} " alt="" />
+                        <div class="col-md-6 col-sm-6" >
+                            <div style="height: 220px" class="blog-block">
+                                <div style="width: 220px;" class="blog-img-box">
+                                    <img style="width: 220px;height: 220px" src=" {{asset($post->feature_image_path)}} " alt="" />
                                     <div class="overlay">
-                                        <a href=""><i class="fa fa-link" aria-hidden="true"></i></a>
+                                        <a href="{{route('showblog',$post->P_id)}}"><i class="fa fa-link" aria-hidden="true"></i></a>
                                     </div>
                                 </div>
-                                <div class="blog-dit">
-                                    <p><span>25 NOVEMBER, 2014</span></p>
-                                    <h2>LATEST RECIPES JUST IN!</h2>
-                                    <h5>BY John Doggett</h5>
+                                <div style="padding: 15px" class="blog-dit">
+                                    <p><span>{{$post->created_at}}</span></p>
+                                    <h2 style="padding: 10px 10px 10px 0px">{{$post->title}}</h2>
+                                    <h5>BY {{$post->name}}</h5>
                                 </div>
                             </div>
                         </div>
                         <!-- end col -->
                     </div>
-                    <div class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.1s">
-                        <div class="col-md-6 col-sm-6">
-                            <div class="blog-block">
-                                <div class="blog-img-box">
-                                    <img src="{{asset('assets/clients/images/featured-image-02.jpg')}}" alt="" />
-                                    <div class="overlay">
-                                        <a href=""><i class="fa fa-link" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                                <div class="blog-dit">
-                                    <p><span>2 NOVEMBER, 2014</span></p>
-                                    <h2>NEW RECRUITS HAVE ARRIVED!</h2>
-                                    <h5>BY Jeffrey Spender</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- end col -->
-                    </div>
-                    <div class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.1s">
-                        <div class="col-md-6 col-sm-6">
-                            <div class="blog-block">
-                                <div class="blog-img-box">
-                                    <img src="{{asset('assets/clients/images/featured-image-03.jpg')}}" alt="" />
-                                    <div class="overlay">
-                                        <a href=""><i class="fa fa-link" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                                <div class="blog-dit">
-                                    <p><span>4 NOVEMBER, 2014</span></p>
-                                    <h2>BAKING TIPS FROM THE PROS</h2>
-                                    <h5>BY Monica Reyes</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- end col -->
-                    </div>
-                    <div class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.1s">
-                        <div class="col-md-6 col-sm-6">
-                            <div class="blog-block">
-                                <div class="blog-img-box">
-                                    <img src="{{asset('assets/clients/images/featured-image-04.jpg')}}" alt="" />
-                                    <div class="overlay">
-                                        <a href=""><i class="fa fa-link" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                                <div class="blog-dit">
-                                    <p><span>12 NOVEMBER, 2014</span></p>
-                                    <h2>ALL YOUR EGGS BELONG TO US</h2>
-                                    <h5>BY John Doggett</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- end col -->
-                    </div>
+                    @endforeach
                 </div>
                 <!-- end blog-box -->
 
