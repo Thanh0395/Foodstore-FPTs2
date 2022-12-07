@@ -28,7 +28,7 @@ class ProductController extends Controller
             ->join('categories', 'foods.Cate_id', '=', 'categories.Cate_id')
             ->join('calories', 'foods.F_name', '=', 'calories.F_name')
             ->select('foods.*', 'categories.Cate_name','calories.calories')
-            ->paginate(20);
+            ->get();
         $Cate_name = 'all';
         return view('users.userclient.product', compact('foods', 'categories', 'Cate_name','priceMin','priceMax'));
     }
@@ -49,7 +49,7 @@ class ProductController extends Controller
                 ->select('foods.*', 'categories.Cate_name','calories.calories')
                 ->where('foods.price','>',$priceMin)
                 ->where('foods.price','<',$priceMax)
-                ->paginate(20);
+                ->get();
             $Cate_name = 'all';
         } else {
             $foods = DB::table('foods')
@@ -59,7 +59,7 @@ class ProductController extends Controller
                 ->where('foods.price','>',$priceMin)
                 ->where('foods.price','<',$priceMax)
                 ->select('foods.*', 'categories.Cate_name','calories.calories')
-                ->paginate(20);
+                ->get();
             // dd($foods);
         }
         $categories = DB::table('categories')->get();
