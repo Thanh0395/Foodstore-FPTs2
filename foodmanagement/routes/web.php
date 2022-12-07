@@ -41,7 +41,8 @@ Route::get('Product/update-cart', [ProductController::class, 'updateCart'])->nam
 Route::get('Product/delete-cart', [ProductController::class, 'deleteCart'])->name('user.product.deleteCart');
 Route::get('Product/hot-deal', [ProductController::class, 'hotdeal'])->name('user.product.hotDeal');
 Route::get('Product/check-out/{total}', [ProductController::class, 'checkOut'])->name('user.product.checkOut');
-Route::post('Product/pay-ment', [ProductController::class, 'vnpayPayment'])->name('user.product.payment');
+Route::post('Product/pay-ment', [ProductController::class, 'vnpayPayment_user'])->name('user.product.payment');
+Route::get('Product/thank-you', [ProductController::class, 'thankYou_user'])->name('user.product.thankYou');
 
 Route::get('/detail/{id}', [ProductController::class, 'detail'])->name('user.detail');
 Route::get('/register', [RegisterController::class, 'index'])->name('user.register');

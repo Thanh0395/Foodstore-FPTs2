@@ -28,7 +28,7 @@
                     */
                    if(data.code === 200){
                        document.getElementById("cartCount").innerHTML = data.count;
-                    // alert('Add to cart successfully!');
+                    alert('Add to cart successfully!');
                     // alert(count);
                    }
 

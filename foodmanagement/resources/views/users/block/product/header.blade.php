@@ -64,7 +64,7 @@
                     </a>
                     <a style="position: relative;" class="btn-sm-square bg-white rounded-circle ms-3" href="{{route('user.product.showCart')}}">
                         <small class="fa fa-shopping-bag text-body"></small>
-                        <small class="" style="background-color: red;border-radius: 50%; padding: 0px 6px; position: absolute; top:-8px; right: -12px; z-index: 1; color: white"><Strong class="count_cart" id="cartCount">0</Strong></small>
+                        <small class="" style="background-color: red;border-radius: 50%; padding: 0px 6px; position: absolute; top:-8px; right: -12px; z-index: 1; color: white"><Strong class="count_cart" id="cartCount"></Strong></small>
                     </a>
 
                     <a class="btn-sm-square bg-white rounded-circle ms-3" href=" {{route('user.login')}} ">

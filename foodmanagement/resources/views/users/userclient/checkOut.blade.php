@@ -37,14 +37,13 @@
 
                                     <div class="d-flex justify-content-between align-items-center mb-4">
                                         <div>
-                                            <p class="mb-1">Shopping cart</p>
-                                            <p class="mb-0">You have 1items in your cart</p>
+                                            <p class="mb-1">Order Confirmation Form</p>
                                         </div>
-                                        <div>
+                                        {{-- <div>
                                             <p class="mb-0"><span class="text-muted">Sort by:</span> <a href="#!"
                                                     class="text-body">Price <i class="fas fa-angle-down mt-1"></i></a>
                                             </p>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     @foreach ($carts as $cart)
                                         <div class="card mb-3">
@@ -85,42 +84,58 @@
                                     <div class="card bg-primary text-white rounded-3">
                                         <div class="card-body">
                                             <div class="d-flex justify-content-between align-items-center mb-4">
-                                                <h5 class="mb-0">Card details</h5>
-                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp"
+                                                <h5 class="mb-0">Hello!</h5>
+                                                <img src="{{ asset($user->avatar) }}"
                                                     class="img-fluid rounded-3" style="width: 45px;" alt="Avatar">
                                             </div>
 
-                                            <p class="small mb-2">Card type</p>
-                                            <a href="#!" type="submit" class="text-white"><i
+                                            <p class="small mb-2">Your Confirm to delivery</p>
+                                            {{-- <a href="#!" type="submit" class="text-white"><i
                                                     class="fab fa-cc-mastercard fa-2x me-2"></i></a>
                                             <a href="#!" type="submit" class="text-white"><i
                                                     class="fab fa-cc-visa fa-2x me-2"></i></a>
                                             <a href="#!" type="submit" class="text-white"><i
                                                     class="fab fa-cc-amex fa-2x me-2"></i></a>
                                             <a href="#!" type="submit" class="text-white"><i
-                                                    class="fab fa-cc-paypal fa-2x"></i></a>
+                                                    class="fab fa-cc-paypal fa-2x"></i></a> --}}
 
                                             <form class="mt-4" action="{{route('user.product.payment')}}" method="post">
                                                 @csrf
                                                 <div class="form-outline form-white mb-4">
-                                                    <input type="text" id="typeName"
+                                                    <input type="text" id="user_name"
                                                         class="form-control form-control-lg" siez="17"
-                                                        placeholder="Cardholder's Name" />
+                                                        placeholder="Enter your name" value="{{$user->name}}" />
                                                     <label class="form-label" for="typeName"></label>
                                                 </div>
                                                 <div hidden>
                                                     <input type="text" name="redirect" value="Payment by Vnpay">
                                                 </div>
-
+/.
                                                 <div class="form-outline form-white mb-4">
-                                                    <input type="text" id="typeText"
+                                                    <input type="text" id="user_phone"
                                                         class="form-control form-control-lg" siez="17"
-                                                        placeholder="1234 5678 9012 3457" minlength="19"
-                                                        maxlength="19" />
+                                                        placeholder="Enter phone" minlength="19"
+                                                        maxlength="19" value="{{$user->phone}}"/>
                                                     <label class="form-label" for="typeText"></label>
                                                 </div>
 
-                                                <div class="row mb-4">
+                                                <div class="form-outline form-white mb-4">
+                                                    <input type="text" id="user_email"
+                                                        class="form-control form-control-lg" siez="17"
+                                                        placeholder="Enter email" minlength="19"
+                                                        maxlength="19" value="{{$user->email}}"/>
+                                                    <label class="form-label" for="typeText"></label>
+                                                </div>
+
+                                                <div class="form-outline form-white mb-4">
+                                                    <input type="text" id="user_address"
+                                                        class="form-control form-control-lg" siez="17"
+                                                        placeholder="Enter address" minlength="19"
+                                                        maxlength="19" value="{{$user->address}}"/>
+                                                    <label class="form-label" for="typeText"></label>
+                                                </div>
+
+                                                {{-- <div class="row mb-4">
                                                     <div class="col-md-6">
                                                         <div class="form-outline form-white">
                                                             <input type="text" id="typeExp"
@@ -128,7 +143,7 @@
                                                                 placeholder="MM/YYYY" size="7" id="exp"
                                                                 minlength="7" maxlength="7" />
                                                             <label class="form-label"
-                                                                for="typeExp">Expiration</label>
+                                                                for="typeExp"></label>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -140,12 +155,12 @@
                                                             <label class="form-label" for="typeText">Cvv</label>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                                 <hr class="my-4">
 
                                             <div class="d-flex justify-content-between">
                                                 <p class="mb-2">Order Total</p>
-                                                <p class="mb-2">{{ number_format($totalCheckout, 0, ',', '.') }} VND
+                                                <p class="mb-2">{{ number_format($total, 0, ',', '.') }} VND
                                                 </p>
                                             </div>
 
@@ -160,10 +175,10 @@
                                             </div>
                                             <div class="d-flex justify-content-between mb-4">
                                                 <p class="mb-2">Total</p>
-                                                <p class="mb-2">{{ number_format($totalCheckout * 1.1, 0, ',', '.') }} VND</p>
+                                                <p class="mb-2">{{ number_format($total * 1.1, 0, ',', '.') }} VND</p>
                                             </div>
 
-                                            <button type="submit" class="btn btn-info btn-block btn-lg">
+                                            <button type="submit" class="btn btn-info btn-block btn-lg" >
                                                 <div class="d-flex justify-content-between">
                                                     <span> Payment(VNPay) <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
                                                 </div>
