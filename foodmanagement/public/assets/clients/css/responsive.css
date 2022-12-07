@@ -9,11 +9,11 @@
 
 @media (max-width: 1310px) {}
 @media (max-width: 1200px) {
-	 
+
 	.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
 		background-color: transparent;
 	}
-	
+
 	.navbar-default .navbar-toggle .icon-bar {
 		background-color: #e75b1e;
 		width: 35px;
@@ -55,7 +55,7 @@
 		-moz-transform: rotate(-45deg);
 		-ms-transform: rotate(-45deg);
 	}
-	
+
 }
 @media (max-width: 1240px) {
 	.main-menu nav li a{
@@ -138,7 +138,7 @@
     }
 
    .navbar-collapse.collapse.in {  /* NEW */
-        display: block!important; 
+        display: block!important;
 		background: #202020;
     }
 	.main-menu nav li a{
@@ -147,7 +147,7 @@
 	.panel-body p strong{
 		font-size: 28px;
 	}
-}  
+}
 @media (max-width: 1000px) {}
 
 @media (min-width: 768px) {
@@ -291,7 +291,7 @@
 		padding:0px 15px;
 		margin-bottom:15px;
 	}
-	
+
 	.blog-dit{
 		width: 100%;
 		padding: 10px 2% 0 2%;
@@ -299,7 +299,7 @@
 	.form-reservations-box{
 		width: 100%;
 	}
-	
+
 	.footer-box-a, .footer-box-b, .footer-box-c, .footer-box-d{
 		margin-bottom:20px;
 	}
@@ -308,7 +308,7 @@
 	}
 }
 @media (max-width: 600px) {
-	
+
 }
 @media (max-width: 480px) {
 	.offer-item img{

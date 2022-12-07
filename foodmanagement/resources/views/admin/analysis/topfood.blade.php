@@ -1,6 +1,11 @@
 @extends('adminlayout.app')
 @section('content')
     @if (session()->get('role') == 'admin')
+    <!-- chartjs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <!-- Chart.js -->
+    {{-- <script src="{{asset('vendors/Chart.js/dist/Chart.min.js')}}"></script> --}}
         <div class="right_col" role="main">
             <!-- page content -->
             {{-- pie chart all time --}}

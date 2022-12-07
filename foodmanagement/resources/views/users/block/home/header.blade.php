@@ -23,7 +23,7 @@
                                 <ul class="nav navbar-nav navbar-right">
                                     <li class="active"><a href="#banner">Home</a></li>
                                     <li><a href="#about">About us</a></li>
-                                    <li><a href="#Menu">Menu</a></li>
+                                    <li><a href="#menu">Menu</a></li>
                                     <!-- <li><a href="#menu">Order Online</a></li> -->
                                     <li><a href="#our_team">Team</a></li>
                                     <li><a href="#gallery">Gallery</a></li>

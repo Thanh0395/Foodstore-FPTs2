@@ -186,9 +186,9 @@
                                     <h6 style="padding: 8px; margin: 0px">Free Sauce:</h6>
                                     <div class="form-group">
                                         <select class="form-control  " id="exampleFormControlSelect1">
-                                            <option>Demi sauce</option>
-                                            <option>Japone sauce</option>
-                                            <option>Any of sauce</option>
+                                            @foreach ($sauces as $sauce)
+                                            <option value="{{$sauce->name}}" selected>{{$sauce->name}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <br>

@@ -26,6 +26,8 @@
 
                     alert('Add product success!');
 
+                       document.getElementById("cartCount").innerHTML = data.count;
+                    alert('Add to cart successfully!');
                    }
 
                 }
