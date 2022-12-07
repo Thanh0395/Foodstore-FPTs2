@@ -25,11 +25,18 @@
     <div class="cart-wrapper update_cart_url" data-url="{{ route('user.product.updateCart') }}">
         @if (Session::has('cart') != null)
             <section class="vh-100" style="background-color: #fdccbc;">
-                <div class="container h-100">
+                <div class="container delete_cart_url h-100" data-url="{{route('user.product.deleteCart')}}">
                     <div class="row d-flex justify-content-center align-items-center h-100">
                         <div class="col">
-
-                            <p><span class="h2">Shopping Cart </span><span class="h4">(1 item in your
+                            @php
+                                $count = 0;
+                            @endphp
+                            @foreach ($carts as $cart)
+                                @php
+                                    $count += 1;
+                                @endphp
+                            @endforeach
+                            <p><span class="h2">Shopping Cart</span><span class="h4">({{$count}} item in your
                                     cart)</span>
                             </p>
                             @php
@@ -39,6 +46,7 @@
                                 @foreach ($carts as $id => $cart)
                                     @php
                                         $total += $cart['quantity'] * $cart['price'] * 0.9;
+                                        $count += 1;
                                         // dd($total);
                                     @endphp
                                     <main class="card mb-1">
@@ -138,9 +146,9 @@
                                     <div class="float-end">
                                         <p class="mb-0 me-5 d-flex align-items-center">
                                             <span class="small text-muted me-2">Order total:</span> <span
-                                                class="lead fw-normal">
-                                                {{ number_format($total * ((100 - $percent) / 100), 0, ',', '.') }}
-                                                VND</span>
+                                            class="lead fw-normal">
+                                                {{ number_format($total * (((100 - $percent) / 100)), 0, ',', '.') }}
+                                            VND</span>
                                         </p>
                                     </div>
 
@@ -150,7 +158,7 @@
                             <div class="d-flex justify-content-end">
                                 <button type="button" class="btn btn-light btn-lg me-2"><a
                                         href="{{ route('user.product.all') }}">Continue shopping</a></button>
-                                <a href="{{ route('user.product.checkOut') }}"><button type="button"
+                                <a href="{{ route('user.product.checkOut',[$total]) }}"><button type="button"
                                         class="btn btn-primary btn-lg">Checkout</button></a>
                             </div>
 
@@ -221,11 +229,34 @@
             });
         }
 
+        //delete cart function
+        function deleteCart(event){
+            event.preventDefault();
+            let urldeleteCart = $('div.delete_cart_url').data('url');
+            let id = $(this).data('id');
+            $.ajax({
+                type: "GET",
+                url: urldeleteCart,
+                data: {
 
+                    id: id,
+                },
+                dataType: "json",
+                success: function(data) {
+                    // alert(Voucher);
+                    if (data.code === 200) {
+                        $('.cart-wrapper').html(data.cart_component);
+                    }
+                },
+                error: function() {
+
+                }
+            });
+        }
         $(function() {
             $(document).on('click', '.cart_update', cartUpdate);
             $(document).on('click', '.hot_deal', hotdeal);
-
+            $(document).on('click', '.cart_delete', deleteCart);
         })
     </script>
 </body>
