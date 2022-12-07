@@ -11,8 +11,8 @@
                 </div>
             </div>
             <div class="col-lg-6 text-start text-lg-end wow slideInLeft">
-                <div style="display: flex; justify-content: start; align-items: start;"
-                    class="section-header text-start mb-1 wow fadeInUp">{{ $foods->links() }}</div>
+                {{-- <div style="display: flex; justify-content: start; align-items: start;"
+                    class="section-header text-start mb-1 wow fadeInUp">{{ $foods->links() }}</div> --}}
             </div>
 
             <div class="col-lg-6 text-start text-lg-end wow slideInRight" data-wow-delay="0.1s">
@@ -74,6 +74,7 @@
               $('[data-toggle="tooltip"]').tooltip();
             });
         </script>
+        {{-- /tool tip --}}
 
         <div class="tab-content">
             <div id="" class="tab-pane fade show p-0 active">
@@ -100,14 +101,18 @@
                                         {{ number_format($food->price, 0, ',', '.') }} VND</span>
                                 </div>
                                 <div class="d-flex border-top">
-                                    <small class="w-50 text-center border-end py-2">
+                                    <small class="w-33 text-center py-2 border-end" style="padding: 0px 5px">
                                         <a class="text-body" href="{{ route('user.detail', [$food->F_id]) }}"><i
-                                                class="fa fa-eye text-primary me-2"></i>View detail</a>
+                                                class="fa fa-eye text-primary me-2"></i>Detail</a>
                                     </small>
-                                    <small class="w-50 text-center py-2">
+                                    <small class="w-33 text-center py-2 border-end" style="padding: 0px 10px">
                                         <a class="text-body add_to_cart" href=""
                                             data-url="{{ route('user.product.addToCart', ['id' => $food->F_id]) }}"><i
                                                 class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</a>
+                                    </small>
+                                    <small class="w-33 text-center py-2" style="padding: 0px 5px">
+                                        <a class="text-body" href="" onclick="addcompare"><i
+                                                class="fa fa-files-o text-primary me-2"></i>Compare</a>
                                     </small>
                                 </div>
                             </div>
@@ -116,6 +121,16 @@
                     {{-- end foreach --}}
                 </div>
             </div>
+            <br>
+            {{-- <div class="row">
+                <div class="col-lg-4 col-sm-8 col-xs-10 offset-2">{{ $foods->links() }}</div>
+            </div> --}}
+
+            {{-- Compare --}}
+            <script>
+
+            </script>
+            {{-- /Compare --}}
 
             {{--
             <div id="" class="tab-pane fade show p-0">
@@ -151,10 +166,7 @@
                 </div>
             </div>
             --}}
-            <br>
-            <div class="row">
-                <div class="col-lg-4 col-sm-8 col-xs-10 offset-2">{{ $foods->links() }}</div>
-            </div>
+
             {{-- <div class="col-12 text-center">
                 <a class="btn btn-primary rounded-pill py-3 px-5" href=" {{ route('user.product.all') }} ">Browse More
                     Products</a>

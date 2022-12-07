@@ -23,16 +23,15 @@ class ProductController extends Controller
     {
         $priceMin = 0;
         $priceMax = 10000000;
-        $count_cart = 0;
         $categories = DB::table('categories')->get();
         $foods = DB::table('foods')
             ->join('categories', 'foods.Cate_id', '=', 'categories.Cate_id')
             ->join('calories', 'foods.F_name', '=', 'calories.F_name')
             ->select('foods.*', 'categories.Cate_name','calories.calories')
-            ->paginate(20);
+            ->get();
         $Cate_name = 'all';
+        return view('users.userclient.product', compact('foods', 'categories', 'Cate_name','priceMin','priceMax'));
 
-        return view('users.userclient.product', compact('foods', 'categories', 'Cate_name','priceMin','priceMax', 'count_cart'));
 
     }
 
@@ -50,20 +49,19 @@ class ProductController extends Controller
                 ->join('categories', 'foods.Cate_id', '=', 'categories.Cate_id')
                 ->join('calories', 'foods.F_name', '=', 'calories.F_name')
                 ->select('foods.*', 'categories.Cate_name','calories.calories')
-                ->where('foods.price','>',$priceMin)
-                ->where('foods.price','<',$priceMax)
-                ->paginate(20);
+                ->where('foods.price','>',$priceMin*1.1)
+                ->where('foods.price','<',$priceMax*1.1)
+                ->get();
             $Cate_name = 'all';
         } else {
             $foods = DB::table('foods')
                 ->join('categories', 'foods.Cate_id', '=', 'categories.Cate_id')
                 ->join('calories', 'foods.F_name', '=', 'calories.F_name')
                 ->where('categories.Cate_name', $Cate_name)
-                ->where('foods.price','>',$priceMin)
-                ->where('foods.price','<',$priceMax)
+                ->where('foods.price','>',$priceMin*1.1)
+                ->where('foods.price','<',$priceMax*1.1)
                 ->select('foods.*', 'categories.Cate_name','calories.calories')
-                ->paginate(20);
-            // dd($foods);
+                ->get();
         }
         $categories = DB::table('categories')->get();
         return view('users.userclient.product', compact('foods', 'categories', 'Cate_name','priceMin','priceMax'));
@@ -145,23 +143,21 @@ class ProductController extends Controller
     }
 
     //Them san pham vao gio hang
-    public function addToCart($id)
+    public function addToCart($id, Request $request)
     {
         // tat sesion truoc
         // session()->forget(keys:'cart');
         // session()->flush('cart');
         $foods = Food::find($id);
-        $ss_count = session()->get('ss_count');
-        $count_cart = 0;
+
+
         $cart = session()->get(key: 'cart');
-        if($ss_count != 0 ){
-            $ss_count += 1;
-        }
+
         if (isset($cart[$id])) {
+            $request->count += 1;
             $cart[$id]['quantity'] = $cart[$id]['quantity'] + 1;
         } else {
-            $count_cart += 1;
-            $ss_count = $count_cart;
+            $request->count += 1;
             $cart[$id] = [
                 'F_name' => $foods->F_name,
                 'price' => $foods->price,
@@ -171,13 +167,13 @@ class ProductController extends Controller
                 'Sauces' => 'Demi'
             ];
         }
-        session()->put('ss_count', $ss_count);
+
         session()->put('cart', $cart);
 
         return response()->json([
             'code' => 200,
             'message' => 'success',
-            'count' => $ss_count
+            'count' => $request->count
         ],
         status:200
     );
@@ -194,12 +190,10 @@ class ProductController extends Controller
         return view('users.userclient.list-cart', compact('carts', 'percent'));
     }
 
-
-    public function checkOut($total)
+    public function checkOut()
     {
         $carts = session()->get('cart');
-        $totalCheckout = $total;
-        return view('users.userclient.checkOut', compact('carts','totalCheckout'));
+        return view('users.userclient.checkOut', compact('carts'));
     }
 
     public function updateCart(Request $request)
@@ -210,13 +204,8 @@ class ProductController extends Controller
             $carts[$request->id]['quantity'] = $request->quantity;
             $carts[$request->id]['Sauces'] = $request->Sauce;
             session()->put('cart', $carts);
-
             $carts = session()->get('cart');
             $percent = 0;
-
-            $cart_component = view('users.userclient.list-cart', compact('carts', 'percent'))->render();
-            return response()->json(['cart_component' => $cart_component, 'code' => 200 ], status:200);
-
             $cart_component = view('users.userclient.list-cart', compact('carts', 'percent'))->render();
             return response()->json(['cart_component' => $cart_component, 'code' => 200], status: 200);
             // return redirect()->route('users.userclient.list-cart')->with('carts');
@@ -232,11 +221,9 @@ class ProductController extends Controller
 
         if ($request->Voucher) {
             foreach ($hotdeals_json as $key => $value) {
-                if($value['voucher_code'] == $request->Voucher){
-                    $percent = $value['percent'];
-                    $percent_exist = 0;
-                }
+                $percent = $value['percent'];
             }
+
         }
         $cart_component = view('users.userclient.list-cart', compact('carts', 'percent'))->render();
         return response()->json(['cart_component' => $cart_component, 'code' => 200 ], status:200);
@@ -245,87 +232,10 @@ class ProductController extends Controller
     public function deleteCart(Request $request){
         if($request->id){
             $carts = session()->get('cart');
-
-            unset($carts[$request->id]);
-            session()->put('cart', $carts);
-            $carts = session()->get('cart');
-            $percent = 0;
-
             $cart_component = view('users.userclient.list-cart', compact('carts', 'percent'))->render();
-            return response()->json(['cart_component' => $cart_component, 'code' => 200 ], status:200);
-
+            return response()->json(['cart_component' => $cart_component, 'code' => 200], status: 200);
         }
-    }
-
-    public function vnpayPayment()
-    {
-        error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED);
-        date_default_timezone_set('Asia/Ho_Chi_Minh');
-        $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_Returnurl = 'https://google.com';//"http://127.0.0.1:8000/admin/order/thankyou/".$_POST['O_id'];
-        $vnp_TmnCode = "PB9RYKRD"; //Mã website tại VNPAY
-        $vnp_HashSecret = "LDKGFMFXNDLQMZSPKRPCEAIDZAMFCGNG"; //Chuỗi bí mật
-
-        $vnp_TxnRef = time().'a';//time().$_POST['O_id']; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
-        $vnp_OrderInfo = 'a';//$_POST['name'];
-        $vnp_OrderType = 'billpayment';
-        $vnp_Amount = 10000*100;//$_POST['total'] * 100;
-        $vnp_Locale = 'en';
-        $vnp_BankCode = '';
-        $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
-
-        $inputData = array(
-            "vnp_Version" => "2.1.0",
-            "vnp_TmnCode" => $vnp_TmnCode,
-            "vnp_Amount" => $vnp_Amount,
-            "vnp_Command" => "pay",
-            "vnp_CreateDate" => date('YmdHis'),
-            "vnp_CurrCode" => "VND",
-            "vnp_IpAddr" => $vnp_IpAddr,
-            "vnp_Locale" => $vnp_Locale,
-            "vnp_OrderInfo" => $vnp_OrderInfo,
-            "vnp_OrderType" => $vnp_OrderType,
-            "vnp_ReturnUrl" => $vnp_Returnurl,
-            "vnp_TxnRef" => $vnp_TxnRef,
-
-        );
-
-        if (isset($vnp_BankCode) && $vnp_BankCode != "") {
-            $inputData['vnp_BankCode'] = $vnp_BankCode;
-        }
-        if (isset($vnp_Bill_State) && $vnp_Bill_State != "") {
-            $inputData['vnp_Bill_State'] = $vnp_Bill_State;
-        }
-
-        //var_dump($inputData);
-        ksort($inputData);
-        $query = "";
-        $i = 0;
-        $hashdata = "";
-        foreach ($inputData as $key => $value) {
-            if ($i == 1) {
-                $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
-            } else {
-                $hashdata .= urlencode($key) . "=" . urlencode($value);
-                $i = 1;
-            }
-            $query .= urlencode($key) . "=" . urlencode($value) . '&';
-        }
-
-        $vnp_Url = $vnp_Url . "?" . $query;
-        if (isset($vnp_HashSecret)) {
-            $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret); //
-            $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
-        }
-        $returnData = array(
-            'code' => '00', 'message' => 'success', 'data' => $vnp_Url
-        );
-        if (isset($_POST['redirect'])) {
-            header('Location: ' . $vnp_Url);
-            die();
-        } else {
-            echo json_encode($returnData);
-        }
-        // vui lòng tham khảo thêm tại code demo
+        // dd($request->Voucher);
+        // return view('users.userclient.list-cart', compact('carts'));
     }
 }
