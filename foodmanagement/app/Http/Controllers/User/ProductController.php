@@ -23,6 +23,7 @@ class ProductController extends Controller
     {
         $priceMin = 0;
         $priceMax = 10000000;
+        $count_cart = 0;
         $categories = DB::table('categories')->get();
         $foods = DB::table('foods')
             ->join('categories', 'foods.Cate_id', '=', 'categories.Cate_id')
@@ -31,7 +32,7 @@ class ProductController extends Controller
             ->paginate(20);
         $Cate_name = 'all';
 
-        return view('users.userclient.product', compact('foods', 'categories', 'Cate_name','priceMin','priceMax'));
+        return view('users.userclient.product', compact('foods', 'categories', 'Cate_name','priceMin','priceMax', 'count_cart'));
 
     }
 
@@ -150,16 +151,17 @@ class ProductController extends Controller
         // session()->forget(keys:'cart');
         // session()->flush('cart');
         $foods = Food::find($id);
-
-        $cart = session()->get(key:'cart');
-        if( isset($cart[$id]) ){
-            $cart[$id]['quantity'] = $cart[$id]['quantity'] + 1;
-        }else{
-
+        $ss_count = session()->get('ss_count');
+        $count_cart = 0;
         $cart = session()->get(key: 'cart');
+        if($ss_count != 0 ){
+            $ss_count += 1;
+        }
         if (isset($cart[$id])) {
             $cart[$id]['quantity'] = $cart[$id]['quantity'] + 1;
         } else {
+            $count_cart += 1;
+            $ss_count = $count_cart;
             $cart[$id] = [
                 'F_name' => $foods->F_name,
                 'price' => $foods->price,
@@ -169,19 +171,17 @@ class ProductController extends Controller
                 'Sauces' => 'Demi'
             ];
         }
-        // dd(session()->get('count_cart'));
+        session()->put('ss_count', $ss_count);
         session()->put('cart', $cart);
-
 
         return response()->json([
             'code' => 200,
             'message' => 'success',
-            'count' => 0
+            'count' => $ss_count
         ],
         status:200
     );
 
-    }
 }
     // echo "<pre>";
     // print_r(session()->get('cart'));
@@ -226,6 +226,7 @@ class ProductController extends Controller
 
     public function hotdeal(Request $request)
     {
+        $carts = session()->get('cart');
         $hotdeals = DB::table('hotdeal')->get();
         $hotdeals_json = json_decode($hotdeals, true);
 
@@ -237,7 +238,7 @@ class ProductController extends Controller
                 }
             }
         }
-        $cart_component = view('users.userclient.list-cart', compact('carts', 'percent', 'count_cart'))->render();
+        $cart_component = view('users.userclient.list-cart', compact('carts', 'percent'))->render();
         return response()->json(['cart_component' => $cart_component, 'code' => 200 ], status:200);
     }
 

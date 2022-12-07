@@ -23,11 +23,8 @@
                         Sau do kiem tra neu data.code == 200 thi thong bao da them vao gio hang
                     */
                    if(data.code === 200){
-
-                    alert('Add product success!');
-
                        document.getElementById("cartCount").innerHTML = data.count;
-                    alert('Add to cart successfully!');
+                    // alert('Add to cart successfully!');
                    }
 
                 }
