@@ -336,7 +336,8 @@ class ProductController extends Controller
             DB::insert('insert into order_detail (O_id, F_id, quantity) values (?,?,?)', [$O_id, $value['F_id'], $value['quantity']]);
 
         }
+        $date_detail = DB::table('order_detail')->where('O_id', $O_id)->value('created_at');
 
-        return view('users.userclient.thankYou');
+        return view('users.userclient.thankYou', compact('O_id', 'date_detail','carts'));
     }
 }

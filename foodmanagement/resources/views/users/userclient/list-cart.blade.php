@@ -166,6 +166,15 @@
                     </div>
                 </div>
             </section>
+        @else
+            <div class="alert alert-primary text-center" role="alert">
+                No products in your cart
+            </div>
+            <div class="row">
+                <div class="cod-md-12">
+                    <a style="text-align: center" href="{{route('user.product.all')}}">Shoping Now!</a>
+                </div>
+            </div>
         @endif
     </div>
 
