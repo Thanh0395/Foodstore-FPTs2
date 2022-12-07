@@ -23,9 +23,9 @@
                         Sau do kiem tra neu data.code == 200 thi thong bao da them vao gio hang
                     */
                    if(data.code === 200){
-                       data.count +=1;
-                    alert('Add to cart successfully!');
-                    
+
+                    alert('Add product success!');
+
                    }
 
                 }

@@ -64,7 +64,11 @@
                     </a>
                     <a style="position: relative;" class="btn-sm-square bg-white rounded-circle ms-3" href="{{route('user.product.showCart')}}">
                         <small class="fa fa-shopping-bag text-body"></small>
-                        <small class="" style="position: absolute; top:-3px; right: 2px; z-index: 1; color: red"><strong>2</strong></small>
+                        <small class="" style="position: absolute; top:-3px; right: 2px; z-index: 1; color: red"><strong>
+                            @foreach ($count_cart as $count_c)
+                                {{$count_c['count_cart']}}
+                            @endforeach
+                            </strong></small>
                     </a>
 
                     <a class="btn-sm-square bg-white rounded-circle ms-3" href=" {{route('user.login')}} ">
