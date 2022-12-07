@@ -83,7 +83,7 @@
                         <div id="product-item" class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                             <div class="product-item">
                                 <div class="position-relative bg-light overflow-hidden">
-                                    <img style="width: 100%; height: 282px" src=" {{ asset($food->image) }} "
+                                    <img style="width: 100%; height: 282px" src="{{ asset($food->image) }}"
                                         alt="">
                                     <div
                                         class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">

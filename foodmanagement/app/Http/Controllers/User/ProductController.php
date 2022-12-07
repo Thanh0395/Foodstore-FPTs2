@@ -31,10 +31,6 @@ class ProductController extends Controller
             ->paginate(20);
         $Cate_name = 'all';
 
-        $count_cart = session()->get('count_cart');
-        session()->put('count_cart');
-        return view('users.userclient.product', compact('foods', 'categories', 'Cate_name', 'count_cart'));
-
         return view('users.userclient.product', compact('foods', 'categories', 'Cate_name','priceMin','priceMax'));
 
     }
@@ -184,15 +180,6 @@ class ProductController extends Controller
         ],
         status:200
     );
-
-        return response()->json(
-            [
-                'code' => 200,
-                'message' => 'success',
-                'count' => 0
-            ],
-            status: 200
-        );
 
     }
 }
