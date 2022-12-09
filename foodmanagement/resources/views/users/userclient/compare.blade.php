@@ -43,7 +43,6 @@
                                                         <td>{{ number_format($food->price * 0.9, 0, ',', '.') }}</td>
                                                         <td>{{ $food->calories }}</td>
                                                         <td>{{ $food->description }}</td>
-                                                        <td>{{ $food->F_id }}</td>
                                                         <td><button style="color: red" class="link"
                                                                 onclick="removecompare({{ $food->F_id }})">Remove</button>
                                                         </td>
