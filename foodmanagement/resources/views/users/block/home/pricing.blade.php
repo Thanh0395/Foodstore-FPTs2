@@ -5,7 +5,7 @@
                 <h2 class="block-title text-center">
                     HOT DEAL
                 </h2>
-                <p>We always have hot deals for everyone from new users to loyal customers. Take a look at them here it's below. All because of you. Your choice is our honor.</p>
+                {{-- <p>We always have hot deals for everyone from new users to loyal customers. Take a look at them here it's below. All because of you. Your choice is our honor.</p> --}}
             </div>
             <div class="panel-pricing-in">
                 <!-- item -->
@@ -18,18 +18,18 @@
                             <h3>Basic</h3>
                         </div>
                         <div class="panel-body text-center">
-                            <p><strong>$30/<span>Month</span></strong></p>
+                            <p><strong>15%/<span>Bill</span></strong></p>
                         </div>
-                        <ul class="list-group text-center">
+                        {{-- <ul class="list-group text-center">
                             <li class="list-group-item"><i class="fa fa-check"></i> One Website</li>
                             <li class="list-group-item"><i class="fa fa-check"></i> One User</li>
                             <li class="list-group-item"><i class="fa fa-check"></i> 10 GB Bandwidth</li>
                             <li class="list-group-item"><i class="fa fa-times"></i> 2GB Storage</li>
                             <li class="list-group-item"><i class="fa fa-times"></i> Offline work</li>
                             <li class="list-group-item"><i class="fa fa-check"></i> 24x7 Support</li>
-                        </ul>
+                        </ul> --}}
                         <div class="panel-footer">
-                            <a class="btn btn-lg btn-block hvr-underline-from-center" href="#">Purchase Now!</a>
+                            <a class="btn btn-lg btn-block hvr-underline-from-center" href="#">Get Now!</a>
                         </div>
                     </div>
                 </div>
@@ -45,18 +45,18 @@
                             <h3>Pro</h3>
                         </div>
                         <div class="panel-body text-center">
-                            <p><strong>$60/<span>Month</span></strong></p>
+                            <p><strong>20%/<span>Bill</span></strong></p>
                         </div>
-                        <ul class="list-group text-center">
+                        {{-- <ul class="list-group text-center">
                             <li class="list-group-item"><i class="fa fa-check"></i> One Website</li>
                             <li class="list-group-item"><i class="fa fa-check"></i> One User</li>
                             <li class="list-group-item"><i class="fa fa-check"></i> 50 GB Bandwidth</li>
                             <li class="list-group-item"><i class="fa fa-check"></i> 2GB Storage</li>
                             <li class="list-group-item"><i class="fa fa-check"></i> Offline work</li>
                             <li class="list-group-item"><i class="fa fa-check"></i> 24x7 Support</li>
-                        </ul>
+                        </ul> --}}
                         <div class="panel-footer">
-                            <a class="btn btn-lg btn-block hvr-underline-from-center" href="#">Purchase Now!</a>
+                            <a class="btn btn-lg btn-block hvr-underline-from-center" href="#">Get Now!</a>
                         </div>
                     </div>
                 </div>
@@ -72,18 +72,21 @@
                             <h3>Platinum</h3>
                         </div>
                         <div class="panel-body text-center">
-                            <p><strong>$90/<span>Month</span></strong></p>
+                            <p><strong>30%/<span>Bill</span></strong></p>
+                            @php
+                                $percent = 30;
+                            @endphp
                         </div>
-                        <ul class="list-group text-center">
+                        {{-- <ul class="list-group text-center">
                             <li class="list-group-item"><i class="fa fa-check"></i> One Website</li>
                             <li class="list-group-item"><i class="fa fa-check"></i> One User</li>
                             <li class="list-group-item"><i class="fa fa-check"></i> 100 GB Bandwidth</li>
                             <li class="list-group-item"><i class="fa fa-check"></i> 2GB Storage</li>
                             <li class="list-group-item"><i class="fa fa-check"></i> Offline work</li>
                             <li class="list-group-item"><i class="fa fa-check"></i> 24x7 Support</li>
-                        </ul>
+                        </ul> --}}
                         <div class="panel-footer">
-                            <a class="btn btn-lg btn-block hvr-underline-from-center" href="#">Purchase Now!</a>
+                            <a class="btn btn-lg btn-block hvr-underline-from-center" href="{{route('user.home.getVoucher', [$percent])}}">Get Now!</a>
                         </div>
                     </div>
                 </div>

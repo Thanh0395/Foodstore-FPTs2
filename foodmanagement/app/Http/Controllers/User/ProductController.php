@@ -194,14 +194,15 @@ class ProductController extends Controller
         return view('users.userclient.list-cart', compact('carts', 'percent', 'ss_cart'));
     }
 
-    public function checkOut($total, Request $request)
+    public function checkOut(Request $request, $total)
     {
         $carts = session()->get('cart');
         $ss_voucher = session()->get('ss_voucher');
         $U_id = session()->get('U_id');
         $user = DB::table('users')->where('U_id', '=', $U_id)->first();
+        $percent = session()->get('ss_percent');
         DB::insert('insert into orders (U_id,voucher_code) values (?,?)', [$U_id, $ss_voucher]);
-        return view('users.userclient.checkOut', compact('carts', 'total','user'));
+        return view('users.userclient.checkOut', compact('carts', 'total','user', 'percent'));
     }
 
     public function updateCart(Request $request)
@@ -234,7 +235,9 @@ class ProductController extends Controller
         }
         $ss_voucher = session()->get('ss_voucher');
         $ss_voucher = $request->Voucher;
+        session()->put('ss_voucher',$request->Voucher);
         session()->put('ss_voucher', $ss_voucher);
+        session()->put('ss_percent', $percent);
         $cart_component = view('users.userclient.list-cart', compact('carts', 'percent'))->render();
         return response()->json(['cart_component' => $cart_component, 'code' => 200 ], status:200);
     }
@@ -253,20 +256,20 @@ class ProductController extends Controller
         // return view('users.userclient.list-cart', compact('carts'));
     }
 
-    public function vnpayPayment_user()
+    public function vnpayPayment_user($total)
     {
 
         error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED);
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_Returnurl = route('user.product.thankYou');
+        $vnp_Returnurl = route('user.product.thankYou',[$total]);
         $vnp_TmnCode = "PB9RYKRD"; //Mã website tại VNPAY
         $vnp_HashSecret = "LDKGFMFXNDLQMZSPKRPCEAIDZAMFCGNG"; //Chuỗi bí mật
 
         $vnp_TxnRef = time();//time().$_POST['O_id']; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
         $vnp_OrderInfo = 'a';//$_POST['name'];
         $vnp_OrderType = 'billpayment';
-        $vnp_Amount = 10000*100;//$_POST['total'] * 100;
+        $vnp_Amount = $total*100*1.1;//$_POST['total'] * 100;
         $vnp_Locale = 'en';
         $vnp_BankCode = '';
         $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
@@ -326,11 +329,13 @@ class ProductController extends Controller
         // vui lòng tham khảo thêm tại code demo
     }
 
-    public function thankYou_user(){
+    public function thankYou_user($total, Request $request){
 
         $U_id = session()->get('U_id');
         $O_id = DB::table('orders')->where('U_id', '=', $U_id)->value('O_id');
         $carts = session()->get('cart');
+        $voucher_code = session()->get('ss_voucher');
+        $percent = session()->get('ss_percent');
         foreach($carts as $item => $value){
 
             DB::insert('insert into order_detail (O_id, F_id, quantity) values (?,?,?)', [$O_id, $value['F_id'], $value['quantity']]);
@@ -338,6 +343,6 @@ class ProductController extends Controller
         }
         $date_detail = DB::table('order_detail')->where('O_id', $O_id)->value('created_at');
 
-        return view('users.userclient.thankYou', compact('O_id', 'date_detail','carts'));
+        return view('users.userclient.thankYou', compact('O_id', 'date_detail','carts', 'total', 'voucher_code', 'percent'));
     }
 }

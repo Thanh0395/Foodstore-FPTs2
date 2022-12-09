@@ -145,21 +145,23 @@
 
                                     <div class="float-end">
                                         <p class="mb-0 me-5 d-flex align-items-center">
-                                            <span class="small text-muted me-2">Order total:</span> <span
+                                            <span class="small text-muted me-2">Order total:</span> <span id="total_checkOut"
                                             class="lead fw-normal">
                                                 {{ number_format($total * (((100 - $percent) / 100)), 0, ',', '.') }}
                                             VND</span>
                                         </p>
                                     </div>
-
+                                    @php
+                                        $total = $total * (100 - $percent) / 100;
+                                    @endphp
                                 </div>
                             </div>
 
                             <div class="d-flex justify-content-end">
                                 <button type="button" class="btn btn-light btn-lg me-2"><a
                                         href="{{ route('user.product.all') }}">Continue shopping</a></button>
-                                <a href="{{ route('user.product.checkOut',[$total]) }}"><button type="button"
-                                        class="btn btn-primary btn-lg">Checkout</button></a>
+                                <a href="{{ route('user.product.checkOut', [$total]) }}"><button type="button"
+                                        class="btn btn-primary btn-lg check_out">Checkout</button></a>
                             </div>
 
                         </div>
@@ -262,6 +264,7 @@
                 }
             });
         }
+
         $(function() {
             $(document).on('click', '.cart_update', cartUpdate);
             $(document).on('click', '.hot_deal', hotdeal);

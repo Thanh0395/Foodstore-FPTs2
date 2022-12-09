@@ -99,9 +99,9 @@
                                             <a href="#!" type="submit" class="text-white"><i
                                                     class="fab fa-cc-paypal fa-2x"></i></a> --}}
 
-                                            <form class="mt-4" action="{{route('user.product.payment')}}" method="post">
+                                            <form class="mt-4" action="{{route('user.product.payment',[$total])}}" method="post">
                                                 @csrf
-                                                <div class="form-outline form-white mb-4">
+                                                <div class="form-outline form-white mb-2">
                                                     <input type="text" id="user_name"
                                                         class="form-control form-control-lg" siez="17"
                                                         placeholder="Enter your name" value="{{$user->name}}" />
@@ -110,8 +110,8 @@
                                                 <div hidden>
                                                     <input type="text" name="redirect" value="Payment by Vnpay">
                                                 </div>
-/.
-                                                <div class="form-outline form-white mb-4">
+
+                                                <div class="form-outline form-white mb-2">
                                                     <input type="text" id="user_phone"
                                                         class="form-control form-control-lg" siez="17"
                                                         placeholder="Enter phone" minlength="19"
@@ -119,7 +119,7 @@
                                                     <label class="form-label" for="typeText"></label>
                                                 </div>
 
-                                                <div class="form-outline form-white mb-4">
+                                                <div class="form-outline form-white mb-2">
                                                     <input type="text" id="user_email"
                                                         class="form-control form-control-lg" siez="17"
                                                         placeholder="Enter email" minlength="19"
@@ -127,7 +127,7 @@
                                                     <label class="form-label" for="typeText"></label>
                                                 </div>
 
-                                                <div class="form-outline form-white mb-4">
+                                                <div class="form-outline form-white mb-2">
                                                     <input type="text" id="user_address"
                                                         class="form-control form-control-lg" siez="17"
                                                         placeholder="Enter address" minlength="19"
@@ -156,7 +156,7 @@
                                                         </div>
                                                     </div>
                                                 </div> --}}
-                                                <hr class="my-4">
+                                                <hr class="my-1">
 
                                             <div class="d-flex justify-content-between">
                                                 <p class="mb-2">Order Total</p>
@@ -168,7 +168,10 @@
                                                 <p class="mb-2">Shipping</p>
                                                 <p class="mb-2">$20.00</p>
                                             </div> --}}
-
+                                            <div class="d-flex justify-content-between mb-4">
+                                                <p class="mb-2">Discounted</p>
+                                                <p class="mb-2">{{$percent}}%</p>
+                                            </div>
                                             <div class="d-flex justify-content-between mb-4">
                                                 <p class="mb-2">Taxes</p>
                                                 <p class="mb-2">10%</p>

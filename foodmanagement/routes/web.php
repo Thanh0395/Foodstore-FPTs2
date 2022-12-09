@@ -40,9 +40,15 @@ Route::get('Product/show-cart', [ProductController::class, 'showCart'])->name('u
 Route::get('Product/update-cart', [ProductController::class, 'updateCart'])->name('user.product.updateCart');
 Route::get('Product/delete-cart', [ProductController::class, 'deleteCart'])->name('user.product.deleteCart');
 Route::get('Product/hot-deal', [ProductController::class, 'hotdeal'])->name('user.product.hotDeal');
-Route::get('Product/check-out/{total}', [ProductController::class, 'checkOut'])->name('user.product.checkOut');
-Route::post('Product/pay-ment', [ProductController::class, 'vnpayPayment_user'])->name('user.product.payment');
-Route::get('Product/thank-you', [ProductController::class, 'thankYou_user'])->name('user.product.thankYou');
+Route::get('Product/check-out{total}', [ProductController::class, 'checkOut'])->name('user.product.checkOut');
+Route::post('Product/pay-ment{total}', [ProductController::class, 'vnpayPayment_user'])->name('user.product.payment');
+Route::get('Product/thank-you{total}', [ProductController::class, 'thankYou_user'])->name('user.product.thankYou');
+Route::get('Product/contact-us', [HomeController::class, 'contactUs'])->name('user.home.contactUs');
+Route::post('Product/contact-us-store', [HomeController::class, 'store_contact'])->name('user.home.contactUs.store');
+Route::get('/get_voucher{percent}', [HomeController::class, 'get_voucher'])->name('user.home.getVoucher');
+Route::get('/success-voucher', [HomeController::class, 'success_voucher'])->name('user.home.successVOucher');
+
+
 
 Route::get('/detail/{id}', [ProductController::class, 'detail'])->name('user.detail');
 Route::get('/register', [RegisterController::class, 'index'])->name('user.register');

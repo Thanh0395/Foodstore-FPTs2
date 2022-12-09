@@ -51,18 +51,20 @@
                             <p class="lead fw-bold mb-5" style="color: #f37a27;">Purchase Reciept</p>
 
                             <div class="row">
-                                <div class="col mb-3">
+                                <div class="col mb-2">
                                     <p class="small text-muted mb-1">Date</p>
                                     <p>{{ $date_detail }}</p>
                                 </div>
-                                <div class="col mb-3">
+                                <div class="col mb-2">
                                     <p class="small text-muted mb-1">Order No.</p>
                                     <p>{{ $O_id }}</p>
                                 </div>
+                                <div class="col mb-6">
+                                    <p class="small text-muted mb-1">Voucher_code</p>
+                                    <p>{{$voucher_code}}(discounted: {{$percent}}%)</p>
+                                </div>
                             </div>
-                            @php
-                                $total = 0;
-                            @endphp
+
                             @foreach ($carts as $cart)
                                 <div class="mx-n2 px-2 py-1" style="background-color: #f2f2f2;">
                                     <div class="row">
@@ -91,13 +93,10 @@
                                         <p class="lead fw-bold mb-0" style="color: #f37a27;">{{ number_format($cart['price'] * 0.9*$cart['quantity'], 0, ',', '.') }}VND</p>
                                     </div>
                                 </div>
-                                @php
-                                    $total += ($cart['price'] * 0.9*$cart['quantity']);
-                                @endphp
                             @endforeach
 
 
-                            <p class="lead fw-bold mb-4 pb-2" style="color: #f37a27;">Amount: {{number_format($total,0,',','.')}}VND</p>
+                            <p class="lead fw-bold mb-4 pb-2" style="color: #f37a27;">Amount: {{number_format($total*1.1,0,',','.')}}VND</p>
 
                             {{-- <div class="row">
                                 <div class="col-lg-12">
@@ -131,8 +130,8 @@
                                 </div>
                             </div> --}}
 
-                            {{-- <p class="mt-4 pt-2 mb-0">Want any help? <a href="{{route('user.home')}}" style="color: #f37a27;">Please
-                                    contact us</a></p> --}}
+                            <p class="mt-4 pt-2 mb-0">Want any help? <a href="{{route('user.home.contactUs')}}" style="color: #f37a27;">Please
+                                    contact us</a></p>
 
                         </div>
                     </div>
