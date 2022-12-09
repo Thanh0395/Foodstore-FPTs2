@@ -144,6 +144,23 @@ class ProductController extends Controller
         $rated = strval($rating);
         return $rated;
     }
+    //Compare
+    public function compare($listcompare)
+    {
+        if ($listcompare=='null') {
+            $foods = 'null';
+            return view('users.userclient.compare',compact('foods'));
+        } else {
+            $compareids =explode(",",$listcompare);
+            $foods = DB::table('foods')
+                        ->join('categories','foods.Cate_id','categories.Cate_id')
+                        ->join('calories','foods.F_name','calories.F_name')
+                        ->whereIn('F_id',  $compareids)
+                        ->select('*')
+                        ->get();
+            return view('users.userclient.compare',compact('foods'));
+        }
+    }
 
     //Them san pham vao gio hang
     public function addToCart($id, Request $request)

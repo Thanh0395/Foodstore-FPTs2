@@ -11,6 +11,17 @@
                 </div>
             </div>
             <div class="col-lg-6 text-start text-lg-end wow slideInLeft">
+                <div class="col-lg-6 text-start text-lg-start wow slideInLeft" data-wow-delay="0.1s">
+                    <ul class="nav nav-pills d-inline-flex justify-content-end mb-3">
+                        <li class="nav-item me-2" style="margin: 5px">
+                            <a style="color: white" type="button" class="btn btn-primary" href="#"
+                                onclick="tblcompare()">Compare table
+                                <span id="comparecount" style="background-color: red"
+                                    class="badge">{{ session()->get('comparecount') }}</span></a>
+
+                        </li>
+                    </ul>
+                </div>
                 {{-- <div style="display: flex; justify-content: start; align-items: start;"
                     class="section-header text-start mb-1 wow fadeInUp">{{ $foods->links() }}</div> --}}
             </div>
@@ -39,6 +50,7 @@
                 </ul>
             </div>
         </div>
+
         {{-- Search --}}
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -52,26 +64,26 @@
                 });
             });
         </script>
-        {{-- search by price --}}
 
+        {{-- search by price --}}
         <input class="form-control" id="SearchInput" type="text"
             placeholder="Type something (name, price...) to search:">
         <div class="row" style="margin: 10px 0px;">
             <form action="{{ route('user.product.cate', $Cate_name) }}" method="get"
-                class="form-horizontal form-label-left" enctype="multipart/form-data" >
+                class="form-horizontal form-label-left" enctype="multipart/form-data">
                 @csrf
-                Price from <input class="" type="number" name="priceMin" value="{{$priceMin}}"> to <input class=""
-                    type="number" name="priceMax" value="{{$priceMax}}">
-                <button style="margin: 0px 10px;" class="btn btn-info btn-sm" type="submit"> Apply</button>
+                Price from <input class="" type="number" name="priceMin" value="{{ $priceMin }}"> to <input
+                    class="" type="number" name="priceMax" value="{{ $priceMax }}">
+                <button style="color: white; margin: 0px 10px 5px;" class="btn btn-primary btn-sm" type="submit">
+                    Apply</button>
             </form>
         </div>
-
         {{-- /Search --}}
 
         {{-- tool tip --}}
         <script>
-            $(document).ready(function(){
-              $('[data-toggle="tooltip"]').tooltip();
+            $(document).ready(function() {
+                $('[data-toggle="tooltip"]').tooltip();
             });
         </script>
         {{-- /tool tip --}}
@@ -92,7 +104,8 @@
                                     </div>
                                 </div>
                                 <div class="text-center p-2 " style="height: 5rem;">
-                                    <a class="d-block h5 mb-2" data-toggle="tooltip" data-placement="right" title="Calo: {{$food->calories}} kcal">{{ $food->F_name }}</a>
+                                    <a class="d-block h5 mb-2" data-toggle="tooltip" data-placement="right"
+                                        title="Calo: {{ $food->calories }} kcal">{{ $food->F_name }}</a>
                                 </div>
                                 <div class="text-center">
                                     <span class="text-primary me-1">
@@ -111,8 +124,9 @@
                                                 class="fa fa-shopping-bag text-primary me-2"></i>Add to cart</a>
                                     </small>
                                     <small class="w-33 text-center py-2" style="padding: 0px 5px">
-                                        <a class="text-body" href="" onclick="addcompare"><i
-                                                class="fa fa-files-o text-primary me-2"></i>Compare</a>
+                                        <button class="text-body" onclick="addcompare('{{ $food->F_id }}')"
+                                            style="padding: 0px; background-color: transparent; border: none;"><i
+                                                class="fa fa-files-o text-primary me-2"></i>Compare</button>
                                     </small>
                                 </div>
                             </div>
@@ -128,7 +142,16 @@
 
             {{-- Compare --}}
             <script>
-
+                function tblcompare() {
+                    //neu chuoi rỗng
+                    if (listcompare.length === 0) {
+                        var url = '{{ route('user.home') }}' + '/product/compare/' + "null";
+                        window.location.replace(url);
+                    } else {
+                        var url = '{{ route('user.home') }}' + '/product/compare/' + listcompare;
+                        window.location.replace(url);
+                    }
+                }
             </script>
             {{-- /Compare --}}
 
