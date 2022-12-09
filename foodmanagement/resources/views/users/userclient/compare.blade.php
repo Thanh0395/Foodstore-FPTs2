@@ -10,7 +10,7 @@
                                 {{-- Compare list --}}
                                 <div class="col-lg-12 pt-2">
                                     <h5>
-                                        <i class="fa fa-heart" id="like" style="color: red"></i> Your wishlist:
+                                        <i class="fa fa-files-o" id="like" style="color: red"></i> List of comparison:
                                     </h5>
                                     <hr class="p-0 m-0">
                                 </div>
@@ -43,6 +43,7 @@
                                                         <td>{{ number_format($food->price * 0.9, 0, ',', '.') }}</td>
                                                         <td>{{ $food->calories }}</td>
                                                         <td>{{ $food->description }}</td>
+                                                        <td>{{ $food->F_id }}</td>
                                                         <td><button style="color: red" class="link"
                                                                 onclick="removecompare({{ $food->F_id }})">Remove</button>
                                                         </td>
@@ -54,9 +55,8 @@
                                 </div>
                                 <script>
                                     function removecompare(F_id) {
-                                        // var listremoved = JSON.parse(localStorage.getItem(storageKey));
-                                        var index = listcompare.indexOf(F_id);
-                                        listcompare.splice(index - 1, 1); // 2nd parameter means remove one item only
+                                        var index = listcompare.indexOf(F_id + "");
+                                        listcompare.splice(index, 1); // 2nd parameter means remove one item only
                                         localStorage.setItem(storageKey, JSON.stringify(listcompare));
                                         //neu chuoi rỗng
                                         if (listcompare.length === 0) {
