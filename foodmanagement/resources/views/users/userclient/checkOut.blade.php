@@ -170,7 +170,7 @@
                                             </div> --}}
                                             <div class="d-flex justify-content-between mb-4">
                                                 <p class="mb-2">Discounted</p>
-                                                <p class="mb-2">{{$percent}}%</p>
+                                                <p class="mb-2">{{$ss_percent}}%</p>
                                             </div>
                                             <div class="d-flex justify-content-between mb-4">
                                                 <p class="mb-2">Taxes</p>

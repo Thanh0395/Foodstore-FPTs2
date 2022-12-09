@@ -215,11 +215,12 @@ class ProductController extends Controller
     {
         $carts = session()->get('cart');
         $ss_voucher = session()->get('ss_voucher');
+        $ss_percent = session()->get('ss_percent');
         $U_id = session()->get('U_id');
         $user = DB::table('users')->where('U_id', '=', $U_id)->first();
         $percent = session()->get('ss_percent');
         DB::insert('insert into orders (U_id,voucher_code) values (?,?)', [$U_id, $ss_voucher]);
-        return view('users.userclient.checkOut', compact('carts', 'total','user', 'percent'));
+        return view('users.userclient.checkOut', compact('carts', 'total','user', 'percent', 'ss_percent'));
     }
 
     public function updateCart(Request $request)
@@ -242,17 +243,18 @@ class ProductController extends Controller
     public function hotdeal(Request $request)
     {
         $carts = session()->get('cart');
-        $hotdeals = DB::table('hotdeal')->get();
+        $hotdeals = DB::table('hotdeal')->where('voucher_code','=', $request->Voucher)->get();
         $hotdeals_json = json_decode($hotdeals, true);
 
         if ($request->Voucher) {
+
             foreach ($hotdeals_json as $key => $value) {
                 $percent = $value['percent'];
             }
         }
         $ss_voucher = session()->get('ss_voucher');
         $ss_voucher = $request->Voucher;
-        session()->put('ss_voucher',$request->Voucher);
+        // session()->put('ss_voucher',$request->Voucher);
         session()->put('ss_voucher', $ss_voucher);
         session()->put('ss_percent', $percent);
         $cart_component = view('users.userclient.list-cart', compact('carts', 'percent'))->render();
@@ -353,6 +355,8 @@ class ProductController extends Controller
         $carts = session()->get('cart');
         $voucher_code = session()->get('ss_voucher');
         $percent = session()->get('ss_percent');
+        // $status = 'finished';
+        // $update_status = DB::update('update orders set status = ? where O_id = ?', [$status, $O_id]);
         foreach($carts as $item => $value){
 
             DB::insert('insert into order_detail (O_id, F_id, quantity) values (?,?,?)', [$O_id, $value['F_id'], $value['quantity']]);
