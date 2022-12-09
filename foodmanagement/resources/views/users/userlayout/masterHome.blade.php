@@ -56,7 +56,7 @@
     @include('users.block.home.gallery')
     @include('users.block.home.blog')
     @include('users.block.home.team')
-    @include('users.block.home.reservation')
+    {{-- @include('users.block.home.reservation') --}}
     @include('users.block.home.footer')
     <!-- ALL JS FILES -->
     <script src="{{ asset('assets/clients/js/all.js') }}" ></script>

@@ -15,12 +15,15 @@
             <div class="col-lg-3 px-5 text-start">
                 <small class="ms-4"><i class="fa fa-envelope me-2"></i>Group1@gmail.com</small>
             </div>
-            <div class="col-lg-6 px-8 text-end" >
+            <div class="col-lg-6 px-8 text-end">
                 <small>Follow us:</small>
                 <a class="text-body ms-3" href=""><i class="fab fa-facebook-f" style="color: blue"></i></a>
-                <a class="text-body ms-3" href=""><i class="fab fa-twitter" style="color: rgb(0, 98, 255)"></i></a>
-                <a class="text-body ms-3" href=""><i class="fab fa-linkedin-in" style="color: rgba(47, 255, 0, 0.795)"></i></a>
-                <a class="text-body ms-3" href=""><i class="fab fa-instagram" style="color: rgb(255, 0, 174)"></i></a>
+                <a class="text-body ms-3" href=""><i class="fab fa-twitter"
+                        style="color: rgb(0, 98, 255)"></i></a>
+                <a class="text-body ms-3" href=""><i class="fab fa-linkedin-in"
+                        style="color: rgba(47, 255, 0, 0.795)"></i></a>
+                <a class="text-body ms-3" href=""><i class="fab fa-instagram"
+                        style="color: rgb(255, 0, 174)"></i></a>
             </div>
         </div>
 
@@ -36,43 +39,60 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarCollapse">
-                @if ( session()->get('name') != '')
-                    <div style="font-size: 12pt; background-color: whitesmoke;border-radius: 20px ; padding: 5px 10px">Hello,
-                        <a href="{{route('user.profile')}}"> {{session()->get('name')}}</a>
+                @if (session()->get('name') != '')
+                    <div style="font-size: 12pt; background-color: whitesmoke;border-radius: 20px ; padding: 5px 10px">
+                        Hello,
+                        <a href="{{ route('user.profile') }}"> {{ session()->get('name') }}</a>
                     </div>
                 @endif
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
-                    <a href="{{route('user.home')}}" class="nav-item nav-link">HOME</a>
-                    <a href="{{route('user.home')}}" class="nav-item nav-link">ABOUT US</a>
-                    <a href="{{route('user.product.all')}}" class="nav-item nav-link active">PRODUCT</a>
+                    <a href="{{ route('user.home') }}" class="nav-item nav-link">HOME</a>
+                    <a href="{{ route('user.home') }}" class="nav-item nav-link">ABOUT US</a>
+                    <a href="{{ route('user.product.all') }}" class="nav-item nav-link active">PRODUCT</a>
                     <div class="nav-item dropdown">
-                        <a href="{{route('user.home')}}" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">PAGES</a>
+                        <a href="{{ route('user.home') }}" class="nav-link dropdown-toggle"
+                            data-bs-toggle="dropdown">PAGES</a>
                         <div class="dropdown-menu m-0">
-                            <a href="{{route('user.home')}}" class="dropdown-item">Blog</a>
-                            <a href="{{route('user.home')}}" class="dropdown-item">Gllery</a>
-                            <a href="{{route('user.home')}}" class="dropdown-item">Team</a>
+                            <a href="{{ route('user.home') }}" class="dropdown-item">Blog</a>
+                            <a href="{{ route('user.home') }}" class="dropdown-item">Gllery</a>
+                            <a href="{{ route('user.home') }}" class="dropdown-item">Team</a>
                         </div>
                     </div>
-                    <a href="{{route('user.home')}}" class="nav-item nav-link">CONTACT</a>
+                    <a href="{{ route('user.home') }}" class="nav-item nav-link">CONTACT</a>
                 </div>
                 @php
                     $percent = 0;
                 @endphp
                 <div class="d-none d-lg-flex ms-2">
-                    <a class="btn-sm-square bg-white rounded-circle ms-3" href="">
+                    {{-- <a class="btn-sm-square bg-white rounded-circle ms-3" href="">
                         <small class="fa fa-search text-body"></small>
-                    </a>
-                    <a style="position: relative;" class="btn-sm-square bg-white rounded-circle ms-3" href="{{route('user.product.showCart')}}">
+                    </a> --}}
+                    <a style="position: relative;" class="btn-sm-square bg-white rounded-circle ms-3"
+                        href="{{ route('user.product.showCart') }}"
+                        data-toggle="tooltip" data-placement="right" title="Check cart">
                         <small class="fa fa-shopping-bag text-body"></small>
-                        <small class="" style="background-color: red;border-radius: 50%; padding: 0px 6px; position: absolute; top:-8px; right: -12px; z-index: 1; color: white"><Strong class="count_cart" id="cartCount"></Strong></small>
+                        <small class=""
+                            style="background-color: red;border-radius: 50%; padding: 0px 6px; position: absolute; top:-8px; right: -12px; z-index: 1; color: white"><Strong
+                                class="count_cart" id="cartCount"></Strong></small>
                     </a>
-
-                    <a class="btn-sm-square bg-white rounded-circle ms-3" href=" {{route('user.login')}} ">
-                        <small class="fa fa-user text-body"></small>
-                    </a>
-                    <a class="btn-sm-square bg-white rounded-circle ms-3" href=" {{route('user.logout')}} ">
-                        <small class="fa fa-arrow-circle-right text-body"></small>
-                    </a>
+                    @if (session()->get('U_id'))
+                        <a class="btn-sm-square bg-white rounded-circle ms-3" href=" {{ route('user.logout') }} "
+                        data-toggle="tooltip" data-placement="right"
+                                        title="Log out">
+                            <small class="fa fa-arrow-circle-right text-body"></small>
+                        </a>
+                    @else
+                        <a class="btn-sm-square bg-white rounded-circle ms-3" href=" {{ route('user.login') }} "
+                        data-toggle="tooltip" data-placement="right"
+                                        title="Log in">
+                            <small class="fa fa-user text-body"></small>
+                        </a>
+                    @endif
+                    <script>
+                        $(document).ready(function() {
+                            $('[data-toggle="tooltip"]').tooltip();
+                        });
+                    </script>
                 </div>
             </div>
         </nav>
