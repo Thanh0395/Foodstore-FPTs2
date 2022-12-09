@@ -58,5 +58,8 @@
     <script src="{{asset('assets/clients/order/js/main.js')}}"></script>
     @yield('jsCart')
     @stack('script')
+    <script>
+        document.getElementById("cartCount").innerHTML = {{session()->get('cartCount')}};
+    </script>
 </body>
 </html>

@@ -168,6 +168,17 @@ class ProductController extends Controller
         // tat sesion truoc
         // session()->forget(keys:'cart');
         // session()->flush('cart');
+
+        //Thanh code cartCount
+        if ( session()->get('cartCount') ) {
+            $SumCart = session()->get('cartCount');
+            $SumCart ++;
+            session(['cartCount' => $SumCart]);
+        } else {
+            session()->put('cartCount', 1);
+        }
+        //endcode cartCount
+
         $foods = Food::find($id);
         $ss_cart = session()->get('ss_cart');
         $cart = session()->get(key: 'cart');
