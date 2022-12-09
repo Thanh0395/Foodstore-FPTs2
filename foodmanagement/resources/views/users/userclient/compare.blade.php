@@ -22,7 +22,7 @@
                                                 <th>Food name</th>
                                                 <th>Category</th>
                                                 <th>Price (Vnđ)</th>
-                                                <th>Calories</th>
+                                                <th>Calories (kcal)</th>
                                                 <th>Description</th>
                                             </tr>
                                         </thead>
