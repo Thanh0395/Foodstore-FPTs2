@@ -222,8 +222,8 @@ class ProductController extends Controller
     {
         $carts = session()->get('cart');
         $percent = 0;
-        $ss_cart = session()->get('ss_cart');
-        return view('users.userclient.list-cart', compact('carts', 'percent', 'ss_cart'));
+        // $ss_cart = session()->get('ss_cart');
+        return view('users.userclient.list-cart', compact('carts', 'percent'));
     }
 
     public function checkOut(Request $request, $total)
@@ -278,16 +278,12 @@ class ProductController extends Controller
 
     public function deleteCart(Request $request){
         if($request->id){
-            //Thanh code cartCount
-            $SumCart = session()->get('cartCount');
-            $SumCart -=1;
-            session(['cartCount' => $SumCart]);
-            //Thanh code cartCount
             $percent = 0;
             $carts = session()->get('cart');
             unset($carts[$request->id]);
             session()->put('cart', $carts);
             $carts = session()->get('cart');
+            session(['cartCount' => count($carts)]);
             $cart_component = view('users.userclient.list-cart', compact('carts', 'percent'))->render();
             return response()->json(['cart_component' => $cart_component, 'code' => 200], status: 200);
         }
