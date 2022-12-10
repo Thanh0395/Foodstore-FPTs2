@@ -24,7 +24,7 @@ class ProductController extends Controller
     {
         $priceMin = 0;
         $priceMax = 10000000;
-        $ss_cart = session()->get('ss_cart');
+        // $ss_cart = session()->get('ss_cart');
         $categories = DB::table('categories')->get();
         $foods = DB::table('foods')
             ->join('categories', 'foods.Cate_id', '=', 'categories.Cate_id')
@@ -32,7 +32,7 @@ class ProductController extends Controller
             ->select('foods.*', 'categories.Cate_name','calories.calories')
             ->get();
         $Cate_name = 'all';
-        return view('users.userclient.product', compact('foods', 'categories', 'Cate_name','priceMin','priceMax', 'ss_cart'));
+        return view('users.userclient.product', compact('foods', 'categories', 'Cate_name','priceMin','priceMax'));
 
 
 
@@ -170,9 +170,9 @@ class ProductController extends Controller
         // session()->flush('cart');
 
         //Thanh code cartCount
+        $SumCart = 0;
         if ( session()->get('cartCount') ) {
             $SumCart = session()->get('cartCount');
-            $SumCart ++;
             session(['cartCount' => $SumCart]);
         } else {
             session()->put('cartCount', 1);
@@ -180,14 +180,18 @@ class ProductController extends Controller
         //endcode cartCount
 
         $foods = Food::find($id);
-        $ss_cart = session()->get('ss_cart');
+        // $ss_cart = session()->get('ss_cart');
         $cart = session()->get(key: 'cart');
 
         if (isset($cart[$id])) {
-            $request->count += 1;
+            // $request->count += 1;
             $cart[$id]['quantity'] = $cart[$id]['quantity'] + 1;
         } else {
-            $request->count += 1;
+            //Thanh code cartCount
+            $SumCart +=1;
+            session(['cartCount' => $SumCart]);
+            //Thanh code cartCount
+            // $request->count += 1;
             $cart[$id] = [
                 'F_name' => $foods->F_name,
                 'price' => $foods->price,
@@ -198,13 +202,13 @@ class ProductController extends Controller
                 'F_id' => $foods->F_id
             ];
         }
-        $ss_cart = $request->count;
-        session()->put('ss_cart', $ss_cart);
+        // $ss_cart = $request->count;
+        // session()->put('ss_cart', $ss_cart);
         session()->put('cart', $cart);
         return response()->json([
             'code' => 200,
             'message' => 'success',
-            'count' => session()->get('ss_cart')
+            'count' => session()->get('cartCount')
         ],
             status:200
         );
@@ -274,6 +278,11 @@ class ProductController extends Controller
 
     public function deleteCart(Request $request){
         if($request->id){
+            //Thanh code cartCount
+            $SumCart = session()->get('cartCount');
+            $SumCart -=1;
+            session(['cartCount' => $SumCart]);
+            //Thanh code cartCount
             $percent = 0;
             $carts = session()->get('cart');
             unset($carts[$request->id]);

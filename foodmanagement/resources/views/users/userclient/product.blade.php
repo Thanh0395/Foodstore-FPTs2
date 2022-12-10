@@ -8,14 +8,14 @@
         function addToCart(event){
             event.preventDefault();
             let urlCart = $(this).data('url');
-            let count = document.getElementById("cartCount").innerHTML;
+            // let count = document.getElementById("cartCount").innerHTML;
             $.ajax({
                 type: "GET",
                 url: urlCart,
                 dataType: "json",
-                data:{
-                    count: count
-                },
+                // data:{
+                //     count: count
+                // },
                 success: function (data) {
                     /*
                         Test xem data co dung khi tra ve du lieu cho data chua
