@@ -73,6 +73,7 @@ Route::middleware('checkLogin')->prefix('/user/profile')->group(function () {
     Route::get('/edit/{U_id}', [ProfileController::class, 'edit'])                      ->name('user.editprofile');
     Route::post('/update/{Cate_id}', [ProfileController::class, 'update'])               ->name('user.updateprofile');
     Route::get('/removewishlist/{WL_id}', [ProfileController::class, 'removewishlist'])       ->name('user.removewishlist');
+    Route::get('/user-order/{O_id}', [ProfileController::class, 'userorder'])                  ->name('user.userorder');
 });
 
 Route::get('/admin-login', [LoginController::class, 'login'])                    ->name('admin.login');

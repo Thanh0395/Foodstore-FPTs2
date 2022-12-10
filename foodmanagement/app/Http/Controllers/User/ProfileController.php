@@ -93,36 +93,29 @@ class ProfileController extends Controller
             return redirect()->route('user.profile')->with('failure','Can not update, user email is already exist!');
         }
     }
-
-//Tao Insert trong DB bang foods
-// $F_name = $request->input('F_name');
-// $Cate_id = $request->input('Cate_id');
-// $image = $request->input('imgName'); //Tao 1 input hidden de chua ten của image
-// $price = $request->input('price');
-// $description = $request->input('description');
-// //Kiem tra co trung F_name ko?
-// $foodExist = DB::table('foods')->where('F_name', $F_name)
-//                             ->whereNot('F_id', $F_id) ->first();
-// if(!$foodExist){
-//     //Xu lý neu có ảnh
-//     if ($request->hasFile('image')) {
-//         $imgfile = $request->file('image');
-//         $extension = $imgfile->getClientOriginalExtension(); //Lay duoi file
-//         if ( $extension != 'jpg' && $extension != 'png' && $extension != 'jpeg') {
-//             return redirect()->route('admin.food.index')->with('failure', 'You can only choose .jpg, .png, .jpeg file');
-//         }
-//         //Neu co anh moi thi doi cot 'image' va chuyen imgfile vao thu muc ("images/food", $image)
-//         $image = $imgfile->getClientOriginalName();
-//         $imgfile->move("images/food", $image);
-//         $image = "images/food/".$image;
-//     } //Neu ko co anh thì giu nguyen cột 'image' va update
-// // Update du lieu vao bang foods
-//     DB::table('foods') ->where('F_id',$F_id)
-//             -> update(
-//                 array('F_name'=> htmlspecialchars($F_name) , 'Cate_id'=>$Cate_id, 'image'=>$image, 'price'=>$price, 'description'=>$description)
-//             );
-//     return redirect()->route('admin.food.index')->with('success','Update a food successfully!');
-// } else {
-//     return redirect()->route('admin.food.index')->with('failure','Can not update, food name is already exist!');
+    public function userorder($O_id)
+    {
+        $priceReduced = 0;
+        $order = Order::find($O_id);
+        //Nếu cột voucher_code của orders có mã thì lưu giá trị giảm vào biến $priceReduced, ko thì $priceReduced=0
+        if ($order->voucher_code != null) {
+            $voucher_code = DB::table('hotdeal')->select('*')->where('voucher_code', $order->voucher_code)->first();
+            $priceReduced = $voucher_code->percent;
+        }
+        $order_detail = DB::table('order_detail')
+                        -> join('orders','orders.O_id', '=',    'order_detail.O_id')
+                        -> join('foods','foods.F_id',   '=',    'order_detail.F_id')
+                        -> select('order_detail.*','orders.*','foods.F_name','foods.price')
+                        -> where('order_detail.O_id',$O_id)
+                        -> get();
+        $count=0;
+        $sum = 0;
+        $VAT = 10;
+        foreach ($order_detail as $detail){
+            $sum += ($detail->quantity)*($detail->price)*0.9;
+        }
+        $total = $sum * (100 - $priceReduced + $VAT)/100;
+        return view('users.userclient.userorder', compact('O_id','order_detail', 'count','priceReduced','sum', 'VAT','total'));
+    }
 }
 

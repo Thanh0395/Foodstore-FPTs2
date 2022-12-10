@@ -2,7 +2,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div style="" class="detail col-lg-10 border p-3 main-section bg-white">
+            <div style="" class="detail col-lg-10 col-md-12 border p-3 main-section bg-white">
                 <div class="row m-1">
                     <div class="col-lg-12">
                         <div class="border p-3 m-0">
