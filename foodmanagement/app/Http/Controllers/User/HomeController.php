@@ -78,4 +78,8 @@ class HomeController extends Controller
     public function success_voucher(){
         return view('users.userclient.voucherCode');
     }
+
+    public function voucher(){
+        return view('users.userclient.hodeal');
+    }
 }

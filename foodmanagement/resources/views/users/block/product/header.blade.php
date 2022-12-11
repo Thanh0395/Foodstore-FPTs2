@@ -88,11 +88,11 @@
                             <small class="fa fa-user text-body"></small>
                         </a>
                     @endif
-                    <script>
+                    {{-- <script>
                         $(document).ready(function() {
                             $('[data-toggle="tooltip"]').tooltip();
                         });
-                    </script>
+                    </script> --}}
                 </div>
             </div>
         </nav>

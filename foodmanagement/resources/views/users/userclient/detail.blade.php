@@ -201,11 +201,11 @@
                                 <div class="col-lg-12 mt-3">
                                     <div class="row">
                                         <div class="col-lg-6 pb-2">
-                                            <a href="#" class="btn btn-danger w-100">Add To Cart</a>
+                                            <a href="{{route('user.home.voucher')}}" class="btn btn-danger w-100">Get voucher</a>
                                         </div>
-                                        <div class="col-lg-6">
-                                            <a href="#" class="btn btn-success w-100">Shop Now</a>
-                                        </div>
+                                        {{-- <div class="col-lg-6">
+                                            <a href="#" class="btn btn-success w-100"></a>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>

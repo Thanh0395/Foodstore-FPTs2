@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -7,11 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>yourcart</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
-    <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    {{-- <link rel="stylesheet" href="https://cdn.usebootstrap.com/bootstrap/4.6.1/js/bootstrap.min.js">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script> --}}
-    {{-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> --}}
+
     <style>
         @media (min-width: 1025px) {
             .h-custom {
@@ -19,13 +16,13 @@
             }
         }
     </style>
-</head>
-
-<body>
+</head> --}}
+@extends('users.userlayout.masterCart')
+@section('content')
     <div class="cart-wrapper update_cart_url" data-url="{{ route('user.product.updateCart') }}">
         @if (Session::has('cart') != null)
             <section class="vh-100" style="background-color: #fdccbc;">
-                <div class="container delete_cart_url h-100" data-url="{{route('user.product.deleteCart')}}">
+                <div class="container delete_cart_url h-100" data-url="{{ route('user.product.deleteCart') }}">
                     <div class="row d-flex justify-content-center align-items-center h-100">
                         <div class="col">
                             @php
@@ -36,7 +33,7 @@
                                     $count += 1;
                                 @endphp
                             @endforeach
-                            <p><span class="h2">Shopping Cart</span><span class="h4">({{$count}} item in your
+                            <p><span class="h2">Shopping Cart</span><span class="h4">({{ $count }} item in your
                                     cart)</span>
                             </p>
                             @php
@@ -125,34 +122,28 @@
                                     </main>
                                 @endforeach
                             </div>
-
-                            {{-- afhuadhfusdhfusd --}}
-                            {{-- afhuadhfusdhfusd --}}
-                            {{-- @php
-                                $percent = 0;
-                            @endphp --}}
-                            <div class="card mb-5 hotdeal_update" data-url="{{route('user.product.hotDeal')}}">
+                            <div class="card mb-5 hotdeal_update" data-url="{{ route('user.product.hotDeal') }}">
                                 <div class="card-body p-4">
                                     <div class="float-left">
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id="basic-addon1">Enter Voucher:</span>
                                             <input type="text" class="form-control Voucher" placeholder="............."
                                                 aria-label="..." aria-describedby="basic-addon1">
-                                                <input type="hidden" class="percent_input" value="{{$percent}}">
+                                            <input type="hidden" class="percent_input" value="{{ $percent }}">
                                             <button class="btn btn-success hot_deal">Submit</button>
                                         </div>
                                     </div>
 
                                     <div class="float-end">
                                         <p class="mb-0 me-5 d-flex align-items-center">
-                                            <span class="small text-muted me-2">Order total:</span> <span id="total_checkOut"
-                                            class="lead fw-normal">
-                                                {{ number_format($total * (((100 - $percent) / 100)), 0, ',', '.') }}
-                                            VND</span>
+                                            <span class="small text-muted me-2">Order total:</span> <span
+                                                id="total_checkOut" class="lead fw-normal">
+                                                {{ number_format($total * ((100 - $percent) / 100), 0, ',', '.') }}
+                                                VND</span>
                                         </p>
                                     </div>
                                     @php
-                                        $total = $total * (100 - $percent) / 100;
+                                        $total = ($total * (100 - $percent)) / 100;
                                     @endphp
                                 </div>
                             </div>
@@ -174,101 +165,9 @@
             </div>
             <div class="row">
                 <div class="cod-md-12">
-                    <a style="text-align: center" href="{{route('user.product.all')}}">Shoping Now!</a>
+                    <a style="text-align: center" href="{{ route('user.product.all') }}">Shoping Now!</a>
                 </div>
             </div>
         @endif
     </div>
-
-
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-    <script>
-        function cartUpdate(event) {
-            event.preventDefault();
-            let urlUpdateCart = $('div.update_cart_url').data('url');
-            let id = $(this).data('id');
-            // let quantity = $(this).data('quantity');
-            let quantity = $(this).parents('main').find('input.quantity').val();
-            let Sauce = $(this).parents('main').find('select.freeSauce').val();
-            // let Voucher = $(this).parents('div.float-left').find('input.Voucher').val();
-            $.ajax({
-                type: "GET",
-                url: urlUpdateCart,
-                data: {
-
-                    id: id,
-                    quantity: quantity,
-                    Sauce: Sauce
-                    // Voucher: Voucher
-                },
-                dataType: "json",
-                success: function(data) {
-                    // alert(Voucher);
-                    if (data.code === 200) {
-                        $('.cart-wrapper').html(data.cart_component);
-                    }
-                },
-                error: function() {
-
-                }
-            });
-        }
-
-        ///HOt deall
-        function hotdeal(event) {
-            event.preventDefault();
-            let urlhotdeal = $('div.hotdeal_update').data('url');
-            let Voucher = $(this).parents('div.float-left').find('input.Voucher').val();
-            let percent = $(this).parents('div.float-left').find('input.percent_input').val();
-            $.ajax({
-                type: "GET",
-                url: urlhotdeal,
-                data: {
-                    Voucher: Voucher,
-                    percent:percent
-                },
-                dataType: "json",
-                success: function(data) {
-                    // alert(percent);
-                    if (data.code === 200) {
-                        $('.cart-wrapper').html(data.cart_component);
-                    }
-                },
-                error: function() {
-
-                }
-            });
-        }
-
-        //delete cart function
-        function deleteCart(event){
-            event.preventDefault();
-            let urldeleteCart = $('div.delete_cart_url').data('url');
-            let id = $(this).data('id');
-            $.ajax({
-                type: "GET",
-                url: urldeleteCart,
-                data: {
-
-                    id: id,
-                },
-                dataType: "json",
-                success: function(data) {
-                    // alert(Voucher);
-                    if (data.code === 200) {
-                        $('.cart-wrapper').html(data.cart_component);
-                    }
-                },
-                error: function() {
-
-                }
-            });
-        }
-
-        $(function() {
-            $(document).on('click', '.cart_update', cartUpdate);
-            $(document).on('click', '.hot_deal', hotdeal);
-            $(document).on('click', '.cart_delete', deleteCart);
-        })
-    </script>
-</body>
+@endsection

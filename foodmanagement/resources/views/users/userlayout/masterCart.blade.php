@@ -16,11 +16,15 @@
             }
         }
     </style>
+
 </head>
-    <main>
-        @yield('contentList-cart')
-    </main>
+
 <body>
+    {{-- @include('users.block.product.header'); --}}
+    <main>
+        @yield('content')
+    </main>
+
 
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script>
@@ -28,31 +32,88 @@
             event.preventDefault();
             let urlUpdateCart = $('div.update_cart_url').data('url');
             let id = $(this).data('id');
-            let quantity = $(this).parents('div').find('input.quantity').val();
+            // let quantity = $(this).data('quantity');
+            let quantity = $(this).parents('main').find('input.quantity').val();
+            let Sauce = $(this).parents('main').find('select.freeSauce').val();
+            // let Voucher = $(this).parents('div.float-left').find('input.Voucher').val();
             $.ajax({
                 type: "GET",
                 url: urlUpdateCart,
                 data: {
 
                     id: id,
-                    quantity: quantity
+                    quantity: quantity,
+                    Sauce: Sauce
+                    // Voucher: Voucher
                 },
                 dataType: "json",
                 success: function(data) {
+                    // alert(Voucher);
                     if (data.code === 200) {
-                        // alert('Update successfully!');
-                        $('.cart_wrapper').html(data.cart_component);
+                        $('.cart-wrapper').html(data.cart_component);
                     }
                 },
                 error: function() {
 
                 }
             });
-            // alert(urlUpdateCart);
+        }
+
+        ///HOt deall
+        function hotdeal(event) {
+            event.preventDefault();
+            let urlhotdeal = $('div.hotdeal_update').data('url');
+            let Voucher = $(this).parents('div.float-left').find('input.Voucher').val();
+            let percent = $(this).parents('div.float-left').find('input.percent_input').val();
+            $.ajax({
+                type: "GET",
+                url: urlhotdeal,
+                data: {
+                    Voucher: Voucher,
+                    percent: percent
+                },
+                dataType: "json",
+                success: function(data) {
+                    // alert(percent);
+                    if (data.code === 200) {
+                        $('.cart-wrapper').html(data.cart_component);
+                    }
+                },
+                error: function() {
+
+                }
+            });
+        }
+
+        //delete cart function
+        function deleteCart(event) {
+            event.preventDefault();
+            let urldeleteCart = $('div.delete_cart_url').data('url');
+            let id = $(this).data('id');
+            $.ajax({
+                type: "GET",
+                url: urldeleteCart,
+                data: {
+
+                    id: id,
+                },
+                dataType: "json",
+                success: function(data) {
+                    // alert(Voucher);
+                    if (data.code === 200) {
+                        $('.cart-wrapper').html(data.cart_component);
+                    }
+                },
+                error: function() {
+
+                }
+            });
         }
 
         $(function() {
             $(document).on('click', '.cart_update', cartUpdate);
+            $(document).on('click', '.hot_deal', hotdeal);
+            $(document).on('click', '.cart_delete', deleteCart);
         })
     </script>
 </body>
