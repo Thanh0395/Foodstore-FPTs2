@@ -78,7 +78,7 @@
                                                     <td>{{ $order->status }}</td>
                                                     <td style="width: ;">
                                                         <a class="btn btn-warning btn-xs"
-                                                            href="{{ route('user.detail', [$order->O_id]) }}">
+                                                            href="{{ route('user.userorder', [$order->O_id]) }}">
                                                             <i class="fa fa-eye"></i> Detail
                                                         </a>
                                                     </td>

@@ -79,10 +79,18 @@ Route::get('product/compare/{array}', [ProductController::class, 'compare'])->na
 
 Route::get('/blog/{P_id}', [PostController::class, 'showblog'])->name('showblog');
 Route::middleware('checkLogin')->prefix('/user/profile')->group(function () {
+<<<<<<< HEAD
     Route::get('/', [ProfileController::class, 'profile'])->name('user.profile');
     Route::get('/edit/{U_id}', [ProfileController::class, 'edit'])->name('user.editprofile');
     Route::post('/update/{Cate_id}', [ProfileController::class, 'update'])->name('user.updateprofile');
     Route::get('/removewishlist/{WL_id}', [ProfileController::class, 'removewishlist'])->name('user.removewishlist');
+=======
+    Route::get('/', [ProfileController::class, 'profile'])                                      ->name('user.profile');
+    Route::get('/edit/{U_id}', [ProfileController::class, 'edit'])                      ->name('user.editprofile');
+    Route::post('/update/{Cate_id}', [ProfileController::class, 'update'])               ->name('user.updateprofile');
+    Route::get('/removewishlist/{WL_id}', [ProfileController::class, 'removewishlist'])       ->name('user.removewishlist');
+    Route::get('/user-order/{O_id}', [ProfileController::class, 'userorder'])                  ->name('user.userorder');
+>>>>>>> f896e8ed43802f0f2c0ff2ec14254b571c05e3fd
 });
 
 Route::get('/admin-login', [LoginController::class, 'login'])->name('admin.login');
