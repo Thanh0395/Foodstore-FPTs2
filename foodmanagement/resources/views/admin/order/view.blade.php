@@ -38,21 +38,25 @@
                                             <td style="width: 5%;">{{ $count += 1 }}</td>
                                             <td>{{ $detail->F_name }}</td>
                                             <td>{{ $detail->quantity }}</td>
-                                            <td>{{ $detail->price }}</td>
-                                            <td>{{ $detail->quantity * $detail->price }}</td>
+                                            <td>{{  number_format($detail->price*0.9,0,',','.')}}</td>
+                                            <td>{{  number_format($detail->quantity * $detail->price*0.9,0,',','.') }}</td>
                                         </tr>
                                     @endforeach
                                     <tr>
                                         <td colspan="5">Sum</td>
-                                        <td>{{ $sum }}</td>
+                                        <td>{{ number_format($sum,0,',','.') }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5">Voucher</td>
+                                        <td>{{ $priceReduced }}%</td>
                                     </tr>
                                     <tr>
                                         <td colspan="5">VAT</td>
-                                        <td>{{ $VAT * 100 }}%</td>
+                                        <td>{{ $VAT }}%</td>
                                     </tr>
                                     <tr style="background-color: #ffdbf6">
                                         <td colspan="5">Total</td>
-                                        <td><strong>{{ $total = $sum + $sum * $VAT }}</strong></td>
+                                        <td><strong>{{ number_format($total,0,',','.') }}</strong></td>
                                     </tr>
                                 </tbody>
                             </table>

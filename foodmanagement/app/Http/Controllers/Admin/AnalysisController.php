@@ -150,14 +150,15 @@ class AnalysisController extends Controller
         $timezone = timezone_open('Asia/Ho_Chi_Minh');
         $nowDay = date_create('now',$timezone);
         $LastYear= $nowDay->modify('-1 year');
+        $LastYear = date_format($LastYear,'Y-m-d H:i:s');
         $trendFoodReve = DB::table('order_detail')
-                        ->selectRaw('orders.created_at, SUM(quantity*price) AS amount')
+                        ->selectRaw('order_detail.created_at, SUM(quantity*price) AS amount')
                         ->join('foods', 'order_detail.F_id','=', 'foods.F_id')
                         ->join('orders', 'order_detail.O_id','=', 'orders.O_id')
                         ->where('orders.status','=','Finished')
-                        ->where('orders.created_at','>=', $LastYear)
-                        ->groupBy('orders.created_at')
-                        ->orderBy('orders.created_at')
+                        ->where('order_detail.created_at','>=', $LastYear)
+                        ->groupBy('order_detail.created_at')
+                        ->orderBy('order_detail.created_at')
                         ->get();
         return view('admin.analysis.trendRevenue',compact(['trendFoodReve']));
     }

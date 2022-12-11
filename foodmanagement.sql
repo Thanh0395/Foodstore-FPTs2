@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 07, 2022 at 05:34 AM
+-- Generation Time: Dec 10, 2022 at 10:20 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -111,6 +111,27 @@ CREATE TABLE `comments` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `contact`
+--
+
+CREATE TABLE `contact` (
+  `contact_id` int(11) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `message` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `contact`
+--
+
+INSERT INTO `contact` (`contact_id`, `email`, `message`) VALUES
+(1, 'hung@gmail.com', 'sadasdasdasdasd'),
+(2, 'hung@gmail.com', 'sadasdasdasdasd'),
+(3, 'hung@gmail.com', 'dasdas');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `failed_jobs`
 --
 
@@ -197,7 +218,7 @@ CREATE TABLE `food_images` (
 
 CREATE TABLE `hotdeal` (
   `deal_id` int(11) NOT NULL,
-  `voucher_code` varchar(50) NOT NULL,
+  `voucher_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `percent` int(11) NOT NULL,
   `start_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `end_date` timestamp NULL DEFAULT NULL
@@ -209,7 +230,8 @@ CREATE TABLE `hotdeal` (
 
 INSERT INTO `hotdeal` (`deal_id`, `voucher_code`, `percent`, `start_date`, `end_date`) VALUES
 (1, 'hotdeal_10', 10, '2022-12-02 13:51:14', '2022-12-31 15:00:00'),
-(2, 'exp_deal', 15, '2022-11-01 13:00:00', '2022-11-30 13:52:13');
+(2, 'exp_deal', 15, '2022-11-01 13:00:00', '2022-11-30 13:52:13'),
+(3, 'hotdeal_30', 30, '2022-12-09 00:49:22', '2022-12-31 00:49:01');
 
 -- --------------------------------------------------------
 
@@ -253,26 +275,60 @@ CREATE TABLE `orders` (
   `O_id` bigint(20) UNSIGNED NOT NULL,
   `status` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Processing',
   `U_id` bigint(20) UNSIGNED NOT NULL,
-  `voucher_code` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `note` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `voucher_code` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`O_id`, `status`, `U_id`, `voucher_code`, `note`, `created_at`, `updated_at`) VALUES
-(6, 'Finished', 2, NULL, 'boom hang', '2022-11-10 05:53:29', '2022-12-05 00:35:44'),
-(7, 'Finished', 1, NULL, 'thanh cong', '2021-12-16 15:34:28', '2022-12-05 01:14:21'),
-(8, 'Finished', 3, NULL, 'thanh cong', '2022-10-11 15:34:36', '2022-12-05 00:35:44'),
-(10, 'Finished', 6, NULL, 'boom hang', '2022-07-18 15:49:13', '2022-12-05 01:14:21'),
-(11, 'Cancelled', 1, NULL, 'boom hang', '2022-11-12 07:45:29', '2022-11-19 01:04:11'),
-(12, 'Finished', 6, NULL, 'Done', '2022-07-28 12:52:39', '2022-12-05 00:35:44'),
-(13, 'Finished', 1, NULL, NULL, '2022-11-09 12:54:56', '2022-12-05 00:35:44'),
-(14, 'Finished', 1, NULL, NULL, '2022-11-27 16:13:36', '2022-12-05 00:35:44'),
-(15, 'Finished', 8, NULL, NULL, '2022-12-03 15:32:10', '2022-12-05 00:35:44');
+INSERT INTO `orders` (`O_id`, `status`, `U_id`, `note`, `created_at`, `updated_at`, `voucher_code`) VALUES
+(6, 'Finished', 2, 'boom hang', '2022-11-10 05:53:29', '2022-12-05 00:35:44', NULL),
+(7, 'Finished', 1, 'thanh cong', '2021-12-16 15:34:28', '2022-12-05 01:14:21', 'hotdeal_10'),
+(8, 'Finished', 3, 'thanh cong', '2022-10-11 15:34:36', '2022-12-05 00:35:44', NULL),
+(10, 'Finished', 6, 'boom hang', '2022-07-18 15:49:13', '2022-12-05 01:14:21', NULL),
+(11, 'Cancelled', 1, 'boom hang', '2022-11-12 07:45:29', '2022-11-19 01:04:11', 'hotdeal_30'),
+(12, 'Finished', 6, 'Done', '2022-07-28 12:52:39', '2022-12-05 00:35:44', NULL),
+(13, 'Finished', 1, NULL, '2022-11-09 12:54:56', '2022-12-05 00:35:44', 'exp_deal'),
+(14, 'Finished', 1, NULL, '2022-11-27 16:13:36', '2022-12-05 00:35:44', NULL),
+(17, 'Finished', 8, NULL, '2022-12-08 06:01:59', NULL, 'hotdeal_10'),
+(18, 'Processing', 8, NULL, '2022-12-08 06:11:04', NULL, 'hotdeal_10'),
+(19, 'Processing', 8, NULL, '2022-12-08 06:13:09', NULL, 'hotdeal_10'),
+(20, 'Processing', 8, NULL, '2022-12-08 06:13:30', NULL, 'hotdeal_10'),
+(21, 'Processing', 8, NULL, '2022-12-08 06:15:41', NULL, 'hotdeal_10'),
+(22, 'Processing', 8, NULL, '2022-12-08 06:16:09', NULL, 'hotdeal_10'),
+(23, 'Processing', 8, NULL, '2022-12-08 06:17:05', NULL, 'hotdeal_10'),
+(24, 'Processing', 8, NULL, '2022-12-08 06:17:07', NULL, 'hotdeal_10'),
+(25, 'Processing', 8, NULL, '2022-12-08 06:19:07', NULL, 'hotdeal_10'),
+(26, 'Processing', 8, NULL, '2022-12-08 06:19:12', NULL, 'hotdeal_10'),
+(27, 'Processing', 8, NULL, '2022-12-08 06:19:28', NULL, 'hotdeal_10'),
+(28, 'Processing', 8, NULL, '2022-12-08 06:41:54', NULL, 'hotdeal_10'),
+(29, 'Processing', 8, NULL, '2022-12-08 06:41:55', NULL, 'hotdeal_10'),
+(30, 'Processing', 8, NULL, '2022-12-08 06:44:01', NULL, 'hotdeal_10'),
+(31, 'Processing', 8, NULL, '2022-12-08 06:44:01', NULL, 'hotdeal_10'),
+(32, 'Processing', 8, NULL, '2022-12-08 06:52:09', NULL, 'hotdeal_10'),
+(33, 'Processing', 8, NULL, '2022-12-08 06:53:03', NULL, 'hotdeal_10'),
+(34, 'Processing', 8, NULL, '2022-12-08 06:54:30', NULL, 'hodeal_10'),
+(35, 'Processing', 8, NULL, '2022-12-08 06:59:51', NULL, 'hotdeal_10'),
+(36, 'Processing', 8, NULL, '2022-12-08 07:06:57', NULL, 'hotdeal_10'),
+(37, 'Processing', 8, NULL, '2022-12-08 07:07:17', NULL, 'hotdeal_10'),
+(38, 'Processing', 8, NULL, '2022-12-08 07:14:13', NULL, 'hotdeal_10'),
+(39, 'Processing', 8, NULL, '2022-12-08 07:17:32', NULL, 'hotdeal_10'),
+(40, 'Processing', 8, NULL, '2022-12-08 07:17:44', NULL, 'hotdeal_10'),
+(41, 'Processing', 8, NULL, '2022-12-08 07:19:20', NULL, 'hotdeal_10'),
+(42, 'Processing', 8, NULL, '2022-12-08 07:41:35', NULL, 'hotdeal_10'),
+(43, 'Processing', 8, NULL, '2022-12-08 08:55:53', NULL, 'hotdeal_10'),
+(44, 'Processing', 8, NULL, '2022-12-08 08:57:22', NULL, 'hotdeal_10'),
+(45, 'Processing', 8, NULL, '2022-12-08 08:57:47', NULL, 'hotdeal_10'),
+(46, 'Processing', 8, NULL, '2022-12-08 08:57:58', NULL, 'hotdeal_10'),
+(47, 'Processing', 8, NULL, '2022-12-08 08:58:06', NULL, 'hotdeal_10'),
+(48, 'Processing', 8, NULL, '2022-12-08 08:58:15', NULL, 'hotdeal_10'),
+(49, 'Processing', 8, NULL, '2022-12-08 08:58:24', NULL, 'hotdeal_10'),
+(50, 'Processing', 8, NULL, '2022-12-08 08:58:39', NULL, 'hotdeal_10'),
+(51, 'Processing', 8, NULL, '2022-12-09 01:01:45', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -308,7 +364,40 @@ INSERT INTO `order_detail` (`OD_id`, `O_id`, `F_id`, `quantity`, `created_at`, `
 (22, 13, 13, 2, NULL, NULL),
 (23, 13, 15, 2, NULL, NULL),
 (24, 14, 32, 1, '2022-11-27 16:14:43', NULL),
-(25, 15, 24, 2, '2022-12-03 15:32:59', NULL);
+(28, 17, 11, 2, '2022-12-08 06:03:20', NULL),
+(29, 17, 23, 3, '2022-12-08 06:03:20', NULL),
+(30, 17, 11, 2, '2022-12-08 06:18:22', NULL),
+(31, 17, 23, 3, '2022-12-08 06:18:22', NULL),
+(32, 17, 11, 2, '2022-12-08 06:53:47', NULL),
+(33, 17, 12, 3, '2022-12-08 06:53:47', NULL),
+(34, 17, 11, 2, '2022-12-08 07:01:11', NULL),
+(35, 17, 12, 3, '2022-12-08 07:01:11', NULL),
+(36, 17, 11, 2, '2022-12-08 07:05:03', NULL),
+(37, 17, 12, 3, '2022-12-08 07:05:03', NULL),
+(38, 17, 11, 2, '2022-12-08 07:06:27', NULL),
+(39, 17, 12, 3, '2022-12-08 07:06:27', NULL),
+(40, 17, 11, 2, '2022-12-08 07:06:29', NULL),
+(41, 17, 12, 3, '2022-12-08 07:06:29', NULL),
+(42, 17, 11, 2, '2022-12-08 07:06:31', NULL),
+(43, 17, 12, 3, '2022-12-08 07:06:31', NULL),
+(44, 17, 11, 2, '2022-12-08 07:06:31', NULL),
+(45, 17, 12, 3, '2022-12-08 07:06:31', NULL),
+(46, 17, 11, 2, '2022-12-08 07:06:35', NULL),
+(47, 17, 12, 3, '2022-12-08 07:06:35', NULL),
+(48, 17, 11, 2, '2022-12-08 07:07:51', NULL),
+(49, 17, 12, 3, '2022-12-08 07:07:51', NULL),
+(50, 17, 11, 2, '2022-12-08 07:13:07', NULL),
+(51, 17, 12, 3, '2022-12-08 07:13:07', NULL),
+(52, 17, 11, 2, '2022-12-08 07:19:57', NULL),
+(53, 17, 12, 3, '2022-12-08 07:19:57', NULL),
+(54, 17, 11, 2, '2022-12-08 07:20:32', NULL),
+(55, 17, 12, 3, '2022-12-08 07:20:32', NULL),
+(56, 17, 11, 2, '2022-12-08 07:21:01', NULL),
+(57, 17, 12, 3, '2022-12-08 07:21:01', NULL),
+(58, 17, 11, 2, '2022-12-08 07:42:13', NULL),
+(59, 17, 12, 3, '2022-12-08 07:42:13', NULL),
+(60, 17, 11, 2, '2022-12-08 07:42:49', NULL),
+(61, 17, 12, 3, '2022-12-08 07:42:49', NULL);
 
 -- --------------------------------------------------------
 
@@ -512,6 +601,12 @@ ALTER TABLE `comments`
   ADD KEY `comments_p_id_foreign` (`P_id`);
 
 --
+-- Indexes for table `contact`
+--
+ALTER TABLE `contact`
+  ADD PRIMARY KEY (`contact_id`);
+
+--
 -- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -551,11 +646,7 @@ ALTER TABLE `migrations`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`O_id`),
-  ADD UNIQUE KEY `voucher_code_3` (`voucher_code`),
-  ADD UNIQUE KEY `voucher_code_4` (`voucher_code`),
-  ADD KEY `orders_u_id_foreign` (`U_id`),
-  ADD KEY `voucher_code` (`voucher_code`),
-  ADD KEY `voucher_code_2` (`voucher_code`);
+  ADD KEY `orders_u_id_foreign` (`U_id`);
 
 --
 -- Indexes for table `order_detail`
@@ -638,6 +729,12 @@ ALTER TABLE `comments`
   MODIFY `Comment_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `contact`
+--
+ALTER TABLE `contact`
+  MODIFY `contact_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -659,7 +756,7 @@ ALTER TABLE `food_images`
 -- AUTO_INCREMENT for table `hotdeal`
 --
 ALTER TABLE `hotdeal`
-  MODIFY `deal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `deal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -671,13 +768,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `O_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `O_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `order_detail`
 --
 ALTER TABLE `order_detail`
-  MODIFY `OD_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `OD_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
