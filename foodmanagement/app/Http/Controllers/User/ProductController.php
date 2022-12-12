@@ -368,7 +368,7 @@ class ProductController extends Controller
     public function thankYou_user($total, Request $request){
 
         $U_id = session()->get('U_id');
-        $O_id = DB::table('orders')->where('U_id', '=', $U_id)->value('O_id');
+        $O_id = DB::table('orders')->where('U_id', '=', $U_id)->orderBy('O_id', 'desc')->value('O_id');//->value('O_id');
         $carts = session()->get('cart');
         $voucher_code = session()->get('ss_voucher');
         $percent = session()->get('ss_percent');
@@ -386,7 +386,8 @@ class ProductController extends Controller
     }
 }
 
-/*test push file product controller ngay 12/12
+/*
+    Test push file product controller ngay 12/12
     afaddafcdsfcsdvfds
-fcadffsdfsdf
+    fcadffsdfsdf
 */

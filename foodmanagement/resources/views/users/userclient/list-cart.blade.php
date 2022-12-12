@@ -1,4 +1,4 @@
-{{-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -16,9 +16,9 @@
             }
         }
     </style>
-</head> --}}
-@extends('users.userlayout.masterCart')
-@section('content')
+</head>
+
+<body>
     <div class="cart-wrapper update_cart_url" data-url="{{ route('user.product.updateCart') }}">
         @if (Session::has('cart') != null)
             <section class="vh-100" style="background-color: #fdccbc;">
@@ -33,7 +33,8 @@
                                     $count += 1;
                                 @endphp
                             @endforeach
-                            <p><span class="h2">Shopping Cart</span><span class="h4">({{ $count }} item in your
+                            <p><span class="h2">Shopping Cart</span><span class="h4">({{ $count }} item
+                                    in your
                                     cart)</span>
                             </p>
                             @php
@@ -127,8 +128,9 @@
                                     <div class="float-left">
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id="basic-addon1">Enter Voucher:</span>
-                                            <input type="text" class="form-control Voucher" placeholder="............."
-                                                aria-label="..." aria-describedby="basic-addon1">
+                                            <input type="text" class="form-control Voucher"
+                                                placeholder="............." aria-label="..."
+                                                aria-describedby="basic-addon1">
                                             <input type="hidden" class="percent_input" value="{{ $percent }}">
                                             <button class="btn btn-success hot_deal">Submit</button>
                                         </div>
@@ -170,4 +172,97 @@
             </div>
         @endif
     </div>
-@endsection
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script>
+        function cartUpdate(event) {
+            event.preventDefault();
+            let urlUpdateCart = $('div.update_cart_url').data('url');
+            let id = $(this).data('id');
+            // let quantity = $(this).data('quantity');
+            let quantity = $(this).parents('main').find('input.quantity').val();
+            let Sauce = $(this).parents('main').find('select.freeSauce').val();
+            // let Voucher = $(this).parents('div.float-left').find('input.Voucher').val();
+            $.ajax({
+                type: "GET",
+                url: urlUpdateCart,
+                data: {
+
+                    id: id,
+                    quantity: quantity,
+                    Sauce: Sauce
+                    // Voucher: Voucher
+                },
+                dataType: "json",
+                success: function(data) {
+                    // alert(Voucher);
+                    if (data.code === 200) {
+                        $('.cart-wrapper').html(data.cart_component);
+                    }
+                },
+                error: function() {
+
+                }
+            });
+        }
+
+        ///HOt deall
+        function hotdeal(event) {
+            event.preventDefault();
+            let urlhotdeal = $('div.hotdeal_update').data('url');
+            let Voucher = $(this).parents('div.float-left').find('input.Voucher').val();
+            let percent = $(this).parents('div.float-left').find('input.percent_input').val();
+            $.ajax({
+                type: "GET",
+                url: urlhotdeal,
+                data: {
+                    Voucher: Voucher,
+                    percent: percent
+                },
+                dataType: "json",
+                success: function(data) {
+                    // alert(percent);
+                    if (data.code === 200) {
+                        $('.cart-wrapper').html(data.cart_component);
+                    }
+                },
+                error: function() {
+
+                }
+            });
+        }
+
+        //delete cart function
+        function deleteCart(event) {
+            event.preventDefault();
+            let urldeleteCart = $('div.delete_cart_url').data('url');
+            let id = $(this).data('id');
+            $.ajax({
+                type: "GET",
+                url: urldeleteCart,
+                data: {
+
+                    id: id,
+                },
+                dataType: "json",
+                success: function(data) {
+                    // alert(Voucher);
+                    if (data.code === 200) {
+                        $('.cart-wrapper').html(data.cart_component);
+                    }
+                },
+                error: function() {
+
+                }
+            });
+        }
+
+        $(function() {
+            $(document).on('click', '.cart_update', cartUpdate);
+            $(document).on('click', '.hot_deal', hotdeal);
+            $(document).on('click', '.cart_delete', deleteCart);
+        })
+    </script>
+</body>
+{{-- push 12.12 list cart --}}
+
+
