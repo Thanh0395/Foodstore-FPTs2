@@ -79,9 +79,9 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-4 col-lg-8">
+                                        {{-- <div class="col-md-4 col-lg-8">
                                             <p class="mb-0">Shipping</p>
-                                        </div>
+                                        </div> --}}
                                         <div class="col-md-4 col-lg-3">
                                             <p class="mb-0">{{number_format(33000,0,',','.')}}VND</p>
                                         </div>

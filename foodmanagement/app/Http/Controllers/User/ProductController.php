@@ -235,6 +235,7 @@ class ProductController extends Controller
         $user = DB::table('users')->where('U_id', '=', $U_id)->first();
         $percent = session()->get('ss_percent');
         DB::insert('insert into orders (U_id,voucher_code) values (?,?)', [$U_id, $ss_voucher]);
+        //$ss_Oid = DB::table('orders')->where('');
         return view('users.userclient.checkOut', compact('carts', 'total','user', 'percent', 'ss_percent'));
     }
 
@@ -376,6 +377,7 @@ class ProductController extends Controller
         foreach($carts as $item => $value){
 
             DB::insert('insert into order_detail (O_id, F_id, quantity) values (?,?,?)', [$O_id, $value['F_id'], $value['quantity']]);
+            DB::update('update orders set status = ? where O_id = ?', ['Finished',$O_id]);
 
         }
         $date_detail = DB::table('order_detail')->where('O_id', $O_id)->value('created_at');
@@ -383,3 +385,8 @@ class ProductController extends Controller
         return view('users.userclient.thankYou', compact('O_id', 'date_detail','carts', 'total', 'voucher_code', 'percent'));
     }
 }
+
+/*test push file product controller ngay 12/12
+    afaddafcdsfcsdvfds
+fcadffsdfsdf
+*/
