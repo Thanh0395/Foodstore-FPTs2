@@ -13,11 +13,11 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button> --}}
-                                {{-- <div class="logo">
+                                <div class="logo">
                                     <a class="navbar-brand js-scroll-trigger logo-header" href="#header">
-                                        <img src="{{ asset('assets/clients/images/logo.png') }}" alt="">
+                                        <img style="width: 60px" src="{{ asset('images/fast_food_logo.png') }}" alt="">
                                     </a>
-                                </div> --}}
+                                </div>
                             </div>
                             <div id="navbar" class="navbar-collapse collapse">
                                 <ul class="nav navbar-nav navbar-right">
