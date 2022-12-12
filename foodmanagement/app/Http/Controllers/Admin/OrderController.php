@@ -40,13 +40,18 @@ class OrderController extends Controller
 
     public function show($O_id){
         // Lay ra User name tu bang Orders và Users
-        $VAT = 0.1;
         $User = DB::table('orders')
                         -> join('users','users.U_id','=','orders.U_id')
                         -> select('users.*','orders.status')
                         -> where('orders.O_id',$O_id)
                         -> first();
-        // Lấy ra bang order_detail them thong tin ten món, so luong, ngay dat hang, trang thai hang,...
+        $priceReduced = 0;
+        $order = Order::find($O_id);
+        //Nếu cột voucher_code của orders có mã thì lưu giá trị giảm vào biến $priceReduced, ko thì $priceReduced=0
+        if ($order->voucher_code != null) {
+            $voucher_code = DB::table('hotdeal')->select('*')->where('voucher_code', $order->voucher_code)->first();
+            $priceReduced = $voucher_code->percent;
+        }
         $order_detail = DB::table('order_detail')
                         -> join('orders','orders.O_id', '=',    'order_detail.O_id')
                         -> join('foods','foods.F_id',   '=',    'order_detail.F_id')
@@ -55,10 +60,13 @@ class OrderController extends Controller
                         -> get();
         $count=0;
         $sum = 0;
+        $VAT = 10;
         foreach ($order_detail as $detail){
-            $sum += ($detail->quantity)*($detail->price);
+            $sum += ($detail->quantity)*($detail->price)*0.9;
         }
-        return view('admin.order.view', compact('O_id','order_detail','User', 'count','sum', 'VAT'));
+        $total = $sum * (100 - $priceReduced + $VAT)/100;
+
+        return view('admin.order.view', compact('O_id','order_detail','User', 'count','priceReduced','sum', 'VAT','total'));
     }
 
     // Update Order status
