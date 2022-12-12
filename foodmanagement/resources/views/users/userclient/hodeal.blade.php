@@ -46,10 +46,14 @@
                             <h3>Basic</h3>
                         </div>
                         <div class="panel-body text-center">
-                            <p><strong>15%/<span>Bill</span></strong></p>
+                            <p><strong>10%/<span>Bill</span></strong></p>
+                            @php
+                                $percent = 10;
+                                $type = 'basic';
+                            @endphp
                         </div>
                         <div class="panel-footer">
-                            <a class="btn btn-lg btn-block hvr-underline-from-center" href="#">For Free!</a>
+                            <a class="btn btn-lg btn-block hvr-underline-from-center" href="{{route('user.home.getVoucher', [$percent])}}">For Free!</a>
                         </div>
                     </div>
                 </div>
@@ -66,9 +70,12 @@
                         </div>
                         <div class="panel-body text-center">
                             <p><strong>20%/<span>Bill</span></strong></p>
+                            @php
+                                $percent = 20;
+                            @endphp
                         </div>
                         <div class="panel-footer">
-                            <a class="btn btn-lg btn-block hvr-underline-from-center" href="#">Get Now!</a>
+                            <a class="btn btn-lg btn-block hvr-underline-from-center" href="{{route('user.home.getVoucher', [$percent])}}">Get Now!</a>
                         </div>
                     </div>
                 </div>
@@ -104,6 +111,13 @@
                 </div>
                 <!-- /item -->
             </div>
+            {{-- @if (session('voucher_fail'))
+            <div class="alert alert-danger alert-dismissible fade in">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                </button>
+                {{session('voucher_fail')}}
+            </div>
+            @endif --}}
         </div>
         <!-- end row -->
     </div>

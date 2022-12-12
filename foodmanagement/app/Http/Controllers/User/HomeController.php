@@ -58,28 +58,27 @@ class HomeController extends Controller
         }
     }
 
-    public function get_voucher(Request $request, $percent)
+    public function get_voucher(Request $request, $percent, $type)
     {
 
         $U_id = session()->get('U_id');
         $Voucher_code = DB::table('hotdeal')->where('percent', '=', $percent)->value('voucher_code');
         $u_name = DB::table('users')->where('U_id', '=', $U_id)->value('name');
-        // dd($u_name);
         $name = 'Group1_FoodManagement';
         FacadesMail::send('users.emails.voucher', compact('name', 'u_name', 'Voucher_code'), function ($email) use ($name) {
             $email->subject($name . ' Get Voucher');
             $email->to('tanhung.nguyen270799@gmail.com', $name);
-            // return view('users.userclient.voucherCode');
         });
-        // return view('users.userclient.voucherCode');
         return redirect()->route('user.home.successVOucher');
     }
 
-    public function success_voucher(){
+    public function success_voucher()
+    {
         return view('users.userclient.voucherCode');
     }
 
-    public function voucher(){
+    public function voucher()
+    {
         return view('users.userclient.hodeal');
     }
 }
